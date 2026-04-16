@@ -1,30 +1,28 @@
 # GIS805 — NexaMart Makefile
-# Usage: make <target> [TOKEN=your_token]
+# Usage: make <target>
 # Works on Linux, macOS, Windows (Git Bash / Codespace terminal)
 
 PYTHON   ?= python
 DB       ?= db/nexamart.duckdb
 DATA_DIR ?= data/raw
-TOKEN    ?=
 
 .PHONY: setup generate load check explore clean submit help quickstart
 
 help: ## Show available targets
 	@echo "  setup        Install Python dependencies"
-	@echo "  generate     Generate your unique dataset (TOKEN=...)"
+	@echo "  generate     Generate your unique dataset (auto from GitHub username)"
 	@echo "  load         Load CSV data into DuckDB"
 	@echo "  check        Run validation checks"
 	@echo "  explore      Open DuckDB interactive shell"
 	@echo "  clean        Remove generated data and database"
 	@echo "  submit       Pre-submission checklist"
-	@echo "  quickstart   Full setup in one command (TOKEN=...)"
+	@echo "  quickstart   Full setup in one command"
 
 setup: ## Install Python dependencies
 	$(PYTHON) -m pip install -r requirements.txt
 
-generate: ## Generate your unique dataset (requires TOKEN=...)
-	$(PYTHON) -c "import sys; sys.exit('Error: TOKEN is required. Usage: make generate TOKEN=your_token') if not '$(TOKEN)' else None"
-	$(PYTHON) src/generate_data.py --token $(TOKEN)
+generate: ## Generate your unique dataset (auto from GitHub username)
+	$(PYTHON) src/generate_data.py
 
 load: ## Load CSV data into DuckDB
 	$(PYTHON) src/run_pipeline.py --db $(DB) --data $(DATA_DIR)
@@ -53,4 +51,4 @@ print();\
 print(\"Run 'make check' to validate your data before pushing.\");\
 print(\"Run 'git add -A && git commit -m \\\"S0X submission\\\" && git push' to submit.\")"
 
-quickstart: setup generate load check ## Full setup in one command (requires TOKEN=...)
+quickstart: setup generate load check ## Full setup in one command

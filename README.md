@@ -46,8 +46,8 @@ Tout est detaille dans [docs/S00-SETUP.md](docs/S00-SETUP.md). En resume :
 
 ```bash
 # 1. Ouvrir un Codespace (ou cloner localement)
-# 2. Generer vos donnees uniques
-make generate TOKEN=votre_token_ici
+# 2. Generer vos donnees uniques (auto depuis votre username GitHub)
+make generate
 
 # 3. Charger dans DuckDB
 make load

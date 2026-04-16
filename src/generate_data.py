@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import random
+import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -25,6 +26,48 @@ from faker import Faker
 DEFAULT_SCALE = 1.0
 DEFAULT_OUTPUT = "data/raw"
 SCENARIO_FAMILIES = ["baseline", "seasonal", "regional", "promotional"]
+
+
+def _git_username() -> str | None:
+    """Read the GitHub username from git config or environment."""
+    # Codespaces sets GITHUB_USER automatically
+    user = os.environ.get("GITHUB_USER")
+    if user:
+        return user
+    # Fallback: read from git config
+    try:
+        result = subprocess.run(
+            ["git", "config", "user.name"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+    return None
+
+
+def resolve_token(explicit_token: str | None = None) -> str:
+    """Return an explicit token or derive one from the GitHub username.
+
+    Priority:
+      1. Explicit --token value (if provided)
+      2. TOKEN environment variable
+      3. Auto-derived from GitHub username
+    """
+    if explicit_token:
+        return explicit_token
+    env_token = os.environ.get("TOKEN")
+    if env_token:
+        return env_token
+    username = _git_username()
+    if username:
+        return hashlib.sha256(username.encode()).hexdigest()[:12]
+    raise click.UsageError(
+        "Could not determine your identity.\n"
+        "Set your git username:  git config --global user.name 'YourGitHubUsername'\n"
+        "Or provide a token:     make generate TOKEN=xxx"
+    )
 
 
 def generate_seed(token: str, scenario_family: str = "baseline") -> int:
@@ -357,16 +400,17 @@ def save_metadata(token: str, seed: int, scale: float, output_dir: Path) -> None
 
 
 @click.command()
-@click.option("--token", required=True, help="Your unique student token")
+@click.option("--token", default=None, help="Your unique student token (auto-derived from GitHub username if omitted)")
 @click.option("--scale", default=DEFAULT_SCALE, help="Scale factor for data volume")
 @click.option("--output", default=DEFAULT_OUTPUT, help="Output directory for CSV files")
-def main(token: str, scale: float, output: str):
+def main(token: str | None, scale: float, output: str):
     """Generate NexaMart synthetic data for GIS805."""
     print(f"\n{'='*60}")
     print("NexaMart Data Generator for GIS805")
     print(f"{'='*60}\n")
     
-    # Generate seed from token
+    # Resolve token (explicit or auto-derived)
+    token = resolve_token(token)
     seed = generate_seed(token)
     print(f"Token: {token}")
     print(f"Seed: {seed}")
@@ -394,8 +438,8 @@ def main(token: str, scale: float, output: str):
     print("Generation complete!")
     print(f"{'='*60}\n")
     print("Next steps:")
-    print("1. Load data into DuckDB: python src/run_pipeline.py")
-    print("2. Explore with: duckdb db/nexamart.duckdb")
+    print("1. Load data into DuckDB: make load")
+    print("2. Run validation checks:  make check")
     print()
 
 

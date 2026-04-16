@@ -103,16 +103,16 @@ Vous venez de faire votre premiere interaction de travail assistee par IA. C'est
 
 ## Etape 5 : generer vos donnees uniques
 
-Votre token personnel vous sera fourni par l'instructeur (sur Moodle ou en personne).
+Chaque etudiant obtient un jeu de donnees unique, derive automatiquement de votre nom d'utilisateur GitHub. Aucun token a copier-coller.
 
 Demandez a votre assistant :
 
-> **Comment je genere mon jeu de donnees unique avec mon token?**
+> **Comment je genere mon jeu de donnees?**
 
 Il vous guidera vers la commande. Vous pouvez aussi la taper directement dans le terminal :
 
 ```bash
-make generate TOKEN=votre_token_ici
+make generate
 ```
 
 Vous devriez voir apparaitre des fichiers CSV dans `data/raw/` avec vos donnees uniques.
