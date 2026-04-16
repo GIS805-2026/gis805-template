@@ -1,0 +1,59 @@
+# Validation Rules Configuration
+# Customize these rules based on assignment requirements
+
+version: "1.0"
+
+# Existence requirements by assignment
+existence:
+  # Always required
+  raw_tables:
+    - raw_customers
+    - raw_products
+    - raw_stores
+    - raw_orders
+    - raw_order_lines
+  
+  # Required from S02 onwards
+  # dim_tables:
+  #   - dim_customer
+  #   - dim_product
+  #   - dim_store
+  #   - dim_date
+  
+  # Required from S02 onwards
+  # fact_tables:
+  #   - fact_sales
+
+# Row count thresholds
+row_counts:
+  raw_customers:
+    min: 100
+    max: 10000
+  raw_products:
+    min: 50
+    max: 1000
+  raw_orders:
+    min: 1000
+    max: 100000
+
+# Null policy
+null_allowed:
+  raw_customers:
+    - middle_name  # optional field
+  raw_orders:
+    - notes  # optional field
+
+null_forbidden:
+  all_tables:
+    - "*_id"  # no null IDs
+  raw_order_lines:
+    - line_total
+    - quantity
+    - unit_price
+
+# Referential integrity
+references:
+  raw_orders.customer_id: raw_customers.customer_id
+  raw_orders.store_id: raw_stores.store_id
+  raw_order_lines.order_id: raw_orders.order_id
+  raw_order_lines.product_id: raw_products.product_id

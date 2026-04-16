@@ -1,0 +1,18 @@
+# Submission Manifest
+# Updated after each session commit
+
+sessions:
+  S01: { status: "not_started", commit: null }
+  S02: { status: "not_started", commit: null }
+  S03: { status: "not_started", commit: null }
+  S04: { status: "not_started", commit: null }
+  S05: { status: "not_started", commit: null }
+  S06: { status: "not_started", commit: null }
+  S07: { status: "not_started", commit: null }
+  S08: { status: "not_started", commit: null }
+  S09: { status: "not_started", commit: null }
+  S10: { status: "not_started", commit: null }
+  S11: { status: "not_started", commit: null }
+  S12: { status: "not_started", commit: null }
+  S13: { status: "not_started", commit: null }
+  S14: { status: "not_started", commit: null }

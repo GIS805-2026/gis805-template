@@ -1,0 +1,21 @@
+# GIS805 Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core - DuckDB analytical engine
+duckdb>=0.10.0
+
+# Data generation
+faker>=24.0.0
+
+# Data handling (optional but recommended)
+pandas>=2.0.0
+polars>=0.20.0
+
+# Configuration
+pyyaml>=6.0
+
+# CLI tools
+click>=8.0.0
+
+# Development helpers (optional)
+rich>=13.0.0
