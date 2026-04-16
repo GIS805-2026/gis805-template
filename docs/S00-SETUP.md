@@ -1,6 +1,6 @@
-# S00 -- Preparation avant la premiere seance
+# S00 -- Guide de configuration
 
-Completez ces etapes **avant** la seance 1. En classe, on passe directement au diagnostic d'affaires -- pas d'installation.
+Ce guide est votre **reference** pour configurer et utiliser votre environnement de travail. En seance 1, l'instructeur vous guidera a travers les etapes 1 a 6 en classe. Vous pouvez revenir a ce document a tout moment pendant le trimestre.
 
 Dans ce cours, vous travaillez en **langage naturel d'abord**. Un assistant IA est votre co-equipier : posez-lui des questions, demandez-lui d'expliquer le code, laissez-le vous guider. L'objectif n'est pas de memoriser des commandes, mais de developper votre jugement sur les reponses.
 
@@ -161,14 +161,14 @@ Si les deux requetes retournent des nombres > 0, vous etes pret pour la seance 1
 
 ---
 
-## Checklist avant la seance 1
+## Checklist de fin de seance 1
 
 - [ ] J'ai un environnement fonctionnel (Codespace ou VS Code local)
 - [ ] J'ai un assistant IA fonctionnel (Copilot, ChatGPT, Claude, ou autre)
 - [ ] J'ai parle avec mon assistant et il m'a explique mon depot
 - [ ] `make check` affiche `PASS` pour les verifications de base
 - [ ] Je vois des donnees dans `raw_customers` et `raw_orders`
-- [ ] J'ai lu le `README.md` du depot
+- [ ] J'ai commite mon premier board brief
 
 ---
 
