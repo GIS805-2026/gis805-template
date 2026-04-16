@@ -4,13 +4,25 @@ Completez ces etapes **avant** la seance 1. En classe, on passe directement au d
 
 ---
 
+## Etape 0 : obtenir votre depot personnel
+
+Avant toute installation, vous devez obtenir votre copie personnelle du projet.
+
+1. **Creez un compte GitHub** (gratuit) si vous n'en avez pas : <https://github.com/signup>
+   - Utilisez de preference votre courriel UdeS pour beneficier du GitHub Student Developer Pack (<https://education.github.com/pack>)
+2. **Cliquez sur le lien d'assignment** fourni sur Moodle par l'instructeur
+   - GitHub Classroom vous demandera de vous connecter si ce n'est pas deja fait
+   - Cliquez **Accept this assignment**
+   - Attendez quelques secondes -- votre depot prive `GIS805-2026/gis805-2026-<votre_username>` est cree automatiquement
+3. **Notez l'URL de votre depot** -- vous en aurez besoin pour cloner (etape 4 ci-dessous)
+
+Choisissez ensuite **Option A** (installation locale) ou **Option B** (Codespaces, zero installation).
+
+---
+
 ## Option A : installation locale (recommande)
 
-### 1. Creer un compte GitHub
-
-Si vous n'en avez pas : <https://github.com/signup>
-
-### 2. Installer les outils
+### 1. Installer les outils
 
 | Outil | Lien | Notes |
 |-------|------|-------|
@@ -24,18 +36,14 @@ Extensions VS Code recommandees (installez via le panneau Extensions) :
 - **Mermaid Markdown Syntax Highlighting**
 - **GitHub Copilot** (gratuit pour etudiants : <https://education.github.com/pack>)
 
-### 3. Accepter l'assignment GitHub Classroom
-
-Cliquez sur le lien fourni par l'instructeur. Cela cree votre depot prive `gis805-2026-<votre_username>`.
-
-### 4. Cloner votre depot
+### 2. Cloner votre depot
 
 ```bash
 git clone https://github.com/GIS805-2026/gis805-2026-<votre_username>.git
 cd gis805-2026-<votre_username>
 ```
 
-### 5. Installer les dependances Python
+### 3. Installer les dependances Python
 
 ```bash
 make setup
@@ -43,7 +51,7 @@ make setup
 
 Ou manuellement : `pip install -r requirements.txt`
 
-### 6. Generer vos donnees uniques
+### 4. Generer vos donnees uniques
 
 Votre token vous sera fourni individuellement par l'instructeur.
 
@@ -53,13 +61,13 @@ make generate TOKEN=votre_token_ici
 
 Ou manuellement : `python src/generate_data.py --token votre_token_ici`
 
-### 7. Charger dans DuckDB
+### 5. Charger dans DuckDB
 
 ```bash
 make load
 ```
 
-### 8. Verifier que tout fonctionne
+### 6. Verifier que tout fonctionne
 
 ```bash
 make check
@@ -67,7 +75,7 @@ make check
 
 Vous devriez voir `PASS` pour toutes les verifications d'existence et d'integrite.
 
-### 9. Explorer rapidement
+### 7. Explorer rapidement
 
 ```bash
 make explore
@@ -89,11 +97,10 @@ Si les deux requetes retournent des nombres > 0, vous etes pret.
 
 Si vous ne pouvez pas installer les outils localement :
 
-1. Acceptez l'assignment GitHub Classroom (lien fourni par l'instructeur)
-2. Ouvrez votre depot sur github.com
-3. Cliquez sur **Code > Codespaces > Create codespace on main**
-4. Attendez ~2 minutes -- tout s'installe automatiquement
-5. Dans le terminal du Codespace :
+1. Ouvrez votre depot sur github.com (cree a l'etape 0)
+2. Cliquez sur **Code > Codespaces > Create codespace on main**
+3. Attendez ~2 minutes -- tout s'installe automatiquement (Python, DuckDB, extensions VS Code)
+4. Dans le terminal du Codespace :
 
 ```bash
 make generate TOKEN=votre_token_ici
