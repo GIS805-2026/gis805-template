@@ -2,7 +2,7 @@
 
 Completez ces etapes **avant** la seance 1. En classe, on passe directement au diagnostic d'affaires -- pas d'installation.
 
-Dans ce cours, vous travaillez en **langage naturel d'abord**. Votre assistant IA (GitHub Copilot) est votre co-equipier : posez-lui des questions, demandez-lui d'expliquer le code, laissez-le vous guider. L'objectif n'est pas de memoriser des commandes, mais de developper votre jugement sur les reponses.
+Dans ce cours, vous travaillez en **langage naturel d'abord**. Un assistant IA est votre co-equipier : posez-lui des questions, demandez-lui d'expliquer le code, laissez-le vous guider. L'objectif n'est pas de memoriser des commandes, mais de developper votre jugement sur les reponses.
 
 ---
 
@@ -10,46 +10,102 @@ Dans ce cours, vous travaillez en **langage naturel d'abord**. Votre assistant I
 
 1. Allez sur <https://github.com/signup> et creez un compte gratuit
    - Utilisez de preference votre courriel UdeS
-2. Activez le **GitHub Student Developer Pack** : <https://education.github.com/pack>
-   - Cela vous donne acces gratuit a **GitHub Copilot** (votre assistant IA pour le cours)
+2. **Demandez le GitHub Student Developer Pack** : <https://education.github.com/pack>
+   - Cela vous donne acces gratuit a GitHub Copilot et aux Codespaces
+   - La verification peut prendre quelques heures a quelques jours -- faites-le **des maintenant**
 
 ---
 
-## Etape 2 : accepter l'assignment et ouvrir votre environnement
+## Etape 2 : accepter l'assignment
 
 1. Cliquez sur le **lien d'assignment** fourni sur Moodle
 2. Connectez-vous a GitHub si necessaire
 3. Cliquez **Accept this assignment** -- votre depot prive est cree en quelques secondes
-4. Sur la page de votre depot, cliquez **Code > Codespaces > Create codespace on main**
-5. Attendez ~2 minutes -- VS Code s'ouvre dans votre navigateur avec tout deja installe
 
-Rien a installer sur votre ordinateur. Tout fonctionne dans le navigateur.
+Vous avez maintenant un depot a votre nom : `GIS805-2026/gis805-2026-<votre_username>`.
 
 ---
 
-## Etape 3 : rencontrer votre assistant
+## Etape 3 : choisir votre environnement
 
-C'est le moment le plus important. Ouvrez le panneau **Copilot Chat** (icone de bulle dans la barre laterale gauche) et posez votre premiere question :
+Trois chemins possibles. **Choisissez celui qui fonctionne pour vous** -- le resultat est le meme.
+
+### Chemin A : Codespace (recommande, zero installation)
+
+Le plus simple. Tout se passe dans votre navigateur.
+
+1. Sur la page de votre depot, cliquez **Code > Codespaces > Create codespace on main**
+2. Attendez ~2 minutes -- VS Code s'ouvre dans le navigateur avec Python, DuckDB et Copilot deja configures
+3. Passez a l'**Etape 4**
+
+> **Limite** : le Student Developer Pack offre 60 heures/mois de Codespace. Pensez a arreter votre Codespace quand vous ne travaillez pas (dans le menu `...` en haut a gauche > **Stop Codespace**). Si vous manquez d'heures, passez au chemin B.
+
+### Chemin B : VS Code local + GitHub Copilot
+
+Le chemin long-terme le plus confortable. Recommande apres les premieres semaines.
+
+1. Installez les outils :
+
+| Outil | Lien | Notes |
+| ----- | ---- | ----- |
+| **VS Code** | <https://code.visualstudio.com/> | Editeur principal du cours |
+| **Python 3.10+** | <https://www.python.org/downloads/> | Cochez "Add to PATH" sous Windows |
+| **Git** | <https://git-scm.com/downloads> | Probablement deja installe sur Mac/Linux |
+
+2. Installez les extensions VS Code :
+   - **GitHub Copilot** + **GitHub Copilot Chat** (gratuit via Student Developer Pack)
+   - **SQLTools** + **SQLTools DuckDB Driver**
+   - **Mermaid Markdown Syntax Highlighting**
+
+3. Clonez votre depot. Dans VS Code, ouvrez la palette de commandes (`Ctrl+Shift+P` / `Cmd+Shift+P`), tapez **Git: Clone**, collez l'URL de votre depot et choisissez un dossier local.
+
+4. Ouvrez un terminal dans VS Code et lancez :
+
+```bash
+make setup
+```
+
+5. Passez a l'**Etape 4**
+
+### Chemin C : VS Code local + assistant IA alternatif
+
+Si votre Student Developer Pack n'est pas encore actif, vous pouvez quand meme commencer.
+
+1. Suivez les memes etapes d'installation que le **Chemin B**, mais sans l'extension Copilot
+2. Utilisez un assistant IA en parallele pour les memes interactions :
+   - **ChatGPT** : <https://chat.openai.com>
+   - **Claude** : <https://claude.ai>
+   - **Extensions VS Code alternatives** : Cody (<https://sourcegraph.com/cody>) ou Continue (<https://continue.dev/>), toutes deux gratuites
+
+> Les prompts suggeres dans ce guide fonctionnent avec n'importe quel assistant. Copiez-collez vos questions et le contexte pertinent (noms de fichiers, messages d'erreur) dans l'outil de votre choix.
+
+3. Passez a l'**Etape 4**
+
+---
+
+## Etape 4 : rencontrer votre assistant
+
+C'est le moment le plus important. Ouvrez votre assistant IA et posez votre premiere question :
 
 > **Qu'est-ce qui se trouve dans mon depot? Explique-moi la structure du projet.**
 
-Copilot va lire votre depot et vous expliquer chaque dossier et fichier. Prenez le temps de lire sa reponse.
+Si vous etes dans un Codespace ou VS Code avec Copilot, ouvrez le panneau **Copilot Chat** (icone de bulle dans la barre laterale). Si vous utilisez un autre outil, copiez la liste des fichiers et posez la question.
 
-Essayez ensuite :
+Prenez le temps de lire la reponse. Essayez ensuite :
 
 > **A quoi sert le fichier Makefile?**
 >
 > **Qu'est-ce que DuckDB et pourquoi on l'utilise dans ce cours?**
 
-Vous venez de faire votre premiere interaction de travail avec un assistant IA. C'est exactement comme ca qu'on travaille dans ce cours : vous posez des questions en francais, l'assistant repond, et vous exercez votre jugement sur la reponse.
+Vous venez de faire votre premiere interaction de travail assistee par IA. C'est exactement comme ca qu'on travaille dans ce cours : vous posez des questions en francais, l'assistant repond, et vous exercez votre jugement sur la reponse.
 
 ---
 
-## Etape 4 : generer vos donnees uniques
+## Etape 5 : generer vos donnees uniques
 
 Votre token personnel vous sera fourni par l'instructeur (sur Moodle ou en personne).
 
-Demandez a Copilot :
+Demandez a votre assistant :
 
 > **Comment je genere mon jeu de donnees unique avec mon token?**
 
@@ -63,9 +119,9 @@ Vous devriez voir apparaitre des fichiers CSV dans `data/raw/` avec vos donnees 
 
 ---
 
-## Etape 5 : charger et verifier
+## Etape 6 : charger et verifier
 
-Demandez a Copilot :
+Demandez a votre assistant :
 
 > **Comment je charge mes donnees dans la base de donnees?**
 
@@ -76,15 +132,15 @@ make load
 make check
 ```
 
-Vous devriez voir `PASS` pour toutes les verifications. Si quelque chose affiche `FAIL`, demandez a Copilot :
+Vous devriez voir `PASS` pour toutes les verifications. Si quelque chose affiche `FAIL`, demandez a votre assistant :
 
 > **J'ai un FAIL sur [nom du check]. Qu'est-ce que ca veut dire et comment je corrige?**
 
 ---
 
-## Etape 6 : explorer vos donnees
+## Etape 7 : explorer vos donnees
 
-Demandez a Copilot :
+Demandez a votre assistant :
 
 > **Montre-moi une requete SQL pour voir combien j'ai de clients et de commandes.**
 
@@ -107,54 +163,26 @@ Si les deux requetes retournent des nombres > 0, vous etes pret pour la seance 1
 
 ## Checklist avant la seance 1
 
-- [ ] Mon Codespace s'ouvre et fonctionne
-- [ ] J'ai parle avec Copilot et il m'a explique mon depot
+- [ ] J'ai un environnement fonctionnel (Codespace ou VS Code local)
+- [ ] J'ai un assistant IA fonctionnel (Copilot, ChatGPT, Claude, ou autre)
+- [ ] J'ai parle avec mon assistant et il m'a explique mon depot
 - [ ] `make check` affiche `PASS` pour les verifications de base
 - [ ] Je vois des donnees dans `raw_customers` et `raw_orders`
 - [ ] J'ai lu le `README.md` du depot
 
 ---
 
-## Option avancee : installation locale
-
-Si vous preferez travailler sur votre machine plutot que dans un Codespace :
-
-### Outils a installer
-
-| Outil | Lien | Notes |
-| ----- | ---- | ----- |
-| **VS Code** | <https://code.visualstudio.com/> | Editeur principal du cours |
-| **Python 3.10+** | <https://www.python.org/downloads/> | Cochez "Add to PATH" sous Windows |
-| **Git** | <https://git-scm.com/downloads> | Probablement deja installe sur Mac/Linux |
-
-### Extensions VS Code
-
-- **GitHub Copilot** (gratuit via Student Developer Pack)
-- **SQLTools** + **SQLTools DuckDB Driver**
-- **Mermaid Markdown Syntax Highlighting**
-
-### Cloner et configurer
-
-```bash
-git clone https://github.com/GIS805-2026/gis805-2026-<votre_username>.git
-cd gis805-2026-<votre_username>
-make setup
-make generate TOKEN=votre_token_ici
-make load
-make check
-```
-
----
-
 ## En cas de probleme
 
-Demandez d'abord a Copilot -- decrivez votre probleme en francais, il peut souvent vous debloquer.
+Demandez d'abord a votre assistant IA -- decrivez votre probleme en francais, il peut souvent vous debloquer.
 
-Si Copilot ne suffit pas :
+Si votre assistant ne suffit pas :
 
+- **Student Developer Pack en attente** : utilisez le Chemin C en attendant -- vous migrerez vers Copilot quand il sera actif
 - **Codespace ne demarre pas** : rafraichissez la page, ou supprimez le Codespace et recreez-en un
+- **Heures de Codespace epuisees** : passez au Chemin B (installation locale)
 - **Python non reconnu (local)** : reinstallez en cochant "Add Python to PATH"
 - **Permission denied (git clone)** : verifiez que vous avez accepte l'assignment Classroom
-- **Tout echoue en local** : passez au Codespace, ca fonctionne toujours
+- **Tout echoue** : passez au Codespace, ca fonctionne presque toujours
 
 Posez vos questions sur le forum du cours ou en debut de seance 1.
