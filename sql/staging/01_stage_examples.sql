@@ -16,7 +16,7 @@ SELECT
     UPPER(TRIM(province)) as province,
     CAST(registration_date AS DATE) as registration_date,
     COALESCE(is_active, true) as is_active
-FROM raw_customers
+FROM raw_dim_customer
 WHERE customer_id IS NOT NULL;
 
 -- Example: Stage products
@@ -31,7 +31,7 @@ SELECT
     TRIM(brand) as brand,
     supplier_id,
     COALESCE(is_active, true) as is_active
-FROM raw_products
+FROM raw_dim_product
 WHERE product_id IS NOT NULL;
 
 -- Add more staging views as needed...
