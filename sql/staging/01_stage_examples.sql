@@ -9,13 +9,13 @@
 CREATE OR REPLACE VIEW stg_customers AS
 SELECT
     customer_id,
-    TRIM(customer_name) as customer_name,
-    LOWER(TRIM(email)) as email,
-    COALESCE(segment, 'Unknown') as segment,
-    TRIM(city) as city,
-    UPPER(TRIM(province)) as province,
-    CAST(registration_date AS DATE) as registration_date,
-    COALESCE(is_active, true) as is_active
+    TRIM(first_name) AS first_name,
+    TRIM(last_name) AS last_name,
+    LOWER(TRIM(email_domain)) AS email_domain,
+    COALESCE(loyalty_segment, 'Unknown') AS loyalty_segment,
+    TRIM(city) AS city,
+    UPPER(TRIM(province)) AS province,
+    CAST(join_date AS DATE) AS join_date
 FROM raw_dim_customer
 WHERE customer_id IS NOT NULL;
 
@@ -23,14 +23,12 @@ WHERE customer_id IS NOT NULL;
 CREATE OR REPLACE VIEW stg_products AS
 SELECT
     product_id,
-    TRIM(product_name) as product_name,
-    COALESCE(category, 'Unknown') as category,
-    COALESCE(subcategory, 'Unknown') as subcategory,
+    TRIM(product_name) AS product_name,
+    COALESCE(category, 'Unknown') AS category,
+    COALESCE(subcategory, 'Unknown') AS subcategory,
     unit_price,
     unit_cost,
-    TRIM(brand) as brand,
-    supplier_id,
-    COALESCE(is_active, true) as is_active
+    TRIM(brand) AS brand
 FROM raw_dim_product
 WHERE product_id IS NOT NULL;
 

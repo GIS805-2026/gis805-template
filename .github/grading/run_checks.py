@@ -56,17 +56,19 @@ def check_files():
 
 def check_raw_csvs():
     """Verify that raw CSV data has been generated."""
-    expected = ["customers.csv", "products.csv", "stores.csv", "orders.csv", "order_lines.csv"]
+    expected = ["dim_customer.csv", "dim_product.csv", "dim_store.csv",
+                "dim_channel.csv", "dim_date.csv", "fact_sales.csv"]
     found = 0
     for name in expected:
-        p = RAW_DIR / name
-        if p.exists() and p.stat().st_size > 100:
+        # Search recursively (generators put files in team_*/shared/ or team_*/s0*/)
+        matches = list(RAW_DIR.rglob(name))
+        if matches and matches[0].stat().st_size > 100:
             found += 1
             results["pass"] += 1
-            print(f"  PASS  {p} ({p.stat().st_size:,} bytes)")
+            print(f"  PASS  {matches[0]} ({matches[0].stat().st_size:,} bytes)")
         else:
             results["info"] += 1
-            print(f"  INFO  {p} -- not found or empty")
+            print(f"  INFO  {name} -- not found in {RAW_DIR}")
     return found
 
 
