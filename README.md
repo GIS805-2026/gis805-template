@@ -1,176 +1,103 @@
-# GIS805 — NexaMart Dimensional Warehouse
+# GIS805 -- Bienvenue dans votre entrepot de donnees
 
-> **Vous êtes le Head of Data de NexaMart Group.**
-> Vous construisez l'entrepôt analytique dimensionnel complet de l'entreprise,
-> une table de faits à la fois, sur 14 séances.
+Vous venez d'accepter votre premier assignment. Ce depot est **votre espace de travail** pour tout le trimestre.
 
-## Votre mission
+> **Le scenario :** Vous etes le Head of Data de NexaMart, une chaine de
+> commerce de detail. Chaque semaine, le CEO pose une question strategique
+> -- et les systemes operationnels ne peuvent pas y repondre. Votre job :
+> construire l'entrepot de donnees qui rend ces reponses possibles.
 
-Le CEO de NexaMart pose une question stratégique chaque semaine.
-Les systèmes opérationnels (ERP, CRM, POS) ne peuvent pas y répondre.
-Vous concevez, construisez et défendez le modèle dimensionnel qui rend
-ces réponses **répétables, vérifiables et défendables** devant le board.
+Pas besoin d'etre programmeur. Vous travaillez en **langage naturel d'abord** :
+un assistant IA est votre co-equipier, vous lui posez des questions en francais,
+et vous developpez votre jugement sur les reponses.
 
-## Ce que vous construisez
+---
 
-### 5 tables de faits principales
+## Demarrage -- choisissez votre chemin
 
-| # | Table | Séance | Grain | Pattern |
-|---|-------|--------|-------|---------|
-| 1 | `fact_sales` | S02 | 1 ligne = 1 ligne de commande | Étoile, grain, additivité |
-| 2 | `fact_returns` | S06 | 1 ligne = 1 retour | Drill-across, conformité |
-| 3 | `fact_budget` | S06 | 1 ligne = catégorie × magasin × mois | Réel vs cible, résolution de grain |
-| 4 | `fact_daily_inventory` | S09 | 1 ligne = produit × magasin × date | Snapshot périodique, semi-additivité |
-| 5 | `fact_order_pipeline` | S09 | 1 ligne = cycle de vie d'une commande | Snapshot accumulant, dates role-playing |
+### Chemin A : Codespace (recommande -- zero installation)
 
-### Structures complémentaires
+Tout se passe dans votre navigateur. Rien a installer.
 
-| Structure | Séance | Pattern |
-|-----------|--------|---------|
-| `junk_order_profile` | S04 | Dimension poubelle (drapeaux consolidés) |
-| `bridge_customer_segment` | S08 | Pont pondéré M:N, réconciliation |
-| `fact_promo_exposure` | S09 | Fait sans mesure (factless fact) |
+1. Sur la page de votre depot, cliquez **Code** (bouton vert) puis **Codespaces** puis **Create codespace on main**
+2. Attendez environ 2 minutes -- un editeur VS Code s'ouvre avec tout deja configure
+3. C'est tout. Passez a la section suivante
 
-## Prérequis & installation
+> Votre GitHub Student Developer Pack vous donne 60 heures/mois gratuites.
+> Pensez a arreter votre Codespace quand vous ne travaillez pas
+> (menu `...` en haut a gauche puis **Stop Codespace**).
 
-### 1. Python 3.10+
+### Chemin B : VS Code sur votre ordinateur
 
-Vérifiez que Python est installé :
+Si vous preferez travailler en local, ou si vos heures Codespace sont epuisees.
+
+1. Installez [VS Code](https://code.visualstudio.com/), [Python 3.10+](https://www.python.org/downloads/) et [Git](https://git-scm.com/downloads)
+2. Dans VS Code, installez les extensions **GitHub Copilot** et **GitHub Copilot Chat** (gratuit via Student Developer Pack)
+3. Clonez votre depot : palette de commandes (`Ctrl+Shift+P`) puis **Git: Clone**
+4. Ouvrez un terminal dans VS Code et tapez :
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+> Le guide complet avec toutes les etapes est dans [`docs/S00-SETUP.md`](docs/S00-SETUP.md).
+
+### Votre premier reflexe
+
+Quel que soit le chemin choisi, ouvrez **Copilot Chat** (icone de bulle dans
+la barre laterale) et posez votre premiere question :
+
+> **Qu'est-ce qui se trouve dans mon depot? Explique-moi la structure du projet.**
+
+Vous venez de faire votre premiere interaction de travail assistee par IA.
+C'est exactement comme ca qu'on travaille dans ce cours.
+
+---
+
+## Vos premieres commandes
+
+Dans le terminal, lancez ces trois commandes dans l'ordre :
 
 ```bash
-python --version   # doit afficher 3.10 ou plus
+# Mac / Linux / Codespace
+make generate        # Genere vos donnees uniques (liees a votre username)
+make load            # Charge les donnees dans la base DuckDB
+make check           # Verifie que tout est correct
 ```
 
-> **Windows :** Si Python n'est pas reconnu, installez-le depuis
-> [python.org](https://www.python.org/downloads/) en cochant
-> **« Add Python to PATH »** lors de l'installation.
->
-> **Mac :** `brew install python` ou téléchargez depuis python.org.
-
-### 2. Installer les dépendances
-
-```bash
-pip install -r requirements.txt
-```
-
-Cela installe `duckdb`, le moteur analytique utilisé pour l’entrepôt.
-
-### 3. Vérifier git
-
-```bash
-git config user.name
-```
-
-Doit afficher votre nom. Si vide :
-
-```bash
-git config --global user.name "Prénom Nom"
-```
-
-> Votre `user.name` sert de graine déterministe — chaque étudiant
-> génère des données **uniques** mais **reproductibles**.
-
-### 4. C'est tout — vous êtes prêt !
-
-> **GitHub Codespaces :** Si disponible, cliquez simplement **« Open in Codespace »**
-> depuis votre repo GitHub — Python et les dépendances sont pré-installés,
-> aucune configuration locale nécessaire.
-
-## Démarrage rapide
-
-```bash
-# === Mac / Linux / WSL ===
-make generate        # Générer vos données uniques
-make load            # Charger dans DuckDB
-make check           # Valider l'intégrité
-
-# === Windows (PowerShell) ===
+```powershell
+# Windows PowerShell
 .\run.ps1 generate
 .\run.ps1 load
 .\run.ps1 check
 ```
 
-> **Setup** : Consultez [`docs/S00-SETUP.md`](docs/S00-SETUP.md) pour le guide complet
-> de configuration (Codespace, VS Code local, assistant IA).
->
-> **FAQ** : Consultez [`docs/faq.md`](docs/faq.md) pour les questions fréquentes
-> (vues vs DW, travail individuel, choix de DuckDB, etc.)
->
-> **Exemple** : Voir [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md)
-> pour un executive brief annoté montrant le standard attendu.
+Si `check` affiche tout en vert, vous etes pret pour la seance 1.
 
-## Structure du repo
+> **Pas sur de ce que font ces commandes?** Demandez a votre assistant IA :
+> *"Qu'est-ce que fait `make generate`?"*
 
-```
-├── README.md              <- Ce fichier
-├── ai-usage.md            <- Trace obligatoire de vos interactions IA
-├── Makefile               <- Orchestration Mac/Linux (generate, load, check)
-├── run.ps1                <- Orchestration Windows (generate, load, check)
-├── requirements.txt
-├── .gitignore
-├── .devcontainer/         <- Config Codespace (Python 3.12, DuckDB, extensions)
-├── .github/
-│   ├── workflows/         <- CI GitHub Classroom (autograding)
-│   └── grading/           <- Script de validation automatique
-├── meta/
-│   ├── dataset_identity.json  <- Empreinte anti-copie
-│   └── submission_manifest.yaml <- Suivi des sessions
-├── answers/               <- Un executive brief par seance (S01-S14)
-├── submissions/           <- Templates d'assignments (a1, a2, final)
-├── data/
-│   ├── synthetic/         <- CSVs generes par make generate (git-ignore)
-│   ├── staged/
-│   └── exports/
-├── scripts/
-│   └── datagen/           <- Generateurs de donnees (ne pas modifier)
-│       ├── gen_all.py       <- Point d'entree (appele par make generate)
-│       ├── _helpers.py      <- Catalogue NexaMart + utilitaires
-│       └── gen_s*.py        <- Un generateur par seance (S02-S09)
-├── db/
-│   └── nexamart.duckdb    <- Genere par make load (git-ignore)
-├── src/
-│   ├── run_pipeline.py    <- Chargement CSVs -> DuckDB + SQL pipeline
-│   ├── run_checks.py      <- Validation (appele par make check)
-│   └── helpers/
-├── sql/
-│   ├── staging/           <- Vues de nettoyage (stg_*)
-│   ├── dims/              <- DDL des dimensions (stubs pre-crees)
-│   ├── facts/             <- DDL des tables de faits (stubs pre-crees)
-│   ├── views/             <- Vues drill-across, reel vs cible
-│   ├── templates/         <- 5 patterns SQL annotes (dim, fact, SCD2, bridge, check)
-│   ├── checks/            <- SQL de validation
-│   └── sandbox/           <- Vos explorations libres
-├── docs/
-│   ├── S00-SETUP.md       <- Guide de configuration (3 chemins)
-│   ├── s02-sample-brief.md <- Exemple annote de brief
-│   ├── faq.md             <- Questions frequentes
-│   ├── peer-reviews/      <- 3 revues de pairs (jalons)
-│   ├── model-card.md      <- Carte du modele (S11)
-│   ├── bus-matrix.md      <- Matrice bus (S06+)
-│   ├── data-dictionary.md <- Dictionnaire de donnees (S11)
-│   ├── decision-log.md    <- Journal des decisions (S11)
-│   ├── metric-definitions.md <- Definitions KPI (S12)
-│   ├── problem-framing.md
-│   └── schema-notes.md
-├── validation/
-│   ├── checks.sql         <- Monolithique (legacy)
-│   ├── checks/            <- 7 checks modulaires (00-06)
-│   ├── rules.yaml
-│   └── results/
-└── tools/
-    └── instructor/        <- Outils instructeur (roster, batch pull/validate)
-```
+---
 
-## Politique IA
+## Ce que vous construisez
 
-Tout usage d'IA (ChatGPT, Copilot, Claude, etc.) **doit** être tracé dans `ai-usage.md`.
+Au fil des 14 seances, vous construisez l'entrepot analytique complet de NexaMart :
 
-✅ **Permis :** expliquer des concepts, générer du DDL, rédiger des ébauches de SQL ou de documentation
-❌ **Interdit :** soumettre du contenu IA sans validation humaine, masquer une incompréhension, copier le SQL d'un autre étudiant
+1. **`fact_sales`** (S02) -- Les ventes, ligne par ligne
+2. **`fact_returns`** (S06) -- Les retours et remboursements
+3. **`fact_budget`** (S06) -- Le budget par categorie, magasin et mois
+4. **`fact_daily_inventory`** (S09) -- L'inventaire quotidien
+5. **`fact_order_pipeline`** (S09) -- Le cycle de vie des commandes
 
-Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé, comment vous avez validé/modifié le résultat.
+Plus trois structures complementaires : une dimension consolidee (`junk_order_profile`),
+un pont clients-segments (`bridge_customer_segment`), et une table de faits sans mesure
+(`fact_promo_exposure`). Vous les decouvrirez en classe.
 
-## Livrables par séance
+Chaque table est accompagnee de dimensions (clients, produits, magasins, dates, canaux)
+et d'un brief executif que vous redigez pour le CEO.
+
+---
+
+## Livrables par seance
 
 | Seance | Livrable principal | Fichier |
 |--------|--------------------|---------|
@@ -186,19 +113,60 @@ Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé,
 | S12 | Pack defense ecrit (+ presentation si selectionne) | `docs/metric-definitions.md` |
 | S13 | Memo build-vs-buy | `answers/S13_executive_brief.md` |
 
-## Revues de pairs
+> Un exemple annote de brief executif est dans [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md).
 
-Trois revues structurées aux jalons clés :
+Trois **revues de pairs** aux jalons cles (apres S04, apres S09, a S11).
+Appariement aleatoire a chaque jalon -- vos commentaires de revue sont notes.
 
-1. **Revue 1** (après S04) — Grain, SCD, dimensions poubelle
-2. **Revue 2** (après S09) — Drill-across, ponts, 4 types de faits
-3. **Revue 3** (S11) — Pack documentation complet
+---
 
-Appariement aléatoire à chaque jalon. Vos commentaires de revue sont notés.
+## Politique IA
 
-## Références
+Tout usage d'IA (ChatGPT, Copilot, Claude, etc.) **doit** etre trace dans `ai-usage.md`.
 
-- Kimball Group — Dimensional Modeling Techniques
-- dbt Labs — Analytics Engineering Guide
+- **Permis :** expliquer des concepts, generer du DDL, rediger des ebauches de SQL ou de documentation
+- **Interdit :** soumettre du contenu IA sans validation humaine, masquer une incomprehension, copier le SQL d'un autre etudiant
+
+Chaque entree dans `ai-usage.md` inclut : date, prompt exact, modele utilise, comment vous avez valide/modifie le resultat.
+
+---
+
+## Besoin d'aide?
+
+| Ressource | Description |
+|-----------|-------------|
+| [`docs/S00-SETUP.md`](docs/S00-SETUP.md) | Guide complet de configuration (3 chemins, depannage) |
+| [`docs/faq.md`](docs/faq.md) | Questions frequentes (DuckDB, travail individuel, etc.) |
+| [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md) | Exemple annote de brief executif |
+| Votre assistant IA | **Premier reflexe** -- posez-lui la question en francais |
+
+---
+
+## Structure du depot
+
+```
+answers/           Vos briefs executifs (un par seance)
+submissions/       Templates des 3 remises (a1, a2, final)
+sql/               Votre code SQL (staging, dims, facts, views)
+  templates/       5 patterns SQL annotes pour vous guider
+  sandbox/         Vos explorations libres
+data/              Donnees generees (unique a vous)
+scripts/datagen/   Generateurs de donnees (ne pas modifier)
+docs/              Guides, FAQ, templates de documentation
+meta/              Empreinte de votre jeu de donnees
+validation/        Checks automatiques (utilises par make check)
+.devcontainer/     Config Codespace (Python, DuckDB, extensions)
+.github/           CI et autograding GitHub Classroom
+```
+
+> Envie d'en savoir plus? Demandez a votre assistant :
+> *"Explique-moi a quoi sert chaque dossier dans ce projet."*
+
+---
+
+## References
+
+- Kimball & Ross -- *The Data Warehouse Toolkit* (3rd ed.)
+- Kimball Group -- Dimensional Modeling Techniques
+- dbt Labs -- Analytics Engineering Guide
 - DuckDB Documentation
-- Kimball & Ross — *The Data Warehouse Toolkit* (3rd ed.)
