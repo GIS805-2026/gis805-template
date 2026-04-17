@@ -14,7 +14,8 @@ Usage:
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, write_csv, banner,
     weighted_choice, triangular_int, maybe_null,
-    select_products, build_customers, STORES, CHANNELS, CAMPAIGNS,
+    shared_products, shared_customers, STORES, CHANNELS, CAMPAIGNS,
+    read_shared_identity,
 )
 from datetime import date, timedelta
 
@@ -25,8 +26,9 @@ def main():
     rng = make_rng(args.team_seed, "s09")
     outdir = resolve_output_dir(args, "s09")
 
-    products = select_products(make_rng(args.team_seed, "shared-seeds"), rng.randint(40, 70))
-    customers = build_customers(make_rng(args.team_seed, "shared-seeds"), rng.randint(150, 400))
+    identity = read_shared_identity(args.team_seed)
+    products = shared_products(args.team_seed, identity["n_products"])
+    customers = shared_customers(args.team_seed, identity["n_customers"])
 
     start_d = date(2025, 1, 1)
     end_d = date(2025, 6, 30)  # 6 months to keep data manageable

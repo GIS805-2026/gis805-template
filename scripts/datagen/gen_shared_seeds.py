@@ -11,7 +11,7 @@ Usage:
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, build_dim_date,
     write_csv, banner, STORES, CHANNELS, PRODUCTS_MASTER,
-    build_customers, select_products,
+    shared_customers, shared_products, write_shared_identity,
 )
 from datetime import date
 
@@ -32,7 +32,7 @@ def main():
 
     # dim_product: team-specific subset of 40-70 products
     n_products = rng.randint(40, 70)
-    products = select_products(rng, n_products)
+    products = shared_products(args.team_seed, n_products)
     counts["dim_product.csv"] = write_csv(
         outdir / "dim_product.csv",
         ["product_id","product_name","category","subcategory","brand","unit_cost","unit_price"],
@@ -55,13 +55,18 @@ def main():
 
     # dim_customer: team-specific 150-400 customers
     n_customers = rng.randint(150, 400)
-    customers = build_customers(rng, n_customers)
+    customers = shared_customers(args.team_seed, n_customers)
     counts["dim_customer.csv"] = write_csv(
         outdir / "dim_customer.csv",
         ["customer_id","first_name","last_name","email_domain","city","province",
          "loyalty_segment","join_date"],
         customers,
     )
+
+    # Persist the chosen counts so every session generator can reuse the
+    # SAME product/customer universe -- guarantees zero orphan FKs.
+    # Also writes meta/dataset_identity.json at repo root.
+    write_shared_identity(args.team_seed, n_products=n_products, n_customers=n_customers)
 
     banner("Shared Seeds", args.team_seed, outdir, counts)
 

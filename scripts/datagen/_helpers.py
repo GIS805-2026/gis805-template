@@ -17,10 +17,17 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import json
 import random
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Sequence
+
+SCENARIO_FAMILY = "NEXAMART_RETAIL_2026"
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent  # .../repo-template/
+SHARED_IDENTITY_REL = "shared/_identity.json"
+META_IDENTITY_PATH = REPO_ROOT / "meta" / "dataset_identity.json"
 
 # ── Argument parsing ────────────────────────────────────────────
 
@@ -44,6 +51,57 @@ def resolve_output_dir(args: argparse.Namespace, session_tag: str) -> Path:
         out = Path("data") / "synthetic" / f"team_{args.team_seed}" / session_tag
     out.mkdir(parents=True, exist_ok=True)
     return out
+
+
+def team_root(team_seed: int) -> Path:
+    """Root directory for one team's synthetic data."""
+    return Path("data") / "synthetic" / f"team_{team_seed}"
+
+
+def shared_identity_path(team_seed: int) -> Path:
+    return team_root(team_seed) / SHARED_IDENTITY_REL
+
+
+# ── Shared identity (persists per-team counts so all sessions agree) ─────
+
+def fingerprint(team_seed: int) -> str:
+    payload = f"{SCENARIO_FAMILY}|{team_seed}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:16]
+
+
+def write_shared_identity(team_seed: int, n_products: int, n_customers: int) -> dict:
+    """Called ONLY by gen_shared_seeds.py. Persists the exact counts to disk
+    so that every session generator (S02..S09) uses the same product and
+    customer universe, guaranteeing zero orphan FKs."""
+    identity = {
+        "team_seed": team_seed,
+        "scenario_family": SCENARIO_FAMILY,
+        "n_products": n_products,
+        "n_customers": n_customers,
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "fingerprint": fingerprint(team_seed),
+    }
+    shared_path = shared_identity_path(team_seed)
+    shared_path.parent.mkdir(parents=True, exist_ok=True)
+    shared_path.write_text(json.dumps(identity, indent=2) + "\n", encoding="utf-8")
+    # Also write the repo-root meta file (referenced by validation/rules.yaml
+    # and tools/instructor/batch_validate.py).
+    META_IDENTITY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    META_IDENTITY_PATH.write_text(json.dumps(identity, indent=2) + "\n", encoding="utf-8")
+    return identity
+
+
+def read_shared_identity(team_seed: int) -> dict:
+    """Called by every session generator. Fails fast with a helpful message
+    if shared seeds have not been produced yet."""
+    p = shared_identity_path(team_seed)
+    if not p.exists():
+        raise SystemExit(
+            f"ERROR: shared identity not found at {p}. "
+            "Run 'python scripts/datagen/gen_shared_seeds.py --team-seed "
+            f"{team_seed}' first, or use gen_all.py which orchestrates the order."
+        )
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
 # ── Seeded RNG ──────────────────────────────────────────────────
@@ -220,5 +278,26 @@ def build_employees(rng: random.Random, n: int) -> list[dict]:
 
 
 def select_products(rng: random.Random, n: int) -> list[dict]:
-    """Pick n products from the master list (team-specific subset)."""
+    """Pick n products from the master list (team-specific subset).
+
+    NOTE: results depend on the current rng state. Prefer shared_products()
+    below when you need identical results across call sites -- pure function
+    of (team_seed, n).
+    """
     return rng.sample(PRODUCTS_MASTER, min(n, len(PRODUCTS_MASTER)))
+
+
+# ━━━ State-independent helpers for conformed dimensions ━━━━━━━━━━━━━━━━━━
+# These are pure functions of (team_seed, n). They use their OWN internal
+# rng so call order / prior advances cannot shift the result. Every
+# generator (shared_seeds and per-session) must use these to guarantee
+# the same product/customer universe.
+
+def shared_products(team_seed: int, n: int) -> list[dict]:
+    rng = make_rng(team_seed, "shared-products")
+    return rng.sample(PRODUCTS_MASTER, min(n, len(PRODUCTS_MASTER)))
+
+
+def shared_customers(team_seed: int, n: int) -> list[dict]:
+    rng = make_rng(team_seed, "shared-customers")
+    return build_customers(rng, n)

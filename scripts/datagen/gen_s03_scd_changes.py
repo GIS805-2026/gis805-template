@@ -10,7 +10,8 @@ Usage:
 """
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, write_csv, banner,
-    weighted_choice, build_customers, STORES, SEGMENTS,
+    weighted_choice, shared_customers, STORES, SEGMENTS,
+    read_shared_identity,
 )
 from datetime import date, timedelta
 
@@ -21,8 +22,9 @@ def main():
     rng = make_rng(args.team_seed, "s03")
     outdir = resolve_output_dir(args, "s03")
 
-    # Reuse same customers from shared seeds
-    customers = build_customers(make_rng(args.team_seed, "shared-seeds"), rng.randint(150, 400))
+    # Reuse the SAME customer universe written by gen_shared_seeds.
+    identity = read_shared_identity(args.team_seed)
+    customers = shared_customers(args.team_seed, identity["n_customers"])
 
     # Team-specific change intensity
     pct_customers_changing = rng.uniform(0.15, 0.45)

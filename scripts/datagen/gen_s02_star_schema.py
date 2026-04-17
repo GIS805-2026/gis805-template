@@ -12,7 +12,7 @@ Usage:
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, write_csv, banner,
     weighted_choice, triangular_int, STORES, CHANNELS,
-    build_customers, select_products,
+    shared_customers, shared_products, read_shared_identity,
 )
 from datetime import date, timedelta
 
@@ -23,9 +23,12 @@ def main():
     rng = make_rng(args.team_seed, "s02")
     outdir = resolve_output_dir(args, "s02")
 
-    # Load team-specific products and customers
-    products = select_products(make_rng(args.team_seed, "shared-seeds"), rng.randint(40, 70))
-    customers = build_customers(make_rng(args.team_seed, "shared-seeds"), rng.randint(150, 400))
+    # Load the SAME product/customer universe written by gen_shared_seeds.
+    # Using identity counts guarantees fact_sales references only keys that
+    # exist in dim_product / dim_customer (zero orphan FKs).
+    identity = read_shared_identity(args.team_seed)
+    products = shared_products(args.team_seed, identity["n_products"])
+    customers = shared_customers(args.team_seed, identity["n_customers"])
 
     # Team-specific parameters
     n_orders = rng.randint(800, 2500)

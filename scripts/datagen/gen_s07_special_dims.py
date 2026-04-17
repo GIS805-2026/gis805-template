@@ -13,8 +13,8 @@ Usage:
 """
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, write_csv, banner,
-    weighted_choice, triangular_int, maybe_null, select_products,
-    build_customers, STORES, CHANNELS,
+    weighted_choice, triangular_int, maybe_null, shared_products,
+    shared_customers, STORES, CHANNELS, read_shared_identity,
 )
 from datetime import date, timedelta
 
@@ -28,8 +28,9 @@ def main():
     rng = make_rng(args.team_seed, "s07")
     outdir = resolve_output_dir(args, "s07")
 
-    products = select_products(make_rng(args.team_seed, "shared-seeds"), rng.randint(40, 70))
-    customers = build_customers(make_rng(args.team_seed, "shared-seeds"), rng.randint(150, 400))
+    identity = read_shared_identity(args.team_seed)
+    products = shared_products(args.team_seed, identity["n_products"])
+    customers = shared_customers(args.team_seed, identity["n_customers"])
 
     # Team-specific NULL rates
     null_carrier_rate = rng.uniform(0.05, 0.25)

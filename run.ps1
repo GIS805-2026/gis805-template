@@ -21,21 +21,17 @@ param(
 $ErrorActionPreference = "Stop"
 $env:PYTHONIOENCODING = "utf-8"
 
-# -- Compute TEAM_SEED from git user.name --
+# -- Compute TEAM_SEED via the cross-platform Python helper --
+# Same logic as Makefile on Linux/macOS/Codespace; avoids drift.
 function Get-TeamSeed {
-    $userName = & git config user.name 2>$null
-    if (-not $userName) {
-        Write-Warning "git user.name not set. Using default seed 1."
-        Write-Warning "Run: git config --global user.name 'Your Name'"
+    $seed = (& python scripts/datagen/_compute_seed.py).Trim()
+    if (-not $seed) {
+        Write-Warning "Could not compute team seed. Using default 1."
         return 1
     }
-    $md5 = [System.Security.Cryptography.MD5]::Create()
-    $bytes = [System.Text.Encoding]::UTF8.GetBytes($userName)
-    $hash = $md5.ComputeHash($bytes)
-    $hex = [System.BitConverter]::ToString($hash).Replace("-", "").Substring(0, 8)
-    $seed = [Convert]::ToInt64($hex, 16)
+    $userName = & git config user.name 2>$null
     Write-Host "  TEAM_SEED = $seed  (from git user '$userName')"
-    return $seed
+    return [int64]$seed
 }
 
 # -- Targets --

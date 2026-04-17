@@ -15,43 +15,44 @@ SELECT 'row_counts' AS check,
 
 -- CHECK 2: Referential integrity
 -- Every FK in the fact should point to an existing dimension row.
+-- (This template uses natural keys -- adapt if you introduced _key surrogates.)
 SELECT 'orphan_customers' AS check,
        COUNT(*) AS orphans,
        CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'FAIL' END AS result
 FROM fact_sales f
-LEFT JOIN dim_customer d ON f.customer_key = d.customer_key
-WHERE d.customer_key IS NULL;
+LEFT JOIN dim_customer d ON f.customer_id = d.customer_id
+WHERE d.customer_id IS NULL;
 
 SELECT 'orphan_products' AS check,
        COUNT(*) AS orphans,
        CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'FAIL' END AS result
 FROM fact_sales f
-LEFT JOIN dim_product d ON f.product_key = d.product_key
-WHERE d.product_key IS NULL;
+LEFT JOIN dim_product d ON f.product_id = d.product_id
+WHERE d.product_id IS NULL;
 
 -- CHECK 3: Reconciliation
 -- Does the total from the fact table match the total from raw data?
 SELECT 'revenue_reconciliation' AS check,
        (SELECT SUM(line_total) FROM fact_sales)::DECIMAL(15,2) AS fact_total,
-       (SELECT SUM(line_total) FROM raw_order_lines)::DECIMAL(15,2) AS raw_total,
+       (SELECT SUM(line_total) FROM raw_fact_sales)::DECIMAL(15,2) AS raw_total,
        CASE
            WHEN ABS(
                (SELECT SUM(line_total) FROM fact_sales) -
-               (SELECT SUM(line_total) FROM raw_order_lines)
+               (SELECT SUM(line_total) FROM raw_fact_sales)
            ) < 0.01
            THEN 'PASS'
            ELSE 'FAIL - totals diverge'
        END AS result;
 
 -- CHECK 4: Duplicate grain detection
--- If the grain is (order_number, product_key), are there duplicates?
+-- If the grain is (order_number, sale_line_id), are there duplicates?
 SELECT 'duplicate_grains' AS check,
        COUNT(*) AS duplicates,
        CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'FAIL' END AS result
 FROM (
-    SELECT order_number, product_key, COUNT(*) AS cnt
+    SELECT order_number, sale_line_id, COUNT(*) AS cnt
     FROM fact_sales
-    GROUP BY order_number, product_key
+    GROUP BY order_number, sale_line_id
     HAVING COUNT(*) > 1
 );
 

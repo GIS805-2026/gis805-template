@@ -99,24 +99,27 @@ et d'un brief executif que vous redigez pour le CEO.
 
 ## Livrables par seance
 
-| Seance | Livrable principal | Fichier |
-|--------|--------------------|---------|
-| S01 | Brief executif -- question + obstacles | `answers/S01_executive_brief.md` |
-| S02 | Grain statement + etoile + SQL preuve | `answers/S02_executive_brief.md` + `sql/facts/fact_sales.sql` |
-| S03 | Politique SCD + comparaison avant/apres | `answers/S03_executive_brief.md` |
-| S04 | Dimension poubelle + analyse panier | `answers/S04_executive_brief.md` + `sql/facts/junk_order_profile.sql` |
-| S06 | Bus matrix + drill-across + reel vs cible | `answers/S06_executive_brief.md` + `sql/views/` |
-| S07 | Hierarchies + politique NULLs + delais | `answers/S07_executive_brief.md` |
-| S08 | Pont pondere + reconciliation | `answers/S08_executive_brief.md` + `sql/facts/bridge_customer_segment.sql` |
-| S09 | Arbre de decision types de faits + process map | `answers/S09_executive_brief.md` + `sql/facts/` |
-| S11 | Model card + bus matrix + dictionnaire + journal | `docs/` |
-| S12 | Pack defense ecrit (+ presentation si selectionne) | `docs/metric-definitions.md` |
-| S13 | Memo build-vs-buy | `answers/S13_executive_brief.md` |
+Vous creez vous-meme chaque brief dans `answers/SXX_executive_brief.md`.
+Pas de gabarit pre-rempli -- voir [`answers/README.md`](answers/README.md) pour
+les sections attendues et [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md)
+pour un exemple annote.
 
-> Un exemple annote de brief executif est dans [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md).
+| Seance | Livrable principal |
+|--------|--------------------|
+| S01 | Brief executif -- question + obstacles + diagnostic |
+| S02 | Grain statement + etoile + SQL preuve (`sql/facts/fact_sales.sql`) |
+| S03 | Politique SCD + comparaison avant/apres |
+| S04 | Dimension poubelle + degenerate + analyse panier |
+| S06 | Bus matrix + drill-across + reel-vs-cible (`sql/views/*.sql`) |
+| S07 | Hierarchies + politique NULLs + role-playing dates |
+| S08 | Pont pondere + reconciliation |
+| S09 | Arbre de decision types de faits + process map |
+| S11 | Model card + bus matrix + dictionnaire + journal de decisions (`docs/`) |
+| S12 | Pack defense ecrit (+ presentation si tire au sort) |
+| S13 | Memo build-vs-buy + feuille de route GIS806 |
 
 Trois **revues de pairs** aux jalons cles (apres S04, apres S09, a S11).
-Appariement aleatoire a chaque jalon -- vos commentaires de revue sont notes.
+Appariement aleatoire a chaque jalon -- voir `docs/peer-reviews/`.
 
 ---
 
@@ -144,19 +147,28 @@ Chaque entree dans `ai-usage.md` inclut : date, prompt exact, modele utilise, co
 
 ## Structure du depot
 
-```
-answers/           Vos briefs executifs (un par seance)
-submissions/       Templates des 3 remises (a1, a2, final)
-sql/               Votre code SQL (staging, dims, facts, views)
-  templates/       5 patterns SQL annotes pour vous guider
+```text
+answers/           Vos briefs executifs (un par seance) -- VOUS les creez
+submissions/       Dossiers de remise (a1, a2, final) -- vides au depart
+sql/
+  staging/         Vos vues de nettoyage intermediaires
+  dims/            Vos dimensions (dim_*.sql)
+  facts/           Vos tables de faits (fact_*.sql)
+  views/           Vos vues analytiques / drill-across
+  checks/          Vos checks SQL personnels
+  templates/       5 patterns SQL annotes -- a etudier, pas a copier aveuglement
   sandbox/         Vos explorations libres
-data/              Donnees generees (unique a vous)
 scripts/datagen/   Generateurs de donnees (ne pas modifier)
-docs/              Guides, FAQ, templates de documentation
-meta/              Empreinte de votre jeu de donnees
-validation/        Checks automatiques (utilises par make check)
-.devcontainer/     Config Codespace (Python, DuckDB, extensions)
-.github/           CI et autograding GitHub Classroom
+src/               run_pipeline.py + run_checks.py (ne pas modifier)
+data/              Donnees generees -- unique a vous (gitignore)
+db/                nexamart.duckdb -- votre entrepot (gitignore)
+docs/              Guides (S00-SETUP, FAQ, exemple annote, formulaires peer-review)
+meta/              Empreinte + fingerprint de votre jeu de donnees
+validation/        checks.sql canonique execute par make check
+tools/instructor/  Outils cote instructeur (ignore pour les etudiants)
+.devcontainer/     Config Codespace (Python 3.12 + DuckDB + extensions)
+.github/           CI GitHub Classroom (genere + load + check a chaque push)
+ai-usage.md        Trace obligatoire de toutes vos interactions IA
 ```
 
 > Envie d'en savoir plus? Demandez a votre assistant :

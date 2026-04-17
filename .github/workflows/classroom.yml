@@ -25,5 +25,11 @@ jobs:
       - name: Install DuckDB
         run: pip install duckdb
 
-      - name: Run validation checks
-        run: python .github/grading/run_checks.py
+      - name: Generate data (if the student has not committed it)
+        run: python scripts/datagen/gen_all.py --team-seed $(python scripts/datagen/_compute_seed.py)
+
+      - name: Load pipeline
+        run: python src/run_pipeline.py
+
+      - name: Run validation checks (canonical)
+        run: python src/run_checks.py

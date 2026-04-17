@@ -13,7 +13,8 @@ Usage:
 """
 from _helpers import (
     base_argparser, resolve_output_dir, make_rng, write_csv, banner,
-    weighted_choice, build_customers, SEGMENTS, CAMPAIGNS,
+    weighted_choice, shared_customers, SEGMENTS, CAMPAIGNS,
+    read_shared_identity,
 )
 from datetime import date, timedelta
 
@@ -24,7 +25,8 @@ def main():
     rng = make_rng(args.team_seed, "s08")
     outdir = resolve_output_dir(args, "s08")
 
-    customers = build_customers(make_rng(args.team_seed, "shared-seeds"), rng.randint(150, 400))
+    identity = read_shared_identity(args.team_seed)
+    customers = shared_customers(args.team_seed, identity["n_customers"])
 
     # --- Bridge: customer ↔ segment (M:N with weights) ---
     overlap_density = rng.uniform(1.2, 2.5)  # avg segments per customer

@@ -155,16 +155,17 @@ Vous devriez voir `PASS` pour toutes les verifications. Si quelque chose affiche
 
 Demandez a votre assistant :
 
-> **Montre-moi une requete SQL pour voir combien j'ai de clients et de commandes.**
+> **Liste toutes les tables de ma base DuckDB et donne-moi le nombre de lignes de chacune.**
 
-Puis dans le terminal DuckDB :
+Puis dans un notebook ou le CLI DuckDB, explorez par vous-meme :
 
 ```sql
-SELECT COUNT(*) FROM raw_customers;
-SELECT COUNT(*) FROM raw_orders;
+SHOW TABLES;
+SELECT COUNT(*) FROM raw_dim_customer;
+SELECT COUNT(*) FROM raw_fact_sales;
 ```
 
-Si les deux requetes retournent des nombres > 0, vous etes pret pour la seance 1.
+Si les requetes retournent des nombres > 0, vous etes pret pour la seance 1.
 
 ---
 
@@ -173,9 +174,9 @@ Si les deux requetes retournent des nombres > 0, vous etes pret pour la seance 1
 - [ ] J'ai un environnement fonctionnel (Codespace ou VS Code local)
 - [ ] J'ai un assistant IA fonctionnel (Copilot, ChatGPT, Claude, ou autre)
 - [ ] J'ai parle avec mon assistant et il m'a explique mon depot
-- [ ] `make check` (ou `.\run.ps1 check`) affiche `PASS` pour les verifications de base
-- [ ] Je vois des donnees dans `raw_customers` et `raw_orders`
-- [ ] J'ai commite mon premier executive brief
+- [ ] `make check` (ou `.\run.ps1 check`) se termine sans FAIL (les SKIP sont normaux en S01)
+- [ ] `SHOW TABLES` liste au moins `raw_dim_customer`, `raw_dim_product`, `raw_fact_sales`
+- [ ] J'ai commite mon premier executive brief dans `answers/S01_executive_brief.md`
 
 ---
 

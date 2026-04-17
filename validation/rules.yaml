@@ -1,5 +1,6 @@
 # Règles de validation — NexaMart
-# Utilisé par le pipeline de vérification
+# Descripteurs lus par la documentation et par les outils instructeurs.
+# Le validateur exécuté en CI et en local est validation/checks.sql (voir src/run_checks.py).
 
 rules:
   - name: fact_sales_not_empty
@@ -15,19 +16,19 @@ rules:
   - name: fact_sales_no_null_fk
     table: fact_sales
     check: no_null_foreign_keys
-    columns: [date_key, product_key, store_key, customer_key, channel_key]
+    columns: [order_date, product_id, store_id, customer_id, channel_id]
     session: S02
 
   - name: bridge_weights_sum_to_one
     table: bridge_customer_segment
     check: sum_by_group_equals
-    group_by: customer_key
+    group_by: customer_id
     column: weight
     expected: 1.0
     tolerance: 0.001
     session: S08
 
   - name: dataset_identity
-    file: data/metadata/dataset_identity.json
-    check: signature_matches_seed
+    file: meta/dataset_identity.json
+    check: fingerprint_matches_seed
     session: S01

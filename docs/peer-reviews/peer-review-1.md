@@ -1,31 +1,77 @@
-# Revue de pairs — Jalon 1 (après S04)
+# Revue de pairs -- Jalon 1 (apres S04)
 
-> **Portée :** Grain, SCD, dimensions poubelle, dimension dégénérée
-> **Appariement :** Aléatoire (assigné par l'instructeur)
+> **Portee :** grain, SCD, dimension poubelle, dimension degeneree.
+> **Appariement :** aleatoire (assigne par l'instructeur).
+> **Objectif :** 20 minutes de lecture + redaction. Sur chaque dimension de la
+> rubrique officielle du cours, cochez un niveau et justifiez en une phrase.
 
 ## Informations
 
-- **Réviseur :** <!-- Votre nom GitHub -->
-- **Révisé :** <!-- Nom GitHub du pair -->
+- **Reviseur :** <!-- votre username GitHub -->
+- **Revise :** <!-- username GitHub du pair -->
 - **Date :**
+- **Repo revise :** <!-- lien vers le repo -->
 
-## Grille d'évaluation
+## Grille d'evaluation (memes dimensions que la rubrique du cours)
 
-| Critère | ✅ OK | ⚠️ Partiel | ❌ Absent | Notes |
-|---------|-------|-----------|----------|-------|
-| Grain statement existe et est clair | | | | |
-| fact_sales DDL cohérent avec le grain | | | | |
-| Politique SCD documentée avec justification d'affaires | | | | |
-| SCD avant/après SQL fonctionne | | | | |
-| Dimension poubelle avec profils nommés | | | | |
-| Dimension dégénérée (order_number) présente | | | | |
-| `make check` passe sans erreur | | | | |
-| ai-usage.md à jour | | | | |
+### 1. Qualite du modele -- *model_quality* (poids 40 %)
+Grain nomme explicitement, fact_sales coherent avec le grain, SCD choisi
+defendable, dimension poubelle avec profils nommes, dimension degeneree
+(order_number) presente.
+
+- [ ] Excellent
+- [ ] Satisfaisant
+- [ ] A retravailler
+- [ ] Absent
+
+Justification en une phrase :
+
+### 2. Qualite de validation -- *validation_quality* (poids 25 %)
+Requetes de verification existent et passent (`make check`, checks SQL
+personnels). Cles primaires uniques, FK sans NULL, grain demontre non-duplique.
+
+- [ ] Excellent
+- [ ] Satisfaisant
+- [ ] A retravailler
+- [ ] Absent
+
+Justification en une phrase :
+
+### 3. Justification executive -- *executive_justification* (poids 20 %)
+Brief repond a la question CEO sans jargon. Grain + SCD + junk justifies par
+un besoin d'affaires, pas par une preference technique.
+
+- [ ] Excellent
+- [ ] Satisfaisant
+- [ ] A retravailler
+- [ ] Absent
+
+Justification en une phrase :
+
+### 4. Trace de processus -- *process_trace* (poids 10 %)
+Historique git lisible (commits frequents, messages parlants).
+`ai-usage.md` a jour pour S01-S04 avec validation humaine tracee.
+
+- [ ] Excellent
+- [ ] Satisfaisant
+- [ ] A retravailler
+- [ ] Absent
+
+Justification en une phrase :
+
+### 5. Reproductibilite -- *reproducibility* (poids 5 %)
+`make generate && make load && make check` fonctionne depuis un clone frais.
+Meta/dataset_identity.json present et populi.
+
+- [ ] PASS
+- [ ] FAIL
+
+Justification en une phrase :
 
 ## Point fort
 
-<!-- 1 force concrète du travail du pair -->
+<!-- une force concrete (pas "bravo") -->
 
-## Amélioration suggérée
+## Amelioration la plus actionnable
 
-<!-- 1 suggestion actionnable (pas « c'est pas clair » mais « le grain statement devrait préciser X ») -->
+<!-- une suggestion precise : "le grain statement devrait preciser X parce que Y" -->

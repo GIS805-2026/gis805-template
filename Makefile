@@ -1,6 +1,6 @@
 .PHONY: generate load check clean
 
-TEAM_SEED ?= $(shell git config user.name | md5sum | cut -c1-8 | xargs printf "%d\n" 0x 2>/dev/null || echo 1)
+TEAM_SEED ?= $(shell python scripts/datagen/_compute_seed.py)
 
 # ──────────────────────────────────────────────
 # generate : Produire toutes les données NexaMart
