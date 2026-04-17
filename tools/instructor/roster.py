@@ -26,13 +26,27 @@ ROSTER_FIELDS = [
     "student_id",
     "github_username",
     "seed",
+    "fingerprint",
     "scenario_family",
 ]
 
+SCENARIO_FAMILY = "NEXAMART_RETAIL_2026"
 
-def compute_seed(github_username: str) -> str:
-    """Derive deterministic seed from git username (matches datagen logic)."""
-    return hashlib.md5(github_username.encode()).hexdigest()[:8]
+
+def compute_seed(github_username: str) -> int:
+    """Derive the deterministic integer seed from a git username.
+
+    Must match scripts/datagen/_compute_seed.py exactly -- that is what the
+    Makefile and run.ps1 pass to gen_all.py, so the value stored in every
+    student's meta/dataset_identity.json is the integer form.
+    """
+    return int(hashlib.md5(github_username.encode()).hexdigest()[:8], 16)
+
+
+def compute_fingerprint(seed: int) -> str:
+    """Mirror scripts/datagen/_helpers.fingerprint(). 16 hex chars."""
+    payload = f"{SCENARIO_FAMILY}|{seed}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:16]
 
 
 def cmd_init():
@@ -52,8 +66,9 @@ def cmd_add(name: str, github_username: str, student_id: str = ""):
         "student_name": name,
         "student_id": student_id,
         "github_username": github_username,
-        "seed": seed,
-        "scenario_family": "NEXAMART_RETAIL_2026",
+        "seed": str(seed),
+        "fingerprint": compute_fingerprint(seed),
+        "scenario_family": SCENARIO_FAMILY,
     }
 
     if not ROSTER_FILE.exists():
@@ -79,29 +94,33 @@ def cmd_list():
         print("Roster is empty.")
         return
 
-    print(f"{'Name':<25} {'GitHub':<20} {'Seed':<12} {'Student ID'}")
-    print("-" * 70)
+    print(f"{'Name':<25} {'GitHub':<20} {'Seed':<12} {'Fingerprint':<18} {'Student ID'}")
+    print("-" * 90)
     for r in rows:
         print(
             f"{r['student_name']:<25} {r['github_username']:<20} "
-            f"{r['seed']:<12} {r.get('student_id', '')}"
+            f"{r['seed']:<12} {r.get('fingerprint', ''):<18} {r.get('student_id', '')}"
         )
     print(f"\nTotal: {len(rows)} students")
 
 
 def cmd_verify(github_username: str):
     seed = compute_seed(github_username)
-    print(f"Username: {github_username}")
-    print(f"Seed:     {seed}")
+    fp = compute_fingerprint(seed)
+    print(f"Username:    {github_username}")
+    print(f"Seed:        {seed}")
+    print(f"Fingerprint: {fp}")
 
     if ROSTER_FILE.exists():
         with open(ROSTER_FILE, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for r in reader:
                 if r["github_username"] == github_username:
-                    match = r["seed"] == seed
-                    print(f"Student:  {r['student_name']}")
-                    print(f"Match:    {'YES' if match else 'NO -- expected ' + r['seed']}")
+                    match = str(r["seed"]) == str(seed)
+                    fp_match = r.get("fingerprint", "") == fp
+                    print(f"Student:     {r['student_name']}")
+                    print(f"Seed match:  {'YES' if match else 'NO -- roster has ' + r['seed']}")
+                    print(f"FP match:    {'YES' if fp_match else 'NO -- roster has ' + r.get('fingerprint', '')}")
                     return
         print("Username not found in roster.")
 
