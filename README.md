@@ -166,7 +166,7 @@ validation/        Checks automatiques (utilises par make check)
 
 ## References
 
-- Kimball & Ross -- *The Data Warehouse Toolkit* (3rd ed.)
-- Kimball Group -- Dimensional Modeling Techniques
-- dbt Labs -- Analytics Engineering Guide
-- DuckDB Documentation
+- Kimball & Ross -- [*The Data Warehouse Toolkit* (3rd ed.)](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/books/data-warehouse-dw-toolkit/)
+- Kimball Group -- [Dimensional Modeling Techniques](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/)
+- dbt Labs -- [Analytics Engineering Guide](https://www.getdbt.com/analytics-engineering/start-here)
+- [DuckDB Documentation](https://duckdb.org/docs/)
