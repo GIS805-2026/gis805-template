@@ -1,7 +1,7 @@
 # Executive Brief S14
 
 ## CEO Question
-**Examen final** — Boardroom challenge intégré au format d'évaluation. Modélisation dimensionnelle complète dans l'univers NexaMart.
+**Examen final** -- Boardroom challenge intégré au format d'évaluation. Modélisation dimensionnelle complète dans l'univers NexaMart.
 
 ## Executive Answer
 <!-- Répondez brièvement et directement. Le CEO lira cette section en premier. -->

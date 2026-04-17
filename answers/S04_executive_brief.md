@@ -21,13 +21,22 @@ Quels patterns de commande NexaMart sont importants pour les opérations, et que
 <!-- Quelles mesures stockez-vous ? -->
 
 ### Dimensions
-<!-- Quels axes d'analyse ? Degenerate dimensions ? Junk dimensions ? -->
+<!-- Degenerate dimensions ? Junk dimensions ? -->
+<!-- order_number : pourquoi dans la table de faits sans table propre ? -->
 
 ### Temporal / Historical Choices
 <!-- Comment gérez-vous le temps et l'historique ? -->
 
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
+
+## Dimension poubelle (junk_order_profile)
+<!-- Combien de profils distincts ? Nommez les plus fréquents -->
+
+
+## Analyse de panier
+<!-- Top 5 paires de produits co-achetés -- SQL + résultats -->
+
 
 ## Validation
 - **Metric reconciliation:** 

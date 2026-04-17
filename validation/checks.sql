@@ -1,146 +1,149 @@
 -- ============================================================
--- checks.sql - Consolidated validation checks for NexaMart
--- Run: duckdb db/nexamart.duckdb < validation/checks.sql
+-- checks.sql — Validation de l'entrepôt NexaMart
 -- ============================================================
--- This file consolidates all validation checks into a single script.
--- Individual checks are also available in validation/checks/ folder.
+-- Exécuté par : make check  /  .\run.ps1 check
+-- Produit : validation/results/check_results.txt
+--
+-- Convention : chaque check retourne check_type, detail, result (PASS/FAIL)
 -- ============================================================
 
--- ============================================================
--- SECTION 0: EXISTENCE CHECKS
--- ============================================================
-SELECT '=== [0] EXISTENCE CHECKS ===' as section;
+-- ─────────────────────────────────────────────
+-- 1. Existence des tables clés
+-- ─────────────────────────────────────────────
+SELECT 'TABLE_EXISTS' AS check_type,
+       table_name     AS detail,
+       'PASS'         AS result
+FROM information_schema.tables
+WHERE table_schema = 'main'
+  AND table_name IN (
+      'dim_date','dim_product','dim_store','dim_customer','dim_channel',
+      'fact_sales','fact_returns','fact_budget',
+      'fact_daily_inventory','fact_order_pipeline',
+      'bridge_customer_segment','junk_order_profile','fact_promo_exposure'
+  );
 
-SELECT 'raw_tables' as check, COUNT(*) as count,
-       CASE WHEN COUNT(*) >= 5 THEN 'PASS' ELSE 'FAIL' END as result
-FROM information_schema.tables WHERE table_name LIKE 'raw_%';
+-- ─────────────────────────────────────────────
+-- 2. Tables non vides (cardinalité minimale)
+-- ─────────────────────────────────────────────
+SELECT 'ROW_COUNT' AS check_type,
+       'dim_date'  AS detail,
+       CASE WHEN COUNT(*) >= 365 THEN 'PASS' ELSE 'FAIL -- expected >=365 rows' END AS result
+FROM dim_date;
 
-SELECT 'dim_tables' as check, COUNT(*) as count,
-       CASE WHEN COUNT(*) >= 1 THEN 'PASS' ELSE 'INFO - No dims yet' END as result
-FROM information_schema.tables WHERE table_name LIKE 'dim_%';
+SELECT 'ROW_COUNT' AS check_type,
+       'dim_product' AS detail,
+       CASE WHEN COUNT(*) >= 10 THEN 'PASS' ELSE 'FAIL -- expected >=10 rows' END AS result
+FROM dim_product;
 
-SELECT 'fact_tables' as check, COUNT(*) as count,
-       CASE WHEN COUNT(*) >= 1 THEN 'PASS' ELSE 'INFO - No facts yet' END as result
-FROM information_schema.tables WHERE table_name LIKE 'fact_%';
+SELECT 'ROW_COUNT' AS check_type,
+       'dim_store'  AS detail,
+       CASE WHEN COUNT(*) = 10 THEN 'PASS' ELSE 'FAIL -- expected 10 rows' END AS result
+FROM dim_store;
 
--- ============================================================
--- SECTION 1: ROW COUNT CHECKS
--- ============================================================
-SELECT '=== [1] ROW COUNT CHECKS ===' as section;
+SELECT 'ROW_COUNT' AS check_type,
+       'dim_channel' AS detail,
+       CASE WHEN COUNT(*) = 5 THEN 'PASS' ELSE 'FAIL -- expected 5 rows' END AS result
+FROM dim_channel;
 
-SELECT 'raw_customers' as table_name, COUNT(*) as rows,
-       CASE WHEN COUNT(*) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_customers;
+SELECT 'ROW_COUNT' AS check_type,
+       'dim_customer' AS detail,
+       CASE WHEN COUNT(*) >= 100 THEN 'PASS' ELSE 'FAIL -- expected >=100 rows' END AS result
+FROM dim_customer;
 
-SELECT 'raw_products' as table_name, COUNT(*) as rows,
-       CASE WHEN COUNT(*) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_products;
+SELECT 'ROW_COUNT' AS check_type,
+       'fact_sales' AS detail,
+       CASE WHEN COUNT(*) >= 500 THEN 'PASS' ELSE 'FAIL -- expected >=500 rows' END AS result
+FROM fact_sales;
 
-SELECT 'raw_stores' as table_name, COUNT(*) as rows,
-       CASE WHEN COUNT(*) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_stores;
+-- ─────────────────────────────────────────────
+-- 3. Clés primaires uniques (dimensions)
+-- ─────────────────────────────────────────────
+SELECT 'PK_UNIQUE' AS check_type,
+       'dim_date.date_key' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT date_key) THEN 'PASS'
+            ELSE 'FAIL — duplicate date_key' END AS result
+FROM dim_date;
 
-SELECT 'raw_orders' as table_name, COUNT(*) as rows,
-       CASE WHEN COUNT(*) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_orders;
+SELECT 'PK_UNIQUE' AS check_type,
+       'dim_product.product_id' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT product_id) THEN 'PASS'
+            ELSE 'FAIL — duplicate product_id' END AS result
+FROM dim_product;
 
-SELECT 'raw_order_lines' as table_name, COUNT(*) as rows,
-       CASE WHEN COUNT(*) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_order_lines;
+SELECT 'PK_UNIQUE' AS check_type,
+       'dim_store.store_id' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT store_id) THEN 'PASS'
+            ELSE 'FAIL — duplicate store_id' END AS result
+FROM dim_store;
 
--- ============================================================
--- SECTION 2: KEY INTEGRITY CHECKS
--- ============================================================
-SELECT '=== [2] KEY INTEGRITY CHECKS ===' as section;
+SELECT 'PK_UNIQUE' AS check_type,
+       'dim_channel.channel_id' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT channel_id) THEN 'PASS'
+            ELSE 'FAIL — duplicate channel_id' END AS result
+FROM dim_channel;
 
-SELECT 'customer_key_unique' as check,
-       CASE WHEN COUNT(*) = COUNT(DISTINCT customer_id) THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_customers;
+SELECT 'PK_UNIQUE' AS check_type,
+       'dim_customer.customer_id' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT customer_id) THEN 'PASS'
+            ELSE 'FAIL — duplicate customer_id' END AS result
+FROM dim_customer;
 
-SELECT 'product_key_unique' as check,
-       CASE WHEN COUNT(*) = COUNT(DISTINCT product_id) THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_products;
+-- ─────────────────────────────────────────────
+-- 4. FK NOT NULL dans fact_sales
+-- ─────────────────────────────────────────────
+SELECT 'FK_NOT_NULL' AS check_type,
+       'fact_sales.product_id' AS detail,
+       CASE WHEN COUNT(*) FILTER (WHERE product_id IS NULL) = 0 THEN 'PASS'
+            ELSE 'FAIL — NULL product_id found' END AS result
+FROM fact_sales;
 
-SELECT 'store_key_unique' as check,
-       CASE WHEN COUNT(*) = COUNT(DISTINCT store_id) THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_stores;
+SELECT 'FK_NOT_NULL' AS check_type,
+       'fact_sales.store_id' AS detail,
+       CASE WHEN COUNT(*) FILTER (WHERE store_id IS NULL) = 0 THEN 'PASS'
+            ELSE 'FAIL — NULL store_id found' END AS result
+FROM fact_sales;
 
-SELECT 'order_key_unique' as check,
-       CASE WHEN COUNT(*) = COUNT(DISTINCT order_id) THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_orders;
+SELECT 'FK_NOT_NULL' AS check_type,
+       'fact_sales.customer_id' AS detail,
+       CASE WHEN COUNT(*) FILTER (WHERE customer_id IS NULL) = 0 THEN 'PASS'
+            ELSE 'FAIL — NULL customer_id found' END AS result
+FROM fact_sales;
 
--- ============================================================
--- SECTION 3: NULL POLICY CHECKS
--- ============================================================
-SELECT '=== [3] NULL POLICY CHECKS ===' as section;
+SELECT 'FK_NOT_NULL' AS check_type,
+       'fact_sales.channel_id' AS detail,
+       CASE WHEN COUNT(*) FILTER (WHERE channel_id IS NULL) = 0 THEN 'PASS'
+            ELSE 'FAIL — NULL channel_id found' END AS result
+FROM fact_sales;
 
-SELECT 'customer_id_not_null' as check,
-       SUM(CASE WHEN customer_id IS NULL THEN 1 ELSE 0 END) as nulls,
-       CASE WHEN SUM(CASE WHEN customer_id IS NULL THEN 1 ELSE 0 END) = 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_customers;
+-- ─────────────────────────────────────────────
+-- 5. Grain verification — fact_sales
+--    (order_number + sale_line_id should be unique)
+-- ─────────────────────────────────────────────
+SELECT 'GRAIN_UNIQUE' AS check_type,
+       'fact_sales (order_number, sale_line_id)' AS detail,
+       CASE WHEN COUNT(*) = COUNT(DISTINCT (order_number || '-' || sale_line_id))
+            THEN 'PASS' ELSE 'FAIL — grain violation' END AS result
+FROM fact_sales;
 
-SELECT 'product_id_not_null' as check,
-       SUM(CASE WHEN product_id IS NULL THEN 1 ELSE 0 END) as nulls,
-       CASE WHEN SUM(CASE WHEN product_id IS NULL THEN 1 ELSE 0 END) = 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_products;
+-- ─────────────────────────────────────────────
+-- 6. Drill-across réconciliation (S06)
+--    Revenue in fact_sales vs budget target — sanity only
+-- ─────────────────────────────────────────────
+-- TODO (S06) : Uncomment when fact_returns and fact_budget exist
+-- SELECT 'RECONCILE' AS check_type,
+--        'sales_total vs budget_total' AS detail,
+--        CASE WHEN ABS(s.total - b.total) / NULLIF(b.total, 0) < 2.0
+--             THEN 'PASS' ELSE 'WARN — large variance' END AS result
+-- FROM (SELECT SUM(line_total) AS total FROM fact_sales) s,
+--      (SELECT SUM(target_revenue) AS total FROM fact_budget) b;
 
-SELECT 'order_id_not_null' as check,
-       SUM(CASE WHEN order_id IS NULL THEN 1 ELSE 0 END) as nulls,
-       CASE WHEN SUM(CASE WHEN order_id IS NULL THEN 1 ELSE 0 END) = 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_orders;
-
--- ============================================================
--- SECTION 4: RECONCILIATION CHECKS
--- ============================================================
-SELECT '=== [4] RECONCILIATION CHECKS ===' as section;
-
-SELECT 'line_total_calc' as check,
-       COUNT(*) as mismatches,
-       CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'WARNING' END as result
-FROM raw_order_lines
-WHERE ABS(line_total - (quantity * unit_price * (1 - COALESCE(discount_pct, 0)))) > 0.01;
-
-SELECT 'total_revenue_positive' as check,
-       SUM(line_total)::DECIMAL(15,2) as total,
-       CASE WHEN SUM(line_total) > 0 THEN 'PASS' ELSE 'FAIL' END as result
-FROM raw_order_lines;
-
--- ============================================================
--- SECTION 5: DUPLICATE RISK CHECKS
--- ============================================================
-SELECT '=== [5] DUPLICATE RISK CHECKS ===' as section;
-
-SELECT 'duplicate_customer_risk' as check,
-       COUNT(*) as risks,
-       CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'INFO' END as result
-FROM (
-    SELECT customer_name, email, COUNT(*) as cnt
-    FROM raw_customers GROUP BY customer_name, email HAVING COUNT(*) > 1
-);
-
-SELECT 'duplicate_product_risk' as check,
-       COUNT(*) as risks,
-       CASE WHEN COUNT(*) = 0 THEN 'PASS' ELSE 'INFO' END as result
-FROM (
-    SELECT product_name, category, COUNT(*) as cnt
-    FROM raw_products GROUP BY product_name, category HAVING COUNT(*) > 1
-);
-
--- ============================================================
--- SECTION 6: IDENTITY CHECK
--- ============================================================
-SELECT '=== [6] DATASET IDENTITY ===' as section;
-
-SELECT 'order_id_range' as check,
-       MIN(CAST(REPLACE(order_id, 'ORD', '') AS INTEGER)) as min_id,
-       MAX(CAST(REPLACE(order_id, 'ORD', '') AS INTEGER)) as max_id,
-       'INFO - Unique to your dataset' as result
-FROM raw_orders;
-
-SELECT 'regional_distribution' as check, province, COUNT(*) as stores
-FROM raw_stores GROUP BY province ORDER BY stores DESC LIMIT 5;
-
--- ============================================================
--- SUMMARY
--- ============================================================
-SELECT '=== VALIDATION COMPLETE ===' as summary;
+-- ─────────────────────────────────────────────
+-- 7. Bridge weights sum to 1.0 per customer (S08)
+-- ─────────────────────────────────────────────
+-- TODO (S08) : Uncomment when bridge_customer_segment exists
+-- SELECT 'BRIDGE_WEIGHT' AS check_type,
+--        'bridge_customer_segment SUM(weight)=1.0' AS detail,
+--        CASE WHEN COUNT(*) FILTER (WHERE ABS(w - 1.0) > 0.01) = 0
+--             THEN 'PASS' ELSE 'FAIL — weights don''t sum to 1.0' END AS result
+-- FROM (SELECT customer_id, SUM(weight) AS w
+--       FROM bridge_customer_segment GROUP BY customer_id) t;

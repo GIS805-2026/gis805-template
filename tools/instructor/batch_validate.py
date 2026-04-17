@@ -20,8 +20,6 @@ except ImportError:
     sys.exit(1)
 
 
-CHECKS_SQL = Path(__file__).parent.parent.parent / "validation" / "checks.sql"
-
 QUICK_CHECKS = [
     ("db_exists", "Database file exists"),
     ("tables_exist", "Required tables present"),
@@ -59,7 +57,7 @@ def check_db(repo_path: Path) -> dict:
         return result
     result["db_exists"] = True
 
-    result["identity_exists"] = check_file_exists(repo_path, "data/metadata/dataset_identity.json")
+    result["identity_exists"] = check_file_exists(repo_path, "meta/dataset_identity.json")
     result["ai_usage_exists"] = check_file_exists(repo_path, "ai-usage.md")
 
     briefs = sorted((repo_path / "answers").glob("S*_executive_brief.md")) if (repo_path / "answers").exists() else []

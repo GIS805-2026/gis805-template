@@ -1,7 +1,7 @@
 # Executive Brief S03
 
 ## CEO Question
-Quels changements dans nos dimensions doivent garder la vérité historique, et lesquels peuvent être écrasés ?
+Quand les régions fusionnent ou qu'un client change de segment, comment les rapports historiques restent-ils exacts ?
 
 ## Executive Answer
 <!-- Répondez brièvement et directement. Le CEO lira cette section en premier. -->
@@ -24,10 +24,18 @@ Quels changements dans nos dimensions doivent garder la vérité historique, et 
 <!-- Quels axes d'analyse (qui, quoi, quand, où) ? -->
 
 ### Temporal / Historical Choices
-<!-- Comment gérez-vous le temps et l'historique ? SCD1, SCD2, SCD3 ? -->
+<!-- SCD1, SCD2, SCD3 ? Pour chaque dimension : quel type et pourquoi (justification d'affaires, pas technique) ? -->
 
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
+
+## Comparaison avant/après
+<!-- SQL montrant le rapport AVANT et APRÈS un changement de dimension -->
+
+
+## Risque si mauvais choix
+<!-- Quel rapport serait faux avec le mauvais type de SCD ? -->
+
 
 ## Validation
 - **Metric reconciliation:** 

@@ -2,7 +2,7 @@
 
 ## Step 1: Push template repo to GitHub
 
-Run from `GIS805 v2/gis805-template/`:
+Run from the template repo root:
 
 ```bash
 git init
@@ -45,22 +45,9 @@ Share the invitation link via Moodle. Each student who accepts gets:
 - A private repo: `GIS805-2026/gis805-2026-<username>`
 - Full template contents (Makefile, devcontainer, SQL templates, etc.)
 - You as an automatic collaborator
+- A unique dataset seed derived automatically from their git username (no tokens needed)
 
-## Step 5: Set instructor salt
-
-On your local machine (not in any repo):
-
-```bash
-# Windows PowerShell
-$env:GIS805_SALT = "your-secret-salt-here"
-
-# Mac/Linux
-export GIS805_SALT="your-secret-salt-here"
-```
-
-Add this to your shell profile so it persists.
-
-## Step 6: Populate the roster
+## Step 5: Populate the roster
 
 ```bash
 cd tools/instructor
@@ -71,14 +58,8 @@ python roster.py add "Marie Lavoie" mlavoie 23456789
 python roster.py list
 ```
 
-## Step 7: Distribute tokens
-
-Each student receives their unique token via Moodle private message or in person.
-They use it to generate their unique dataset:
-
-```bash
-make generate TOKEN=their_token_here
-```
+Seeds are computed automatically from git usernames via `MD5(username)[:8]`.
+No salt or token distribution required.
 
 ## Post-setup verification
 

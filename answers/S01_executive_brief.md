@@ -1,7 +1,7 @@
 # Executive Brief S01
 
 ## CEO Question
-Quelles catégories déclinent dans quelles régions et pourquoi ? Chaque département doit identifier sa première question exécutive.
+Quelles catégories de produits déclinent dans quelles régions, par trimestre? Chaque département doit identifier sa première question exécutive.
 
 ## Executive Answer
 <!-- Répondez brièvement et directement. Le CEO lira cette section en premier. -->
@@ -29,6 +29,14 @@ Quelles catégories déclinent dans quelles régions et pourquoi ? Chaque dépar
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
 
+## Obstacles identifiés
+<!-- Pourquoi les systèmes opérationnels ne peuvent-ils pas répondre à cette question ? -->
+
+
+## Mesures et dimensions nécessaires
+<!-- Quels chiffres (mesures) et quels axes d'analyse (dimensions) faut-il ? -->
+
+
 ## Validation
 - **Metric reconciliation:** 
 - **Duplicate risk:** 
@@ -40,4 +48,5 @@ Quelles catégories déclinent dans quelles régions et pourquoi ? Chaque dépar
 - 
 
 ## Next Recommendation to the Board
+<!-- Qu'allez-vous construire en S02 pour débloquer la réponse ? -->
 - 

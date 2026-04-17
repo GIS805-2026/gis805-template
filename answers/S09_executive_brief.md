@@ -29,6 +29,27 @@ Quels processus NexaMart sont transactionnels, quels sont des snapshots, et quel
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
 
+## Arbre de décision
+
+| Processus | Type de fait | Justification |
+|-----------|-------------|---------------|
+| Ventes | Transaction | |
+| Inventaire quotidien | Snapshot périodique | |
+| Pipeline commandes | Snapshot accumulant | |
+| Exposition promo | Factless fact | |
+
+## Snapshot périodique vs transaction
+<!-- SQL comparant fact_sales (transaction) et fact_daily_inventory (snapshot) -->
+
+
+## Snapshot accumulant
+<!-- fact_order_pipeline : colonnes de date par étape, UPDATE à chaque avancement -->
+
+
+## Fait sans mesure
+<!-- fact_promo_exposure : l'existence = le fait. COUNT(*) = mesure implicite -->
+
+
 ## Validation
 - **Metric reconciliation:** 
 - **Duplicate risk:** 

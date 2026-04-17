@@ -1,48 +1,33 @@
+# Data
+data/synthetic/
+data/staged/*
+!data/staged/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+
+# DuckDB
+db/*.duckdb
+db/*.wal
+
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
 .venv/
 venv/
-env/
-.env
 
-# DuckDB - database files are deliverables, track them
-# Students: 'make clean' removes db + csvs; 'make load' rebuilds
-# *.duckdb  # NOT ignored - required artifact for grading
+# Validation results (regenerated)
+validation/results/*
+!validation/results/.gitkeep
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Instructor-only (never commit to student repos)
+tools/instructor/roster.csv
+tools/instructor/roster.json
+student-repos/
 
 # OS
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# Temporary files
-*.tmp
-*.temp
-*.log
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
-
-# Test outputs (keep validation results though)
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Secrets - NEVER commit these
-secrets/
-*.secret
-.env.local
+# IDE
+.vscode/
+.idea/

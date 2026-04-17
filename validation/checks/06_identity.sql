@@ -6,7 +6,7 @@
 SELECT '=== DATASET IDENTITY CHECKS ===' as check_category;
 
 -- Check order ID range (fingerprinted per student)
-SELECT 
+SELECT
     'order_id_range' as check_name,
     MIN(CAST(REPLACE(order_id, 'ORD', '') AS INTEGER)) as min_order_num,
     MAX(CAST(REPLACE(order_id, 'ORD', '') AS INTEGER)) as max_order_num,
@@ -14,7 +14,7 @@ SELECT
 FROM raw_orders;
 
 -- Regional distribution (varies by student)
-SELECT 
+SELECT
     'regional_distribution' as check_name,
     province,
     COUNT(*) as store_count,
@@ -24,7 +24,7 @@ GROUP BY province
 ORDER BY store_count DESC;
 
 -- Category distribution in orders
-SELECT 
+SELECT
     'category_distribution' as check_name,
     p.category,
     COUNT(*) as line_count,
@@ -36,7 +36,7 @@ GROUP BY p.category
 ORDER BY line_count DESC;
 
 -- Customer segment distribution
-SELECT 
+SELECT
     'segment_distribution' as check_name,
     segment,
     COUNT(*) as customer_count,

@@ -20,7 +20,7 @@ except ImportError:
     sys.exit(0)
 
 DB_PATH = Path("db/nexamart.duckdb")
-RAW_DIR = Path("data/raw")
+RAW_DIR = Path("data/synthetic")
 CHECKS_SQL = Path("validation/checks.sql")
 
 results = {"pass": 0, "fail": 0, "info": 0, "skip": 0}

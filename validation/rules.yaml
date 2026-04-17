@@ -1,59 +1,33 @@
-# Validation Rules Configuration
-# Customize these rules based on assignment requirements
+# Règles de validation — NexaMart
+# Utilisé par le pipeline de vérification
 
-version: "1.0"
+rules:
+  - name: fact_sales_not_empty
+    table: fact_sales
+    check: row_count > 0
+    session: S02
 
-# Existence requirements by assignment
-existence:
-  # Always required
-  raw_tables:
-    - raw_customers
-    - raw_products
-    - raw_stores
-    - raw_orders
-    - raw_order_lines
-  
-  # Required from S02 onwards
-  # dim_tables:
-  #   - dim_customer
-  #   - dim_product
-  #   - dim_store
-  #   - dim_date
-  
-  # Required from S02 onwards
-  # fact_tables:
-  #   - fact_sales
+  - name: dim_keys_unique
+    tables: [dim_date, dim_product, dim_store, dim_customer, dim_channel]
+    check: primary_key_unique
+    session: S02
 
-# Row count thresholds
-row_counts:
-  raw_customers:
-    min: 100
-    max: 10000
-  raw_products:
-    min: 50
-    max: 1000
-  raw_orders:
-    min: 1000
-    max: 100000
+  - name: fact_sales_no_null_fk
+    table: fact_sales
+    check: no_null_foreign_keys
+    columns: [date_key, product_key, store_key, customer_key, channel_key]
+    session: S02
 
-# Null policy
-null_allowed:
-  raw_customers:
-    - middle_name  # optional field
-  raw_orders:
-    - notes  # optional field
+  - name: bridge_weights_sum_to_one
+    table: bridge_customer_segment
+    check: sum_by_group_equals
+    group_by: customer_key
+    column: weight
+    expected: 1.0
+    tolerance: 0.001
+    session: S08
 
-null_forbidden:
-  all_tables:
-    - "*_id"  # no null IDs
-  raw_order_lines:
-    - line_total
-    - quantity
-    - unit_price
-
-# Referential integrity
-references:
-  raw_orders.customer_id: raw_customers.customer_id
-  raw_orders.store_id: raw_stores.store_id
-  raw_order_lines.order_id: raw_orders.order_id
-  raw_order_lines.product_id: raw_products.product_id
+  - name: dataset_identity
+    file: data/metadata/dataset_identity.json
+    check: signature_matches_seed
+    session: S01

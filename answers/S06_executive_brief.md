@@ -29,6 +29,22 @@ Le board peut-il voir ventes, retours, inventaire et budget dans une seule vue s
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
 
+## Bus matrix
+<!-- Matrice : lignes = processus métier, colonnes = dimensions, cellules = conformité -->
+
+
+## Drill-across : ventes vs retours
+<!-- SQL : deux agrégations jointes par dimensions conformes (PAS de jointure directe fait-à-fait) -->
+
+
+## Réel vs cible (actual vs budget)
+<!-- SQL : agréger fact_sales au grain du budget, joindre, calculer la variance -->
+
+
+## Erreur évitée
+<!-- Pourquoi joindre fact_sales directement à fact_returns produit un produit cartésien -->
+
+
 ## Validation
 - **Metric reconciliation:** 
 - **Duplicate risk:** 

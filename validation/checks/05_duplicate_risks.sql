@@ -6,10 +6,10 @@
 SELECT '=== DUPLICATE RISK CHECKS ===' as check_category;
 
 -- Look for potential duplicate customers (same name + email)
-SELECT 
+SELECT
     'duplicate_customer_risk' as check_name,
     COUNT(*) as potential_duplicates,
-    CASE 
+    CASE
         WHEN COUNT(*) = 0 THEN 'PASS'
         ELSE 'INFO - Check for potential duplicate customers'
     END as result
@@ -21,10 +21,10 @@ FROM (
 );
 
 -- Look for potential duplicate products (same name + category)
-SELECT 
+SELECT
     'duplicate_product_risk' as check_name,
     COUNT(*) as potential_duplicates,
-    CASE 
+    CASE
         WHEN COUNT(*) = 0 THEN 'PASS'
         ELSE 'INFO - Check for potential duplicate products'
     END as result
@@ -37,14 +37,14 @@ FROM (
 
 -- Check for same customer ordering same product multiple times same day
 -- (not necessarily wrong, but worth noting)
-SELECT 
+SELECT
     'same_day_repeat_orders' as check_name,
     COUNT(*) as repeat_count,
     'INFO - May be legitimate repeat purchases' as result
 FROM (
-    SELECT 
-        o.customer_id, 
-        ol.product_id, 
+    SELECT
+        o.customer_id,
+        ol.product_id,
         o.order_date,
         COUNT(*) as order_count
     FROM raw_orders o

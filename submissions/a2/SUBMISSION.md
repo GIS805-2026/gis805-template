@@ -8,9 +8,9 @@
 
 ---
 
-## Résumé du modèle
+## Resume du modele
 
-[Décrivez brièvement votre schéma en étoile]
+[Decrivez brievement votre schema en etoile]
 
 ---
 
@@ -25,7 +25,7 @@
 |--------|---------|-------------|
 | | | |
 
-**Clés** :
+**Cles** :
 | FK | Dimension |
 |----|-----------|
 | | |
@@ -35,56 +35,56 @@
 ## Tables de dimensions
 
 ### dim_customer
-[Décrivez brièvement]
+[Decrivez brievement]
 
 ### dim_product
-[Décrivez brièvement]
+[Decrivez brievement]
 
 ### dim_store
-[Décrivez brièvement]
+[Decrivez brievement]
 
 ### dim_date
-[Décrivez brièvement]
+[Decrivez brievement]
 
 ---
 
-## Décisions de modélisation
+## Decisions de modelisation
 
-### Décision 1 : [Titre]
-**Choix** : 
-**Justification** : 
+### Decision 1 : [Titre]
+**Choix** :
+**Justification** :
 
-### Décision 2 : [Titre]
-**Choix** : 
-**Justification** : 
+### Decision 2 : [Titre]
+**Choix** :
+**Justification** :
 
 ---
 
 ## Validation
 
-### Tests exécutés
+### Tests executes
 - [ ] 00_existence.sql
 - [ ] 01_row_counts.sql
 - [ ] 02_key_integrity.sql
 - [ ] 03_null_policy.sql
 - [ ] 04_reconciliation.sql
 
-### Résultats
-[Résumez les résultats]
+### Resultats
+[Resumez les resultats]
 
 ---
 
-## Artefacts livrés
+## Artefacts livres
 
 | Fichier | Description |
 |---------|-------------|
 | `db/nexamart.duckdb` | Base avec dims et fact |
-| `sql/dims/*.sql` | Scripts de création dims |
-| `sql/facts/*.sql` | Scripts de création facts |
-| `docs/schema-notes.md` | Documentation du schéma |
+| `sql/dims/*.sql` | Scripts de creation dims |
+| `sql/facts/*.sql` | Scripts de creation facts |
+| `docs/schema-notes.md` | Documentation du schema |
 
 ---
 
-## Réflexion
+## Reflexion
 
 [Qu'avez-vous appris? Quels trade-offs avez-vous faits?]

@@ -29,6 +29,22 @@ NexaMart devrait-il rester local-first, migrer certains workloads au cloud, ou p
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
 
+## État actuel
+<!-- Résumé de votre entrepôt DuckDB : tables, grains, patterns utilisés -->
+
+
+## Charges de travail candidates
+<!-- Quels workloads bénéficieraient du cloud ? Lesquels restent locaux ? -->
+
+
+## Recommandation
+<!-- Build vs buy vs hybrid -- justification -->
+
+
+## Coût estimé
+<!-- Ordre de grandeur, pas un devis précis -->
+
+
 ## Validation
 - **Metric reconciliation:** 
 - **Duplicate risk:** 
@@ -40,4 +56,5 @@ NexaMart devrait-il rester local-first, migrer certains workloads au cloud, ou p
 - 
 
 ## Next Recommendation to the Board
+<!-- Une action concrète pour le premier mois après GIS805 -->
 - 

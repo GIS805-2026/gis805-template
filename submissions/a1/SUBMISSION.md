@@ -10,58 +10,50 @@
 
 ## Question d'affaires
 
-[Décrivez la question exécutive que votre département doit résoudre]
+[Decrivez la question executive que votre departement doit resoudre]
 
 ---
 
-## Cadrage du problème
+## Cadrage du probleme
 
 ### Contexte
 [Pourquoi cette question est-elle importante pour NexaMart?]
 
 ### Mesures requises
-- 
-- 
+-
+-
 
 ### Dimensions d'analyse
-- 
-- 
+-
+-
 
-### Granularité cible
-[À quel niveau de détail devez-vous répondre?]
-
----
-
-## Approche proposée
-
-[Comment comptez-vous construire le modèle pour répondre à cette question?]
+### Granularite cible
+[A quel niveau de detail devez-vous repondre?]
 
 ---
 
-## Hypothèses
+## Approche proposee
 
-1. 
-2. 
-3. 
+[Comment comptez-vous construire le modele pour repondre a cette question?]
 
 ---
 
-## Artefacts livrés
+## Hypotheses
+
+1.
+2.
+3.
+
+---
+
+## Artefacts livres
 
 | Fichier | Description |
 |---------|-------------|
-| `db/nexamart.duckdb` | Base de données avec données brutes |
-| `docs/problem-framing.md` | Cadrage détaillé |
-| `ai-usage.md` | Trace d'utilisation IA |
+| | |
 
 ---
 
-## Validation
+## Reflexion
 
-[Résumez les résultats des checks de validation exécutés]
-
----
-
-## Réflexion
-
-[Qu'avez-vous appris? Quelles difficultés avez-vous rencontrées?]
+[Qu'avez-vous appris? Quels trade-offs avez-vous faits?]

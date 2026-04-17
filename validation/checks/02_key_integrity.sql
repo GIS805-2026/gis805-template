@@ -6,65 +6,65 @@
 SELECT '=== KEY INTEGRITY CHECKS ===' as check_category;
 
 -- Customer key uniqueness
-SELECT 
+SELECT
     'customer_key_unique' as check_name,
     COUNT(*) as total_rows,
     COUNT(DISTINCT customer_id) as unique_keys,
-    CASE 
+    CASE
         WHEN COUNT(*) = COUNT(DISTINCT customer_id) THEN 'PASS'
         ELSE 'FAIL - Duplicate customer_ids'
     END as result
 FROM raw_customers;
 
 -- Product key uniqueness
-SELECT 
+SELECT
     'product_key_unique' as check_name,
     COUNT(*) as total_rows,
     COUNT(DISTINCT product_id) as unique_keys,
-    CASE 
+    CASE
         WHEN COUNT(*) = COUNT(DISTINCT product_id) THEN 'PASS'
         ELSE 'FAIL - Duplicate product_ids'
     END as result
 FROM raw_products;
 
 -- Store key uniqueness
-SELECT 
+SELECT
     'store_key_unique' as check_name,
     COUNT(*) as total_rows,
     COUNT(DISTINCT store_id) as unique_keys,
-    CASE 
+    CASE
         WHEN COUNT(*) = COUNT(DISTINCT store_id) THEN 'PASS'
         ELSE 'FAIL - Duplicate store_ids'
     END as result
 FROM raw_stores;
 
 -- Order key uniqueness
-SELECT 
+SELECT
     'order_key_unique' as check_name,
     COUNT(*) as total_rows,
     COUNT(DISTINCT order_id) as unique_keys,
-    CASE 
+    CASE
         WHEN COUNT(*) = COUNT(DISTINCT order_id) THEN 'PASS'
         ELSE 'FAIL - Duplicate order_ids'
     END as result
 FROM raw_orders;
 
 -- Order line composite key uniqueness
-SELECT 
+SELECT
     'order_line_key_unique' as check_name,
     COUNT(*) as total_rows,
     COUNT(DISTINCT order_id || '-' || line_number) as unique_keys,
-    CASE 
+    CASE
         WHEN COUNT(*) = COUNT(DISTINCT order_id || '-' || line_number) THEN 'PASS'
         ELSE 'FAIL - Duplicate order_id + line_number combinations'
     END as result
 FROM raw_order_lines;
 
 -- Referential integrity: orders -> customers
-SELECT 
+SELECT
     'orders_customer_fk' as check_name,
     COUNT(*) as orphan_count,
-    CASE 
+    CASE
         WHEN COUNT(*) = 0 THEN 'PASS'
         ELSE 'FAIL - Orders reference non-existent customers'
     END as result
@@ -73,10 +73,10 @@ LEFT JOIN raw_customers c ON o.customer_id = c.customer_id
 WHERE c.customer_id IS NULL;
 
 -- Referential integrity: orders -> stores
-SELECT 
+SELECT
     'orders_store_fk' as check_name,
     COUNT(*) as orphan_count,
-    CASE 
+    CASE
         WHEN COUNT(*) = 0 THEN 'PASS'
         ELSE 'FAIL - Orders reference non-existent stores'
     END as result
@@ -85,10 +85,10 @@ LEFT JOIN raw_stores s ON o.store_id = s.store_id
 WHERE s.store_id IS NULL;
 
 -- Referential integrity: order_lines -> products
-SELECT 
+SELECT
     'order_lines_product_fk' as check_name,
     COUNT(*) as orphan_count,
-    CASE 
+    CASE
         WHEN COUNT(*) = 0 THEN 'PASS'
         ELSE 'FAIL - Order lines reference non-existent products'
     END as result

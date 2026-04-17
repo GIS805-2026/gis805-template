@@ -1,7 +1,7 @@
 # Executive Brief S05
 
 ## CEO Question
-**Examen intra 1** — Boardroom challenge intégré au format d'évaluation.
+**Examen intra 1** -- Boardroom challenge intégré au format d'évaluation.
 
 ## Executive Answer
 <!-- Répondez brièvement et directement. Le CEO lira cette section en premier. -->

@@ -1,53 +1,18 @@
-# Cadrage du Problème NexaMart
+# Cadrage du problème — NexaMart
 
-## Contexte d'affaires
+> Initialisé en S01. Décrit pourquoi les systèmes opérationnels ne suffisent pas.
 
-NexaMart est une chaîne de commerce de détail avec plusieurs magasins, catégories de produits et segments de clientèle. L'entreprise fait face à un défi commun : **elle ne peut pas répondre à ses propres questions stratégiques**.
+## Systèmes opérationnels existants
 
-## Pourquoi les systèmes opérationnels ne suffisent pas
+- **ERP :** Transactions, inventaire
+- **CRM :** Clients, fidélité
+- **POS :** Point de vente
+- **Marketing :** Campagnes
 
-Les systèmes OLTP (Online Transaction Processing) sont conçus pour :
-- Enregistrer des transactions rapidement
-- Maintenir l'intégrité des données opérationnelles
-- Supporter les opérations quotidiennes
+## Pourquoi ils ne répondent pas aux questions stratégiques
 
-Ils ne sont **pas** conçus pour :
-- Analyser des tendances sur plusieurs années
-- Comparer des performances entre régions/catégories
-- Répondre à des questions "pourquoi" ou "et si"
+<!-- À compléter en S01 -->
 
-## Question exécutive de votre département
+## Questions stratégiques prioritaires
 
-[À compléter selon votre assignation]
-
-**Question principale** :
-
-
-**Mesures impliquées** :
-
-
-**Dimensions d'analyse** :
-
-
-**Granularité requise** :
-
-
-## Hypothèses de travail
-
-1. 
-2. 
-3. 
-
-## Contraintes connues
-
-1. 
-2. 
-3. 
-
-## Critères de succès
-
-Comment saurez-vous que votre modèle répond à la question?
-
-1. 
-2. 
-3. 
+<!-- Liste des questions que le CEO a posées -->

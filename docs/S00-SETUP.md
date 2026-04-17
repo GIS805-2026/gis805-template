@@ -62,7 +62,11 @@ Le chemin long-terme le plus confortable. Recommande apres les premieres semaine
 4. Ouvrez un terminal dans VS Code et lancez :
 
 ```bash
-make setup
+# Mac / Linux
+make generate
+
+# Windows PowerShell
+.\run.ps1 generate
 ```
 
 5. Passez a l'**Etape 4**
@@ -103,7 +107,7 @@ Vous venez de faire votre premiere interaction de travail assistee par IA. C'est
 
 ## Etape 5 : generer vos donnees uniques
 
-Chaque etudiant obtient un jeu de donnees unique, derive automatiquement de votre nom d'utilisateur GitHub. Aucun token a copier-coller.
+Chaque etudiant obtient un jeu de donnees unique, derive automatiquement de votre nom d'utilisateur GitHub. Aucun token a copier-coller -- votre seed est calcule a partir de votre username git.
 
 Demandez a votre assistant :
 
@@ -112,10 +116,14 @@ Demandez a votre assistant :
 Il vous guidera vers la commande. Vous pouvez aussi la taper directement dans le terminal :
 
 ```bash
+# Mac / Linux
 make generate
+
+# Windows PowerShell
+.\run.ps1 generate
 ```
 
-Vous devriez voir apparaitre des fichiers CSV dans `data/raw/` avec vos donnees uniques.
+Vous devriez voir apparaitre des fichiers CSV dans `data/synthetic/` avec vos donnees uniques.
 
 ---
 
@@ -128,8 +136,13 @@ Demandez a votre assistant :
 Ou directement dans le terminal :
 
 ```bash
+# Mac / Linux
 make load
 make check
+
+# Windows PowerShell
+.\run.ps1 load
+.\run.ps1 check
 ```
 
 Vous devriez voir `PASS` pour toutes les verifications. Si quelque chose affiche `FAIL`, demandez a votre assistant :
@@ -144,13 +157,7 @@ Demandez a votre assistant :
 
 > **Montre-moi une requete SQL pour voir combien j'ai de clients et de commandes.**
 
-Ou dans le terminal :
-
-```bash
-make explore
-```
-
-Puis tapez :
+Puis dans le terminal DuckDB :
 
 ```sql
 SELECT COUNT(*) FROM raw_customers;
@@ -166,9 +173,9 @@ Si les deux requetes retournent des nombres > 0, vous etes pret pour la seance 1
 - [ ] J'ai un environnement fonctionnel (Codespace ou VS Code local)
 - [ ] J'ai un assistant IA fonctionnel (Copilot, ChatGPT, Claude, ou autre)
 - [ ] J'ai parle avec mon assistant et il m'a explique mon depot
-- [ ] `make check` affiche `PASS` pour les verifications de base
+- [ ] `make check` (ou `.\run.ps1 check`) affiche `PASS` pour les verifications de base
 - [ ] Je vois des donnees dans `raw_customers` et `raw_orders`
-- [ ] J'ai commite mon premier board brief
+- [ ] J'ai commite mon premier executive brief
 
 ---
 

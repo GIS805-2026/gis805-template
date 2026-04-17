@@ -22,12 +22,18 @@ Comment allouer les coûts et comprendre les segments clients qui se chevauchent
 
 ### Dimensions
 <!-- Ponts pondérés ? Relations many-to-many ? -->
+<!-- Structure : customer_key, segment_key, weight. SUM(weight) = 1.0 par client -->
 
 ### Temporal / Historical Choices
 <!-- SCD3/hybride ? Comment gérez-vous les changements de segment ? -->
+<!-- dim_customer : current_segment + previous_segment dans la même ligne -->
 
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
+
+## Preuve de réconciliation
+<!-- SQL : SUM(revenue * weight) = SUM(revenue) total -- pas de double-comptage -->
+
 
 ## Validation
 - **Metric reconciliation:** 

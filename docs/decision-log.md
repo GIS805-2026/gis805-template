@@ -1,45 +1,19 @@
-# Journal des Décisions de Modélisation
+# Journal de décisions — NexaMart
 
-Ce document trace les décisions importantes prises pendant la construction du modèle dimensionnel.
+> Chaque décision de design avec sa justification **d'affaires** (pas technique).
+> Le CFO devrait pouvoir lire ce document.
 
-## Format d'entrée
+## Format
 
-Pour chaque décision significative :
-- **Date**
-- **Contexte** : Quel problème ou choix?
-- **Options considérées** : Quelles alternatives?
-- **Décision** : Qu'avez-vous choisi?
-- **Justification** : Pourquoi ce choix?
-- **Conséquences** : Qu'est-ce que ça implique?
-
----
-
-## Décisions
-
-### DEC-001 : [Titre court]
-
-**Date** : YYYY-MM-DD
-
-**Contexte** : 
-[Description du problème ou du choix à faire]
-
-**Options considérées** :
-1. Option A : [Description]
-2. Option B : [Description]
-3. Option C : [Description]
-
-**Décision** : Option [X]
-
-**Justification** :
-[Pourquoi cette option est la meilleure pour votre contexte]
-
-**Conséquences** :
-- [Impact 1]
-- [Impact 2]
-
-**Trade-offs acceptés** :
-- [Ce que vous sacrifiez avec ce choix]
+```
+### DEC-XXX — Titre court
+- **Séance :** SXX
+- **Décision :** Ce qu'on a choisi
+- **Justification :** Pourquoi (raison d'affaires)
+- **Alternative rejetée :** Ce qu'on aurait pu faire
+- **Conséquence :** Impact sur le modèle
+```
 
 ---
 
-<!-- Copiez le template ci-dessus pour chaque nouvelle décision -->
+<!-- Ajoutez vos décisions ci-dessous -->

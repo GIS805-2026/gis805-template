@@ -1,0 +1,22 @@
+-- ============================================================
+-- dim_store.sql — Dimension magasin (Shared Seeds)
+-- ============================================================
+-- Grain : 1 ligne = 1 magasin NexaMart
+-- Source : data/synthetic/team_*/shared/dim_store.csv
+-- Colonnes :
+--   store_id    VARCHAR (PK, format STR-NNN)
+--   store_name  VARCHAR
+--   city        VARCHAR
+--   region      VARCHAR (Québec, Ontario, Outaouais, Estrie, Alberta, BC)
+--   province    VARCHAR (QC, ON, AB, BC)
+--   store_type  VARCHAR (flagship, standard, compact)
+-- SCD : Type 1 pour store_type / region (S03)
+--        → Justifiez : pourquoi pas Type 2 pour un magasin ?
+-- Hiérarchie : store → city → region → province (S07)
+-- ============================================================
+
+-- TODO (S02) : Écrire le CREATE TABLE
+--   - PK sur store_id
+--   - Hiérarchie intégrée (snowflake optionnel en S07)
+
+-- TODO (S02) : Écrire INSERT/SELECT depuis raw_dim_store

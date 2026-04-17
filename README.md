@@ -1,134 +1,204 @@
-# GIS805 -- Modelisation dimensionnelle chez NexaMart
+# GIS805 — NexaMart Dimensional Warehouse
 
-## Bienvenue
+> **Vous êtes le Head of Data de NexaMart Group.**
+> Vous construisez l'entrepôt analytique dimensionnel complet de l'entreprise,
+> une table de faits à la fois, sur 14 séances.
 
-Ce depot est votre espace de travail pour GIS805. Vous y construirez un modele dimensionnel complet pour NexaMart, une chaine de commerce de detail fictive.
+## Votre mission
 
-**Premiere visite?** Commencez par [docs/S00-SETUP.md](docs/S00-SETUP.md) -- il vous guide etape par etape, de la creation de compte GitHub jusqu'a votre premiere requete SQL.
+Le CEO de NexaMart pose une question stratégique chaque semaine.
+Les systèmes opérationnels (ERP, CRM, POS) ne peuvent pas y répondre.
+Vous concevez, construisez et défendez le modèle dimensionnel qui rend
+ces réponses **répétables, vérifiables et défendables** devant le board.
 
-## Le boardroom model
+## Ce que vous construisez
 
-Dans ce cours, vous n'etes pas un etudiant qui fait des exercices -- vous etes le **Head of Data** d'un departement NexaMart.
+### 5 tables de faits principales
 
-| Role | Responsabilite |
-|------|----------------|
-| **Instructeur** | CEO de NexaMart -- pose les questions strategiques |
-| **Vous** | Head of Data -- construisez les reponses analytiques |
-| **Votre repo** | Votre departement -- contient vos modeles et decisions |
-| **Votre assistant IA** | Votre co-equipier -- posez-lui des questions en francais |
+| # | Table | Séance | Grain | Pattern |
+|---|-------|--------|-------|---------|
+| 1 | `fact_sales` | S02 | 1 ligne = 1 ligne de commande | Étoile, grain, additivité |
+| 2 | `fact_returns` | S06 | 1 ligne = 1 retour | Drill-across, conformité |
+| 3 | `fact_budget` | S06 | 1 ligne = catégorie × magasin × mois | Réel vs cible, résolution de grain |
+| 4 | `fact_daily_inventory` | S09 | 1 ligne = produit × magasin × date | Snapshot périodique, semi-additivité |
+| 5 | `fact_order_pipeline` | S09 | 1 ligne = cycle de vie d'une commande | Snapshot accumulant, dates role-playing |
 
-Chaque semaine, le CEO pose une question au board. Votre livrable : un **executive brief** qui repond a cette question avec des donnees.
+### Structures complémentaires
 
-### Workflow hebdomadaire
+| Structure | Séance | Pattern |
+|-----------|--------|---------|
+| `junk_order_profile` | S04 | Dimension poubelle (drapeaux consolidés) |
+| `bridge_customer_segment` | S08 | Pont pondéré M:N, réconciliation |
+| `fact_promo_exposure` | S09 | Fait sans mesure (factless fact) |
 
-1. **Lire** la question du CEO dans `answers/SXX_executive_brief.md`
-2. **Discuter** avec votre assistant IA pour comprendre le probleme
-3. **Construire** le modele qui permet de repondre
-4. **Valider** vos donnees avec `make check`
-5. **Rediger** votre executive brief
-6. **Commiter** avant la session suivante
+## Prérequis & installation
 
-## Regle fondamentale
+### 1. Python 3.10+
 
-Vous pouvez utiliser tous les outils que vous voulez pour resoudre les problemes (IA inclus).
-
-Cependant, votre travail final doit etre :
-
-- **Reproductible** -- je peux reconstruire vos resultats
-- **Explicable** -- vous pouvez justifier vos choix
-- **Inspectable** -- je peux lire votre code et vos donnees
-- **Defendable** -- vous savez pourquoi vous avez fait ce que vous avez fait
-- **Livrable dans DuckDB** -- c'est notre moteur analytique standard
-
-## Demarrage rapide
-
-Tout est detaille dans [docs/S00-SETUP.md](docs/S00-SETUP.md). En resume :
+Vérifiez que Python est installé :
 
 ```bash
-# 1. Ouvrir un Codespace (ou cloner localement)
-# 2. Generer vos donnees uniques (auto depuis votre username GitHub)
-make generate
-
-# 3. Charger dans DuckDB
-make load
-
-# 4. Verifier
-make check
+python --version   # doit afficher 3.10 ou plus
 ```
 
-Tapez `make help` pour voir tous les raccourcis disponibles.
+> **Windows :** Si Python n'est pas reconnu, installez-le depuis
+> [python.org](https://www.python.org/downloads/) en cochant
+> **« Add Python to PATH »** lors de l'installation.
+>
+> **Mac :** `brew install python` ou téléchargez depuis python.org.
 
-## Structure du depot
+### 2. Installer les dépendances
 
-```
-.devcontainer/      # Config Codespace (Python, DuckDB, extensions)
-answers/            # Executive briefs hebdomadaires (S01-S14)
-data/               # Donnees brutes et transformees
-  raw/              # Fichiers CSV generes par votre token
-  staged/           # Donnees nettoyees
-  exports/          # Exports pour analyse
-  metadata/         # Identite du jeu de donnees
-db/                 # Base DuckDB
-docs/               # Documentation de design
-  S00-SETUP.md      # Guide de demarrage (commencez ici)
-meta/               # Identite et manifest de soumission
-src/                # Scripts Python (generateur, pipeline)
-sql/                # Scripts SQL organises
-  templates/        # Patterns de reference (dim, fait, SCD, bridge)
-  staging/          # Chargement et nettoyage
-  dims/             # Creation des dimensions
-  sandbox/          # Exploration libre
-validation/         # Controles et resultats
-  checks.sql        # Verifications consolidees
-  checks/           # Verifications individuelles
-Makefile            # Raccourcis : make setup/generate/load/check/explore
-ai-usage.md         # Trace d'usage IA (obligatoire)
+```bash
+pip install -r requirements.txt
 ```
 
-## Livrables requis (chaque semaine)
+Cela installe `duckdb`, le moteur analytique utilisé pour l’entrepôt.
 
-| Element | Emplacement |
-|---------|-------------|
-| Executive brief | `answers/SXX_executive_brief.md` |
-| Base DuckDB | `db/nexamart.duckdb` |
-| Resultats de validation | `validation/results/` |
-| Trace d'usage IA | `ai-usage.md` |
+### 3. Vérifier git
 
-## Evaluation (5 couches)
+```bash
+git config user.name
+```
 
-| Couche | Ce qui est evalue |
-|--------|-------------------|
-| **A. Qualite du modele** | Le warehouse repond-il a la question du CEO? Grain explicite? |
-| **B. Qualite de validation** | Les nombres sont-ils fiables? Totaux reconcilies? |
-| **C. Justification executive** | Pouvez-vous expliquer au CEO? Trade-offs explicites? |
-| **D. Trace de processus** | Preuve d'iteration? Problem-solving visible? |
-| **E. Reproductibilite** | Le repo fonctionne? Une autre equipe peut continuer? |
+Doit afficher votre nom. Si vide :
 
-## Sessions et milestones
+```bash
+git config --global user.name "Prénom Nom"
+```
 
-| Session | Theme | Livrable |
-|---------|-------|----------|
-| S01 | Kickoff NexaMart | Board brief initial |
-| S02 | Schema en etoile | Premier modele dim/fait |
-| S03 | SCD | Dimensions historisees |
-| S04 | Patterns avances | Bridges et flags |
-| S05 | **Intra 1** | Examen |
-| S06 | Multi-star | Drill-across |
-| S07 | Dimensions speciales | Hierarchies, role-playing |
-| S08 | M:M | Ponts ponderes |
-| S09 | Types de faits | Transaction/snapshot |
-| S10 | **Intra 2** | Examen |
-| S11 | Documentation | Revue de design |
-| S12 | Board committee | Presentation finale |
-| S13 | Au-dela | Survol GIS806 |
-| S14 | **Final** | Examen |
+> Votre `user.name` sert de graine déterministe — chaque étudiant
+> génère des données **uniques** mais **reproductibles**.
 
-## Ressources
+### 4. C'est tout — vous êtes prêt !
 
-- [DuckDB Documentation](https://duckdb.org/docs/)
-- [Kimball Dimensional Modeling](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/)
-- [dbt Analytics Engineering Guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview)
+> **GitHub Codespaces :** Si disponible, cliquez simplement **« Open in Codespace »**
+> depuis votre repo GitHub — Python et les dépendances sont pré-installés,
+> aucune configuration locale nécessaire.
 
-## Questions?
+## Démarrage rapide
 
-Demandez d'abord a votre assistant IA. Sinon, contactez votre instructeur ou utilisez le forum du cours.
+```bash
+# === Mac / Linux / WSL ===
+make generate        # Générer vos données uniques
+make load            # Charger dans DuckDB
+make check           # Valider l'intégrité
+
+# === Windows (PowerShell) ===
+.\run.ps1 generate
+.\run.ps1 load
+.\run.ps1 check
+```
+
+> **Setup** : Consultez [`docs/S00-SETUP.md`](docs/S00-SETUP.md) pour le guide complet
+> de configuration (Codespace, VS Code local, assistant IA).
+>
+> **FAQ** : Consultez [`docs/faq.md`](docs/faq.md) pour les questions fréquentes
+> (vues vs DW, travail individuel, choix de DuckDB, etc.)
+>
+> **Exemple** : Voir [`docs/s02-sample-brief.md`](docs/s02-sample-brief.md)
+> pour un executive brief annoté montrant le standard attendu.
+
+## Structure du repo
+
+```
+├── README.md              <- Ce fichier
+├── ai-usage.md            <- Trace obligatoire de vos interactions IA
+├── Makefile               <- Orchestration Mac/Linux (generate, load, check)
+├── run.ps1                <- Orchestration Windows (generate, load, check)
+├── requirements.txt
+├── .gitignore
+├── .devcontainer/         <- Config Codespace (Python 3.12, DuckDB, extensions)
+├── .github/
+│   ├── workflows/         <- CI GitHub Classroom (autograding)
+│   └── grading/           <- Script de validation automatique
+├── meta/
+│   ├── dataset_identity.json  <- Empreinte anti-copie
+│   └── submission_manifest.yaml <- Suivi des sessions
+├── answers/               <- Un executive brief par seance (S01-S14)
+├── submissions/           <- Templates d'assignments (a1, a2, final)
+├── data/
+│   ├── synthetic/         <- CSVs generes par make generate (git-ignore)
+│   ├── staged/
+│   └── exports/
+├── scripts/
+│   └── datagen/           <- Generateurs de donnees (ne pas modifier)
+│       ├── gen_all.py       <- Point d'entree (appele par make generate)
+│       ├── _helpers.py      <- Catalogue NexaMart + utilitaires
+│       └── gen_s*.py        <- Un generateur par seance (S02-S09)
+├── db/
+│   └── nexamart.duckdb    <- Genere par make load (git-ignore)
+├── src/
+│   ├── run_pipeline.py    <- Chargement CSVs -> DuckDB + SQL pipeline
+│   ├── run_checks.py      <- Validation (appele par make check)
+│   └── helpers/
+├── sql/
+│   ├── staging/           <- Vues de nettoyage (stg_*)
+│   ├── dims/              <- DDL des dimensions (stubs pre-crees)
+│   ├── facts/             <- DDL des tables de faits (stubs pre-crees)
+│   ├── views/             <- Vues drill-across, reel vs cible
+│   ├── templates/         <- 5 patterns SQL annotes (dim, fact, SCD2, bridge, check)
+│   ├── checks/            <- SQL de validation
+│   └── sandbox/           <- Vos explorations libres
+├── docs/
+│   ├── S00-SETUP.md       <- Guide de configuration (3 chemins)
+│   ├── s02-sample-brief.md <- Exemple annote de brief
+│   ├── faq.md             <- Questions frequentes
+│   ├── peer-reviews/      <- 3 revues de pairs (jalons)
+│   ├── model-card.md      <- Carte du modele (S11)
+│   ├── bus-matrix.md      <- Matrice bus (S06+)
+│   ├── data-dictionary.md <- Dictionnaire de donnees (S11)
+│   ├── decision-log.md    <- Journal des decisions (S11)
+│   ├── metric-definitions.md <- Definitions KPI (S12)
+│   ├── problem-framing.md
+│   └── schema-notes.md
+├── validation/
+│   ├── checks.sql         <- Monolithique (legacy)
+│   ├── checks/            <- 7 checks modulaires (00-06)
+│   ├── rules.yaml
+│   └── results/
+└── tools/
+    └── instructor/        <- Outils instructeur (roster, batch pull/validate)
+```
+
+## Politique IA
+
+Tout usage d'IA (ChatGPT, Copilot, Claude, etc.) **doit** être tracé dans `ai-usage.md`.
+
+✅ **Permis :** expliquer des concepts, générer du DDL, rédiger des ébauches de SQL ou de documentation
+❌ **Interdit :** soumettre du contenu IA sans validation humaine, masquer une incompréhension, copier le SQL d'un autre étudiant
+
+Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé, comment vous avez validé/modifié le résultat.
+
+## Livrables par séance
+
+| Seance | Livrable principal | Fichier |
+|--------|--------------------|---------|
+| S01 | Brief executif -- question + obstacles | `answers/S01_executive_brief.md` |
+| S02 | Grain statement + etoile + SQL preuve | `answers/S02_executive_brief.md` + `sql/facts/fact_sales.sql` |
+| S03 | Politique SCD + comparaison avant/apres | `answers/S03_executive_brief.md` |
+| S04 | Dimension poubelle + analyse panier | `answers/S04_executive_brief.md` + `sql/facts/junk_order_profile.sql` |
+| S06 | Bus matrix + drill-across + reel vs cible | `answers/S06_executive_brief.md` + `sql/views/` |
+| S07 | Hierarchies + politique NULLs + delais | `answers/S07_executive_brief.md` |
+| S08 | Pont pondere + reconciliation | `answers/S08_executive_brief.md` + `sql/facts/bridge_customer_segment.sql` |
+| S09 | Arbre de decision types de faits + process map | `answers/S09_executive_brief.md` + `sql/facts/` |
+| S11 | Model card + bus matrix + dictionnaire + journal | `docs/` |
+| S12 | Pack defense ecrit (+ presentation si selectionne) | `docs/metric-definitions.md` |
+| S13 | Memo build-vs-buy | `answers/S13_executive_brief.md` |
+
+## Revues de pairs
+
+Trois revues structurées aux jalons clés :
+
+1. **Revue 1** (après S04) — Grain, SCD, dimensions poubelle
+2. **Revue 2** (après S09) — Drill-across, ponts, 4 types de faits
+3. **Revue 3** (S11) — Pack documentation complet
+
+Appariement aléatoire à chaque jalon. Vos commentaires de revue sont notés.
+
+## Références
+
+- Kimball Group — Dimensional Modeling Techniques
+- dbt Labs — Analytics Engineering Guide
+- DuckDB Documentation
+- Kimball & Ross — *The Data Warehouse Toolkit* (3rd ed.)

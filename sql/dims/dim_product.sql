@@ -1,0 +1,23 @@
+-- ============================================================
+-- dim_product.sql — Dimension produit (Shared Seeds)
+-- ============================================================
+-- Grain : 1 ligne = 1 produit (SKU)
+-- Source : data/synthetic/team_*/shared/dim_product.csv
+-- Colonnes :
+--   product_id    VARCHAR (PK, format PRD-NNNN)
+--   product_name  VARCHAR
+--   category      VARCHAR (10 catégories : Electronics, Clothing, …)
+--   subcategory   VARCHAR
+--   brand         VARCHAR
+--   unit_cost     DECIMAL (coût unitaire)
+--   unit_price    DECIMAL (prix de vente)
+-- SCD : Type 1 pour prix (écraser) ou Type 2 si historisation
+--        nécessaire — justifiez votre choix dans decision-log.md
+-- ============================================================
+
+-- TODO (S02) : Écrire le CREATE TABLE
+--   - PK sur product_id (surrogate ou natural key ?)
+--   - Hiérarchie : category → subcategory (S07)
+--   - Marge calculée : unit_price - unit_cost
+
+-- TODO (S02) : Écrire INSERT/SELECT depuis raw_dim_product

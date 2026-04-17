@@ -2,20 +2,21 @@
 """
 Instructor Roster Manager for GIS805
 
-Manages the mapping between students, tokens, and expected dataset fingerprints.
+Manages the mapping between students and their expected dataset fingerprints.
+Seeds are derived from git usernames via MD5 -- no salt or token distribution needed.
 The roster file is PRIVATE and should never be committed to student repos.
 
 Usage:
-    python roster.py init                          # Create empty roster
-    python roster.py add "Jean Tremblay" jtre1234  # Add student
-    python roster.py list                          # Show all students
-    python roster.py verify jtre1234               # Verify a token's expected hash
+    python roster.py init                                    # Create empty roster
+    python roster.py add "Jean Tremblay" jtre1234 12345678   # Add student
+    python roster.py list                                    # Show all students
+    python roster.py verify jtre1234                         # Verify expected seed
+    python roster.py export                                  # Export to JSON
 """
 
 import csv
 import hashlib
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -24,23 +25,14 @@ ROSTER_FIELDS = [
     "student_name",
     "student_id",
     "github_username",
-    "token",
+    "seed",
     "scenario_family",
-    "expected_seed_hash",
 ]
 
 
-def get_salt() -> str:
-    salt = os.environ.get("GIS805_SALT", "")
-    if not salt:
-        print("WARNING: GIS805_SALT not set. Hashes will use empty salt.")
-    return salt
-
-
-def compute_seed_hash(token: str, scenario_family: str = "baseline") -> str:
-    salt = get_salt()
-    combined = f"{salt}:{token}:{scenario_family}"
-    return hashlib.sha256(combined.encode()).hexdigest()[:16]
+def compute_seed(github_username: str) -> str:
+    """Derive deterministic seed from git username (matches datagen logic)."""
+    return hashlib.md5(github_username.encode()).hexdigest()[:8]
 
 
 def cmd_init():
@@ -53,20 +45,15 @@ def cmd_init():
     print(f"Created empty roster: {ROSTER_FILE}")
 
 
-def cmd_add(name: str, github_username: str, student_id: str = "", token: str = "", scenario: str = "baseline"):
-    if not token:
-        token = hashlib.sha256(f"{name}:{github_username}".encode()).hexdigest()[:8]
-        print(f"Generated token: {token}")
-
-    seed_hash = compute_seed_hash(token, scenario)
+def cmd_add(name: str, github_username: str, student_id: str = ""):
+    seed = compute_seed(github_username)
 
     row = {
         "student_name": name,
         "student_id": student_id,
         "github_username": github_username,
-        "token": token,
-        "scenario_family": scenario,
-        "expected_seed_hash": seed_hash,
+        "seed": seed,
+        "scenario_family": "NEXAMART_RETAIL_2026",
     }
 
     if not ROSTER_FILE.exists():
@@ -76,7 +63,7 @@ def cmd_add(name: str, github_username: str, student_id: str = "", token: str = 
         writer = csv.DictWriter(f, fieldnames=ROSTER_FIELDS)
         writer.writerow(row)
 
-    print(f"Added: {name} ({github_username}) -> token={token}, hash={seed_hash}")
+    print(f"Added: {name} ({github_username}) -> seed={seed}")
 
 
 def cmd_list():
@@ -92,32 +79,31 @@ def cmd_list():
         print("Roster is empty.")
         return
 
-    print(f"{'Name':<25} {'GitHub':<20} {'Token':<12} {'Hash':<18} {'Scenario'}")
-    print("-" * 90)
+    print(f"{'Name':<25} {'GitHub':<20} {'Seed':<12} {'Student ID'}")
+    print("-" * 70)
     for r in rows:
         print(
             f"{r['student_name']:<25} {r['github_username']:<20} "
-            f"{r['token']:<12} {r['expected_seed_hash']:<18} {r['scenario_family']}"
+            f"{r['seed']:<12} {r.get('student_id', '')}"
         )
     print(f"\nTotal: {len(rows)} students")
 
 
-def cmd_verify(token: str, scenario: str = "baseline"):
-    seed_hash = compute_seed_hash(token, scenario)
-    print(f"Token:    {token}")
-    print(f"Scenario: {scenario}")
-    print(f"Hash:     {seed_hash}")
+def cmd_verify(github_username: str):
+    seed = compute_seed(github_username)
+    print(f"Username: {github_username}")
+    print(f"Seed:     {seed}")
 
     if ROSTER_FILE.exists():
         with open(ROSTER_FILE, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for r in reader:
-                if r["token"] == token:
-                    match = r["expected_seed_hash"] == seed_hash
-                    print(f"Student:  {r['student_name']} ({r['github_username']})")
-                    print(f"Match:    {'YES' if match else 'NO -- expected ' + r['expected_seed_hash']}")
+                if r["github_username"] == github_username:
+                    match = r["seed"] == seed
+                    print(f"Student:  {r['student_name']}")
+                    print(f"Match:    {'YES' if match else 'NO -- expected ' + r['seed']}")
                     return
-        print("Token not found in roster.")
+        print("Username not found in roster.")
 
 
 def cmd_export_json():
@@ -146,23 +132,19 @@ if __name__ == "__main__":
         cmd_init()
     elif cmd == "add":
         if len(sys.argv) < 4:
-            print("Usage: roster.py add <name> <github_username> [student_id] [token] [scenario]")
+            print("Usage: roster.py add <name> <github_username> [student_id]")
             sys.exit(1)
         name = sys.argv[2]
         github = sys.argv[3]
         sid = sys.argv[4] if len(sys.argv) > 4 else ""
-        tok = sys.argv[5] if len(sys.argv) > 5 else ""
-        scn = sys.argv[6] if len(sys.argv) > 6 else "baseline"
-        cmd_add(name, github, sid, tok, scn)
+        cmd_add(name, github, sid)
     elif cmd == "list":
         cmd_list()
     elif cmd == "verify":
         if len(sys.argv) < 3:
-            print("Usage: roster.py verify <token> [scenario]")
+            print("Usage: roster.py verify <github_username>")
             sys.exit(1)
-        tok = sys.argv[2]
-        scn = sys.argv[3] if len(sys.argv) > 3 else "baseline"
-        cmd_verify(tok, scn)
+        cmd_verify(sys.argv[2])
     elif cmd == "export":
         cmd_export_json()
     else:

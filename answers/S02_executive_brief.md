@@ -15,19 +15,27 @@ Quel schéma en étoile rend la question du département répétable et fiable c
 ## Modeling Decisions
 
 ### Grain
-<!-- Quel est le grain de votre table de faits ? -->
+<!-- 1 phrase : "Une ligne de fact_sales = exactement une ___" -->
 
 ### Facts
-<!-- Quelles mesures stockez-vous ? -->
+<!-- Quelles mesures stockez-vous ? Additives vs non-additives ? -->
 
 ### Dimensions
-<!-- Quels axes d'analyse (qui, quoi, quand, où) ? -->
+<!-- Quels axes d'analyse (qui, quoi, quand, où) ? Combien de dimensions conformes ? -->
 
 ### Temporal / Historical Choices
 <!-- Comment gérez-vous le temps et l'historique ? -->
 
 ### Assumptions
 <!-- Quelles hypothèses avez-vous faites ? -->
+
+## Schéma en étoile
+<!-- Diagramme Mermaid ou description : fait + dimensions -->
+
+
+## SQL preuve
+<!-- Requête qui joint fait + dimensions et répond à la question du CEO -->
+
 
 ## Validation
 - **Metric reconciliation:** 
@@ -40,4 +48,5 @@ Quel schéma en étoile rend la question du département répétable et fiable c
 - 
 
 ## Next Recommendation to the Board
+<!-- Quelle décision d'affaires ce modèle permet-il ? -->
 - 

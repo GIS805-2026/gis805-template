@@ -10,23 +10,23 @@
 
 ## Executive Summary
 
-[Résumé exécutif de votre modèle dimensionnel complet pour NexaMart]
+[Resume executif de votre modele dimensionnel complet pour NexaMart]
 
 ---
 
-## Questions d'affaires résolues
+## Questions d'affaires resolues
 
-1. [Question 1 et comment votre modèle y répond]
-2. [Question 2 et comment votre modèle y répond]
-3. [Question 3 et comment votre modèle y répond]
+1. [Question 1 et comment votre modele y repond]
+2. [Question 2 et comment votre modele y repond]
+3. [Question 3 et comment votre modele y repond]
 
 ---
 
 ## Architecture finale
 
-### Schéma visuel
+### Schema visuel
 ```
-[Votre schéma en étoile/constellation]
+[Votre schema en etoile/constellation]
 ```
 
 ### Tables de faits
@@ -35,29 +35,29 @@
 | | | |
 
 ### Tables de dimensions
-| Table | Type SCD | Attributs clés |
+| Table | Type SCD | Attributs cles |
 |-------|----------|----------------|
 | | | |
 
 ---
 
-## Décisions de modélisation majeures
+## Decisions de modelisation majeures
 
-### [Décision 1]
-- **Contexte** : 
-- **Choix** : 
-- **Impact** : 
+### [Decision 1]
+- **Contexte** :
+- **Choix** :
+- **Impact** :
 
-### [Décision 2]
-- **Contexte** : 
-- **Choix** : 
-- **Impact** : 
+### [Decision 2]
+- **Contexte** :
+- **Choix** :
+- **Impact** :
 
 ---
 
-## Métriques clés
+## Metriques cles
 
-| Métrique | Définition | Calcul |
+| Metrique | Definition | Calcul |
 |----------|------------|--------|
 | | | |
 
@@ -67,49 +67,49 @@
 
 ### Suite de tests
 - [ ] Tous les checks d'existence passent
-- [ ] Intégrité référentielle validée
-- [ ] Réconciliation des totaux
-- [ ] Identité du dataset confirmée
+- [ ] Integrite referentielle validee
+- [ ] Reconciliation des totaux
+- [ ] Identite du dataset confirmee
 
-### Résultats de validation
-[Joignez ou résumez les résultats complets]
-
----
-
-## Évolution du travail
-
-[Décrivez comment votre modèle a évolué au fil du trimestre]
+### Resultats de validation
+[Joignez ou resumez les resultats complets]
 
 ---
 
-## Leçons apprises
+## Evolution du travail
 
-1. 
-2. 
-3. 
+[Decrivez comment votre modele a evolue au fil du trimestre]
 
 ---
 
-## Limites et améliorations futures
+## Lecons apprises
 
-[Qu'est-ce qui manque? Que feriez-vous différemment?]
+1.
+2.
+3.
 
 ---
 
-## Artefacts livrés
+## Limites et ameliorations futures
+
+[Qu'est-ce qui manque? Que feriez-vous differemment?]
+
+---
+
+## Artefacts livres
 
 | Fichier | Description |
 |---------|-------------|
-| `db/nexamart.duckdb` | Base complète |
+| `db/nexamart.duckdb` | Base complete |
 | `sql/` | Tous les scripts |
-| `docs/` | Documentation complète |
-| `validation/results/` | Résultats de validation |
+| `docs/` | Documentation complete |
+| `validation/results/` | Resultats de validation |
 
 ---
 
-## Déclaration
+## Declaration
 
-Je confirme que ce travail est le mien et que j'ai documenté toute assistance IA dans `ai-usage.md`.
+Je confirme que ce travail est le mien et que j'ai documente toute assistance IA dans `ai-usage.md`.
 
 **Signature** : [Votre nom]
 **Date** : YYYY-MM-DD

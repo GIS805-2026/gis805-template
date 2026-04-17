@@ -15,7 +15,7 @@
 -- ORDER BY cnt DESC;
 
 -- Example: Monthly order trends
--- SELECT 
+-- SELECT
 --     DATE_TRUNC('month', CAST(order_date AS DATE)) as month,
 --     COUNT(*) as order_count
 -- FROM raw_orders
@@ -23,4 +23,3 @@
 -- ORDER BY 1;
 
 -- Your exploration queries below:
-

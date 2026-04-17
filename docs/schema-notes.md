@@ -1,74 +1,16 @@
-# Notes sur le Schéma Dimensionnel
+# Notes de schéma — NexaMart
 
-## Vue d'ensemble du modèle
+> Diagrammes Mermaid, notes de design, évolution du schéma au fil des séances.
 
-[Décrivez ici la structure générale de votre data warehouse]
+## S02 — Première étoile (fact_sales)
 
-## Tables de faits
-
-### fact_[nom]
-
-**Grain** : [Une ligne représente quoi exactement?]
-
-**Mesures** :
-| Colonne | Type | Description | Agrégation |
-|---------|------|-------------|------------|
-| | | | SUM/AVG/COUNT/etc. |
-
-**Clés étrangères** :
-| Colonne | Dimension | Description |
-|---------|-----------|-------------|
-| | | |
-
-**Notes de design** :
-- 
-
----
-
-## Tables de dimensions
-
-### dim_[nom]
-
-**Type** : [SCD Type 1 / Type 2 / Type 3 / autre]
-
-**Attributs** :
-| Colonne | Type | Description | Hiérarchie |
-|---------|------|-------------|------------|
-| | | | |
-
-**Clé naturelle** : 
-
-**Clé de substitution** : 
-
-**Notes de design** :
-- 
-
----
-
-## Vues analytiques
-
-### v_[nom]
-
-**But** : [Quelle question cette vue répond-elle?]
-
-**Tables jointes** :
-- 
-
-**Logique métier** :
-```sql
--- Résumé de la logique
+```mermaid
+erDiagram
+    fact_sales }|--|| dim_date : date_key
+    fact_sales }|--|| dim_product : product_key
+    fact_sales }|--|| dim_store : store_key
+    fact_sales }|--|| dim_customer : customer_key
+    fact_sales }|--|| dim_channel : channel_key
 ```
 
----
-
-## Schéma visuel
-
-```
-[Dessinez ici votre schéma en étoile avec ASCII art ou décrivez-le]
-
-        dim_date
-            |
-dim_store --+-- fact_sales --+-- dim_product
-            |                |
-        dim_customer    dim_promotion
-```
+<!-- Mettez à jour ce diagramme au fil des séances -->
