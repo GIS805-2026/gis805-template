@@ -55,21 +55,24 @@ C'est exactement comme ca qu'on travaille dans ce cours.
 
 ## Vos premieres commandes
 
-Dans le terminal, lancez ces trois commandes dans l'ordre :
+Dans le terminal, lancez ces trois commandes dans l'ordre.
+**Choisissez le bloc correspondant a votre plateforme -- les deux sont strictement equivalents** :
 
 ```bash
-# Mac / Linux / Codespace
+# --- Mac / Linux / Codespace ---
 make generate        # Genere vos donnees uniques (liees a votre username)
 make load            # Charge les donnees dans la base DuckDB
 make check           # Verifie que tout est correct
 ```
 
 ```powershell
-# Windows PowerShell
-.\run.ps1 generate
-.\run.ps1 load
-.\run.ps1 check
+# --- Windows PowerShell ---
+.\run.ps1 generate   # Genere vos donnees uniques (liees a votre username)
+.\run.ps1 load       # Charge les donnees dans la base DuckDB
+.\run.ps1 check      # Verifie que tout est correct
 ```
+
+> **Windows + `make` ?** Git Bash / WSL comprennent `make`, mais sous PowerShell natif utilisez `.\run.ps1`. Les deux appellent exactement les memes scripts Python.
 
 Si `check` affiche tout en vert, vous etes pret pour la seance 1.
 

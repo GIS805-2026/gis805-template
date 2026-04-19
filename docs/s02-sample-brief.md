@@ -3,6 +3,11 @@
 > **Ce fichier est un exemple.** Votre vrai brief est dans `answers/S02_executive_brief.md`.
 > Les annotations entre `[-> ... ]` expliquent pourquoi chaque section fonctionne.
 
+> **Temps estimé :** ~90 minutes total
+> — 30 min de discussion en classe (grain + étoile) + 40 min de SQL + 20 min de rédaction du brief.
+> Si vous dépassez 2 h sur un brief, c'est un signal : demandez à votre assistant IA ou à un pair
+> plutôt que de pousser seul.
+
 > **Question du CEO :** Quelles catégories de produits déclinent dans quelles régions, par trimestre ?
 
 ## Grain statement
