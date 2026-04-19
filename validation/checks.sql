@@ -152,21 +152,27 @@ FROM fact_sales;
 -- 6. Drill-across réconciliation (S06)
 --    Revenue in fact_sales vs budget target — sanity only
 -- ─────────────────────────────────────────────
--- TODO (S06) : Uncomment when fact_returns and fact_budget exist
--- SELECT 'RECONCILE' AS check_type,
---        'sales_total vs budget_total' AS detail,
---        CASE WHEN ABS(s.total - b.total) / NULLIF(b.total, 0) < 2.0
---             THEN 'PASS' ELSE 'WARN — large variance' END AS result
--- FROM (SELECT SUM(line_total) AS total FROM fact_sales) s,
---      (SELECT SUM(target_revenue) AS total FROM fact_budget) b;
+-- Tolérant au pré-S06 : run_checks.py attrape CatalogException et
+-- marque le check SKIP tant que fact_budget n'est pas construite.
+SELECT 'RECONCILE' AS check_type,
+       'sales_total vs budget_total' AS detail,
+       CASE WHEN ABS(s.total - b.total) / NULLIF(b.total, 0) < 2.0
+            THEN 'PASS' ELSE 'FAIL -- large variance vs budget' END AS result
+FROM (SELECT SUM(line_total) AS total FROM fact_sales) s,
+     (SELECT SUM(target_revenue) AS total FROM fact_budget) b;
 
 -- ─────────────────────────────────────────────
 -- 7. Bridge weights sum to 1.0 per customer (S08)
 -- ─────────────────────────────────────────────
--- TODO (S08) : Uncomment when bridge_customer_segment exists
--- SELECT 'BRIDGE_WEIGHT' AS check_type,
---        'bridge_customer_segment SUM(weight)=1.0' AS detail,
---        CASE WHEN COUNT(*) FILTER (WHERE ABS(w - 1.0) > 0.01) = 0
---             THEN 'PASS' ELSE 'FAIL — weights don''t sum to 1.0' END AS result
--- FROM (SELECT customer_id, SUM(weight) AS w
---       FROM bridge_customer_segment GROUP BY customer_id) t;
+-- Tolérant au pré-S08 : run_checks.py attrape CatalogException et
+-- marque le check SKIP tant que bridge_customer_segment n'est pas
+-- construite. Active automatiquement à S08.
+-- Convention Kimball : on groupe par la surrogate key (customer_key)
+-- et non la clé naturelle. La bridge_customer_segment du
+-- reference-solution utilise customer_key -- la convention enforce-ée.
+SELECT 'BRIDGE_WEIGHT' AS check_type,
+       'bridge_customer_segment SUM(weight)=1.0' AS detail,
+       CASE WHEN COUNT(*) FILTER (WHERE ABS(w - 1.0) > 0.01) = 0
+            THEN 'PASS' ELSE 'FAIL -- weights do not sum to 1.0' END AS result
+FROM (SELECT customer_key, SUM(weight) AS w
+      FROM bridge_customer_segment GROUP BY customer_key) t;

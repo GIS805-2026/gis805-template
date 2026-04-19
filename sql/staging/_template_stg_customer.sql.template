@@ -1,0 +1,65 @@
+-- ============================================================
+-- TEMPLATE — sql/staging/_template_stg_customer.sql.template
+-- ============================================================
+-- L'extension .sql.template est délibérée : run_pipeline.py ne glob
+-- que *.sql, donc ce fichier n'est JAMAIS exécuté. Copiez-le sous un
+-- vrai nom (par exemple sql/staging/stg_customer_conformed.sql) et
+-- supprimez le bloc /* */ pour activer la logique.
+--
+-- Quand l'utiliser ?
+--   À partir de S06, quand vous intégrez plusieurs systèmes sources
+--   (ex. ventes boutique + ventes e-commerce) et devez conformer les
+--   IDs clients avant la dimension. Voir `sql/staging/README.md`.
+--
+-- Convention de nommage :
+--   stg_<entité>_<action>.sql  ->  stg_customer_conformed.sql
+--                                 stg_sales_deduplicated.sql
+--
+-- Un fichier = une vue. Préfixe stg_ obligatoire.
+-- ============================================================
+
+/*
+
+CREATE OR REPLACE VIEW stg_customer_conformed AS
+-- Conforme les IDs clients entre les deux systèmes sources :
+--   - raw_dim_customer           (ERP boutique, customer_id = 'CUS-000XX')
+--   - raw_dim_customer_ecom      (plateforme web, web_user_id = 'WEB-XXXX')
+-- Règle de conformation : si l'e-mail existe en ERP, on garde l'ID ERP ;
+-- sinon on assigne un ID synthétique 'WEB-' à partir de web_user_id.
+WITH erp AS (
+    SELECT customer_id,
+           LOWER(TRIM(email))            AS email_key,
+           full_name,
+           city,
+           province,
+           loyalty_segment,
+           'ERP'                          AS source_system
+    FROM raw_dim_customer
+),
+ecom AS (
+    SELECT 'WEB-' || web_user_id          AS customer_id,
+           LOWER(TRIM(email))             AS email_key,
+           full_name,
+           city,
+           province,
+           NULL                           AS loyalty_segment,
+           'ECOM'                         AS source_system
+    FROM raw_dim_customer_ecom
+    WHERE email NOT IN (SELECT LOWER(TRIM(email)) FROM raw_dim_customer)
+)
+SELECT * FROM erp
+UNION ALL
+SELECT * FROM ecom;
+
+-- Vérification rapide : aucun doublon sur email_key.
+-- (Décommentez et lancez ponctuellement ; ne committez pas le SELECT.)
+-- SELECT email_key, COUNT(*)
+-- FROM stg_customer_conformed
+-- GROUP BY email_key
+-- HAVING COUNT(*) > 1;
+
+*/
+
+-- Fichier délibérément sans instruction exécutable. Ne supprimez pas
+-- ce commentaire final : il indique à un relecteur que le no-op est
+-- intentionnel, pas un oubli.

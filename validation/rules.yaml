@@ -1,6 +1,23 @@
-# Règles de validation — NexaMart
-# Descripteurs lus par la documentation et par les outils instructeurs.
-# Le validateur exécuté en CI et en local est validation/checks.sql (voir src/run_checks.py).
+# ============================================================
+# rules.yaml — NexaMart validation rule descriptors (documentation only)
+# ============================================================
+# CE FICHIER N'EST PAS UN VALIDATEUR. Le runtime lancé par
+# `make check` / `.\run.ps1 check` est exclusivement
+# `validation/checks.sql` (orchestré par `src/run_checks.py`).
+#
+# Rôle de rules.yaml :
+#   - Documenter, en YAML lisible, quelles règles sont attendues à
+#     quelle séance (colonne `session`). Utile pour les outils
+#     instructeurs (génération de rapport, audit) et pour la rédaction
+#     de la rubric.
+#   - Servir de référence croisée : toute règle listée ici DOIT avoir
+#     une contrepartie dans checks.sql, et vice-versa.
+#
+# Si vous ajoutez une règle ici, ajoutez la requête correspondante dans
+# `validation/checks.sql` (sinon elle n'est pas vérifiée).
+# Si vous ajoutez un check dans checks.sql, ajoutez son descripteur ici
+# (sinon il disparaît de la documentation / audit).
+# ============================================================
 
 rules:
   - name: fact_sales_not_empty

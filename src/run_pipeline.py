@@ -16,6 +16,19 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+# Python version guard -- the list[tuple[...]] and PEP 604 unions used below
+# (and in src/run_checks.py) require 3.10+. The studio target is 3.12. We
+# refuse to run on older interpreters rather than produce a cryptic
+# "unsupported operand" TypeError halfway through the pipeline.
+MIN_PY = (3, 10)
+if sys.version_info < MIN_PY:
+    print(
+        f"ERROR: Python {'.'.join(map(str, MIN_PY))}+ is required, "
+        f"you are on {sys.version.split()[0]}.\n"
+        "       Install Python 3.12 (see docs/S00-SETUP.md) or open a Codespace."
+    )
+    sys.exit(1)
+
 try:
     import duckdb
 except ImportError:
@@ -29,6 +42,7 @@ SQL_DIRS = [
     ROOT / "sql" / "staging",
     ROOT / "sql" / "dims",
     ROOT / "sql" / "facts",
+    ROOT / "sql" / "bridges",
 ]
 
 

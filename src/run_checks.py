@@ -5,6 +5,16 @@ import re
 import sys
 from pathlib import Path
 
+# Python version guard -- matches src/run_pipeline.py. Keep in sync.
+MIN_PY = (3, 10)
+if sys.version_info < MIN_PY:
+    print(
+        f"ERROR: Python {'.'.join(map(str, MIN_PY))}+ is required, "
+        f"you are on {sys.version.split()[0]}.\n"
+        "       Install Python 3.12 (see docs/S00-SETUP.md) or open a Codespace."
+    )
+    sys.exit(1)
+
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent

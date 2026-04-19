@@ -13,9 +13,9 @@
     .\run.ps1 clean
 #>
 param(
-    [Parameter(Position = 0, Mandatory = $true)]
-    [ValidateSet("generate", "load", "check", "clean")]
-    [string]$Target
+    [Parameter(Position = 0, Mandatory = $false)]
+    [ValidateSet("help", "generate", "load", "check", "clean", "reset")]
+    [string]$Target = "help"
 )
 
 $ErrorActionPreference = "Stop"
@@ -38,6 +38,18 @@ function Get-TeamSeed {
 
 switch ($Target) {
 
+    "help" {
+        Write-Host "NexaMart -- cibles disponibles :`n"
+        Write-Host "  .\run.ps1 generate  Generer vos CSVs (deterministe via team seed)"
+        Write-Host "  .\run.ps1 load      Charger CSVs + executer sql/staging,dims,facts,bridges/"
+        Write-Host "  .\run.ps1 check     Lancer validation/checks.sql -> PASS / FAIL / SKIP"
+        Write-Host "  .\run.ps1 reset     Supprimer uniquement le .duckdb (garde les CSVs)"
+        Write-Host "  .\run.ps1 clean     Tout supprimer (DB + CSVs + resultats)"
+        Write-Host "  .\run.ps1 help      Afficher cette aide (par defaut)`n"
+        Write-Host "Cycle hebdomadaire : generate -> (ecrire SQL) -> load -> check -> git push"
+        Write-Host "Unix / Codespace : utiliser 'make <cible>' au lieu de run.ps1."
+    }
+
     "generate" {
         $seed = Get-TeamSeed
         Write-Host "`n-- Generating NexaMart data --`n"
@@ -55,6 +67,14 @@ switch ($Target) {
         Write-Host "`n-- Validating warehouse integrity --`n"
         & python src/run_checks.py
         if ($LASTEXITCODE -ne 0) { throw "Some checks failed. See validation\results\check_results.txt" }
+    }
+
+    "reset" {
+        # Drop le .duckdb uniquement -- les CSVs restent, gain de ~30s au prochain load.
+        Write-Host "`n-- Resetting DuckDB only --`n"
+        Remove-Item -Path "db\nexamart.duckdb", "db\nexamart.duckdb.wal" -ErrorAction SilentlyContinue
+        if (Test-Path "validation\results") { Remove-Item -Path "validation\results\*" -Force -ErrorAction SilentlyContinue }
+        Write-Host "  OK - DB reset; CSVs preserves. Relancez 'load' puis 'check'."
     }
 
     "clean" {
