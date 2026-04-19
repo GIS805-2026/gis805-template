@@ -22,6 +22,35 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
+
+def _hint_for(error_line: str, script_name: str, session_num: int) -> str:
+    """Return a plain-French next-step suggestion for a failing generator.
+
+    Business students don't read raw Python tracebacks. This maps the most
+    common failure signatures to a one-line remediation. Returns an empty
+    string when no pattern matches.
+    """
+    el = error_line.lower()
+    if "shared identity not found" in el:
+        return ("Lancez d'abord les semences partagées : "
+                "`python scripts/datagen/gen_shared_seeds.py --team-seed N`. "
+                "Plus simple : utilisez `make generate` qui enchaîne tout.")
+    if "permission denied" in el or "readonly" in el:
+        return ("Un fichier CSV de `data/synthetic/` est ouvert dans Excel ou "
+                "un autre programme. Fermez-le et relancez.")
+    if "no module named" in el:
+        missing = el.split("no module named")[-1].strip().strip("'\"")
+        return (f"Dépendance manquante : `pip install {missing}` "
+                "(ou relancez `pip install -r requirements.txt`).")
+    if "permission" in el and ".duckdb" in el:
+        return ("La base `db/nexamart.duckdb` est verrouillée par une autre "
+                "session DuckDB. Fermez vos onglets SQLTools et relancez.")
+    if session_num != 0 and "team_seed" in el and "nonetype" in el:
+        return ("Le fichier `meta/dataset_identity.json` est corrompu. "
+                "Supprimez-le et relancez `make generate`.")
+    return ""
+
+
 GENERATORS = {
     0: ("Shared Seeds",            "gen_shared_seeds.py"),
     2: ("S02 -- Star Schema",      "gen_s02_star_schema.py"),
@@ -54,13 +83,32 @@ def main():
             continue
         label, script = GENERATORS[s]
         print(f"\n  > {label} ...")
+        # Capture stderr so we can print a friendly hint when a generator
+        # crashes -- business students don't read raw Python tracebacks.
         result = subprocess.run(
             [sys.executable, str(SCRIPT_DIR / script), "--team-seed", str(args.team_seed)],
             cwd=str(SCRIPT_DIR.parent.parent),
+            capture_output=True,
+            text=True,
         )
+        if result.stdout:
+            print(result.stdout, end="")
         if result.returncode != 0:
             failed.append(label)
             print(f"  X {label} failed (exit {result.returncode})")
+            if result.stderr:
+                err_text = result.stderr.strip()
+                last_line = err_text.splitlines()[-1] if err_text else ""
+                print(f"    Message : {last_line}")
+                # Best-effort hint mapping: map common error signatures to
+                # a next-step suggestion in plain French.
+                hint = _hint_for(last_line, script, s)
+                if hint:
+                    print(f"    Piste   : {hint}")
+                # Full traceback for debugging
+                print("    --- Trace complete ---")
+                print("    " + err_text.replace("\n", "\n    "))
+                print("    ----------------------")
 
     elapsed = time.perf_counter() - t0
     print(f"\n{'='*60}")

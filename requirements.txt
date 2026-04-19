@@ -1,1 +1,3 @@
-duckdb
+# Version minimale testée : 0.10.0 (fenêtres de fonctions utilisées en S02+).
+# Borne supérieure pour éviter une breaking change avant fin de trimestre.
+duckdb>=0.10.0,<1.2
