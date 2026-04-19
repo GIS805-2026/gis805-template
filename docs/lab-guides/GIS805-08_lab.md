@@ -70,16 +70,17 @@ Requête de réconciliation, allocation campagne, board brief
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S08_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S08_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — bridge_customer_segment avec colonne weight. SCD Type 3 implémenté ou documenté comme décision explicite.
+  - **validation_quality** (25 %) — SELECT SUM(weight) GROUP BY customer_key retourne 1.00 pour tous les clients. Revenu sans double-comptage.
+  - **executive_justification** (20 %) — Brief distingue le revenu par segment loyauté sans double-comptage. Décision SCD3 justifiée business.
+  - **process_trace** (10 %) — docs/bridge-policy.md documente le choix pondération et la règle de réconciliation SCD3.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

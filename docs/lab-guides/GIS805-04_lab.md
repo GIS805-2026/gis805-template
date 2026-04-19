@@ -71,16 +71,17 @@ Analyse de panier par paires, board brief avec recommandations VP
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S04_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S04_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — order_number dans fact_sales comme dim dégénérée. Junk dim regroupe ≥ 2 flags avec profils nommés.
+  - **validation_quality** (25 %) — Requête retourne les profils nommés agrégés correctement. Aucun fait dans la junk dim.
+  - **executive_justification** (20 %) — Recommandation VP justifie le choix junk vs flags séparés avec nombre de combinaisons réelles.
+  - **process_trace** (10 %) — Docs/profiles.md liste les profils nommés avec leur fréquence observée dans le seed.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

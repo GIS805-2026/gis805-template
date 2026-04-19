@@ -72,16 +72,17 @@ Vue réel-vs-cible, rapport consolidé pour le board
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S06_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S06_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — Bus matrix complète. Drill-across entre deux fact tables via une dimension conforme.
+  - **validation_quality** (25 %) — Requête drill-across retourne un résultat cohérent entre les deux tables (même dimension de jointure).
+  - **executive_justification** (20 %) — Brief répond à une question qui nécessite les deux tables. Énonce explicitement la dimension conforme utilisée.
+  - **process_trace** (10 %) — Bus matrix commitée dans docs/bus-matrix.md. Décision de grain partagé documentée.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

@@ -71,16 +71,17 @@ Charger fact_sales dans DuckDB, écrire la requête répondant au CEO
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S02_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S02_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — Grain de fact_sales déclaré ('une ligne = une ligne de commande'). Schéma Mermaid cohérent avec ≥ 3 dimensions.
+  - **validation_quality** (25 %) — Requête retourne les ventes par catégorie, région et trimestre sans erreur.
+  - **executive_justification** (20 %) — Brief situe le résultat dans le contexte des ventes NexaMart en déclin.
+  - **process_trace** (10 %) — Decision log documente le choix de grain avec justification business.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

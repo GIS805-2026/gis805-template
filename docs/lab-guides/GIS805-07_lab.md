@@ -70,16 +70,17 @@ Créer membres inconnus, dim_geography hierarchy, mini-dim bands
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S07_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S07_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — fact_shipment avec 3 FK distincts vers dim_date (order/ship/delivery). Politique NULLs explicite pour ≥ 1 dimension.
+  - **validation_quality** (25 %) — Requête de délai moyen par transporteur isole les inconnus dans une ligne '-1 / Inconnu' distincte.
+  - **executive_justification** (20 %) — Brief quantifie les délais par axe temporel requis par le CEO. Transporteurs inconnus nommés explicitement.
+  - **process_trace** (10 %) — docs/null-policy.md commité avec enregistrement inconnu par dimension concernée.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

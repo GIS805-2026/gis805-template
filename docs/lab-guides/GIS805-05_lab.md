@@ -29,16 +29,17 @@ Chaque étudiant écrit : une chose à corriger dans son modèle, une chose mieu
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S05_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S05_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (50 %) — Réponses correctes sur grain, SCD et dimensions dégénérées/junk pour le cas intra.
+  - **validation_quality** (30 %) — Les requêtes soumises s'exécutent sans erreur. Les résultats sont cohérents avec le schéma.
+  - **executive_justification** (15 %) — Les réponses de synthèse répondent à la question business, pas seulement à la question technique.
+  - **process_trace** (5 %) — N/A pour examen. Non évalué.
+  - **reproducibility** (0 %)
 
 ---
 

@@ -70,16 +70,17 @@ Le CEO demande un avis : maintenant que le modèle est solide, quelle est la pro
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S13_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S13_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — Roadmap build-vs-buy ancre ETL/ELT comme extension du modèle NexaMart, pas comme son remplacement.
+  - **validation_quality** (25 %) — Au moins un pattern dbt ou OLAP est applicable directement au modèle de l'étudiant.
+  - **executive_justification** (20 %) — Mémo recommande une option avec coût estimé, critères de décision et prochaine action pour le VP.
+  - **process_trace** (10 %) — Handoff doc confirme que modèle final est GIS806-ready : grain documenté, checks passent, README à jour.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

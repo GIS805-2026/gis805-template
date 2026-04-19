@@ -71,16 +71,17 @@ Pipeline accumulant, exposition promotionnelle, decision tree
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S09_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S09_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — 4 types de tables de faits présents ou documentés. fact_inventory_snapshot utilise snapshot, pas calcul.
+  - **validation_quality** (25 %) — Requête stock périodique retourne un résultat par période sans cumul des transactions.
+  - **executive_justification** (20 %) — L'arbre de décision des types de faits est commité et applicable à de nouveaux processus NexaMart.
+  - **process_trace** (10 %) — docs/fact-types-map.md documente quel type répond à quel type de question business.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

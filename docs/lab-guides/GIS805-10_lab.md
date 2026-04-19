@@ -29,16 +29,17 @@ Chaque étudiant identifie un point à améliorer dans son modèle.
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S10_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S10_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (50 %) — Réponses correctes sur multi-star, role-playing, bridges et 4 types de faits pour le cas intra.
+  - **validation_quality** (30 %) — Les requêtes soumises s'exécutent et retournent des résultats cohérents avec la question intégrée.
+  - **executive_justification** (15 %) — La réponse intégrée pose UNE décision qui nécessite les deux tables de faits. Grain clairement énoncé.
+  - **process_trace** (5 %) — N/A pour examen. Non évalué.
+  - **reproducibility** (0 %)
 
 ---
 

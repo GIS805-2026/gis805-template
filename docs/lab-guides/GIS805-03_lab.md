@@ -70,16 +70,17 @@ Rédiger la politique SCD, prouver par SQL que l'historique est preservé
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S03_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S03_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — SCD Type déclaré pour au moins dim_store(region). Schéma distingue current_value et historical_value.
+  - **validation_quality** (25 %) — Deux requêtes : rapport trompeur (Type 1) vs rapport correct (Type 2) côte à côte pour une dimension modifiée.
+  - **executive_justification** (20 %) — Brief explique au VP pourquoi le rapport historique était inexact et ce qui a changé.
+  - **process_trace** (10 %) — docs/scd-policy.md commité avec type retenu + raisonnement business (pas technique).
+  - **reproducibility** (5 %)
 
 ## Lectures
 

@@ -21,16 +21,17 @@ Sections : grain + star schema, SCD, multi-star/drill-across, special dims, brid
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S14_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S14_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (25 %) — Architecture proposée est cohérente. Grain, faits et dimensions sont justifiés pour le cas fourni.
+  - **validation_quality** (25 %) — Plan de confiance et optimisation est réaliste et applicable au cas. Contrôles qualité nommés.
+  - **executive_justification** (30 %) — Note de défense (250–400 mots) explique pourquoi la solution est crédible, gouvernable et exploitable malgré l'IA.
+  - **process_trace** (15 %) — Encadré 'usage IA et validations' présent et spécifique. Hypothèses explicites et bornées.
+  - **reproducibility** (5 %)
 
 ---
 

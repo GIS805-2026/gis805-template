@@ -79,16 +79,17 @@ Chaque etudiant identifie sa question executive et redige le brief. 3-4 etudiant
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S01_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S01_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (40 %) — Grain et dimensions nommés dans le brief. fact_sales ou équivalent identifié avec au moins 3 dimensions.
+  - **validation_quality** (25 %) — Seed pack chargé dans DuckDB. Au moins une requête exploratoire retourne un résultat non nul.
+  - **executive_justification** (20 %) — Brief nomme la question CEO, les obstacles concrets, et la prochaine action.
+  - **process_trace** (10 %) — Repo fonctionnel (S00 complete), donnees generees automatiquement. Note IA creee meme si IA non utilisee.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

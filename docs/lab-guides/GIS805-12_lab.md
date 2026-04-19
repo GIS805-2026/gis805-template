@@ -71,16 +71,17 @@ Feedback croisé, badges, finalisation metric definitions pack.
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S12_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S12_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (30 %) — Le modèle présenté est cohérent avec les livrables des sessions précédentes.
+  - **validation_quality** (15 %) — Les requêtes citées pendant la défense s'exécutent si demandées par le comité.
+  - **executive_justification** (40 %) — La présentation répond à la question CEO en 8 min ± 30 s. Défense sous questionnement réussie. Written defense pack soumis par tous les étudiants.
+  - **process_trace** (10 %) — Pack de métriques commité avec définitions des KPIs défendus. AI usage note à jour.
+  - **reproducibility** (5 %)
 
 ## Lectures
 

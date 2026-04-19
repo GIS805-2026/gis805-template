@@ -72,16 +72,17 @@ Model card, bus matrix, data dictionary, decision log
 
 ## Remise
 
+- **Échéance :** Before next session starts
 - **Artefacts requis :**
-  - answers/S11_executive_brief.md
-  - db/nexamart.duckdb
-  - ai-usage.md
+  - `answers/S11_executive_brief.md`
+  - `db/nexamart.duckdb`
+  - `ai-usage.md`
 - **Rubrique de notation :**
-  - 
-  - 
-  - 
-  - 
-  - 
+  - **model_quality** (20 %) — Model card couvre grain, faits, dimensions, SCD et bridges appliqués au modèle de l'étudiant.
+  - **validation_quality** (20 %) — Les checks SQL s'exécutent depuis le repo cloné d'un tiers sans modification.
+  - **executive_justification** (20 %) — La bus matrix et le decision log permettent à un analyste junior de comprendre les décisions clés.
+  - **process_trace** (30 %) — Handoff pack commité : model-card.md, bus-matrix.md, data-dictionary.md, decision-log.md, board-briefs/.
+  - **reproducibility** (10 %)
 
 ## Lectures
 
