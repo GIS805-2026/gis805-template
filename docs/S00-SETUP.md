@@ -169,6 +169,22 @@ Si les requetes retournent des nombres > 0, vous etes pret pour la seance 1.
 
 ---
 
+## Astuce : explorer vos tables avec SQLTools (sans ecrire de code)
+
+SQLTools est deja installe dans votre Codespace (ou dans VS Code local si vous avez suivi le Chemin B).
+
+1. Dans la barre laterale gauche de VS Code, cliquez l'icone en forme de **base de donnees** (cylindre).
+2. Si aucune connexion n'est listee, cliquez **Add New Connection** :
+   - **Driver** : DuckDB
+   - **Database File** : `db/nexamart.duckdb` (chemin relatif depuis la racine du depot)
+3. Une fois connecte, vous verrez la liste de toutes vos tables dans le panneau lateral.
+4. Cliquez sur une table pour voir ses colonnes, types, et un apercu des donnees.
+5. Vous pouvez aussi executer des requetes SQL directement depuis SQLTools (clic droit > New SQL File).
+
+**Pourquoi c'est utile :** vous pouvez explorer la structure de vos tables (colonnes, types) sans ecrire de `SELECT *`. C'est plus rapide que le terminal pour verifier que vos dimensions et faits sont bien charges.
+
+---
+
 ## Checklist de fin de seance 1
 
 - [ ] J'ai un environnement fonctionnel (Codespace ou VS Code local)

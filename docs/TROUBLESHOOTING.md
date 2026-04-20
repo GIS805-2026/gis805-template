@@ -45,6 +45,14 @@ répond aux questions *comment débloquer* une situation précise.
   - [`SUM(weight) ≠ 1.0` par client](#sum-weight-off)
   - [Rapport vide à cause d'un `INNER JOIN`](#rapport-vide)
 
+- **Erreurs SQL fréquentes pour débutants**
+  - [`column must appear in the GROUP BY clause`](#column-group-by)
+  - [`Binder Error: ambiguous reference to column name`](#ambiguous-column)
+  - [`Catalog Error: Table ... does not exist` dans une requête](#table-not-found-query)
+  - [`Parser Error: syntax error at or near`](#syntax-error)
+  - [Mon résultat est `NULL` au lieu d'un chiffre](#result-null)
+  - [Ma requête retourne 0 lignes alors que la table n'est pas vide](#zero-rows)
+
 ---
 
 ## Installation / Setup
@@ -333,6 +341,124 @@ Voir [`[FAIL] BRIDGE_WEIGHT_NOT_ONE`](#fail-bridge-weight) ci-dessus.
 un membre inconnu dans la dimension et remplacement des `NULL` par
 son `*_key`. Voir
 `docs/worked-examples/s07-role-playing-dates-walkthrough.md`.
+
+---
+
+## Erreurs SQL fréquentes pour débutants
+
+> **Nouveau en SQL ?** Ces erreurs arrivent à tout le monde les premières semaines.
+> Ce n'est pas un signe d'échec — c'est le processus d'apprentissage normal.
+
+### <a id="column-group-by"></a>`column must appear in the GROUP BY clause`
+
+**Symptôme.** Vous écrivez un `SELECT` avec un `GROUP BY` et DuckDB refuse
+l'exécution avec ce message.
+
+**Cause.** Chaque colonne dans `SELECT` doit être soit :
+- listée dans `GROUP BY`, soit
+- à l'intérieur d'une fonction d'agrégation (`SUM`, `COUNT`, `AVG`, `MIN`, `MAX`).
+
+**Exemple fautif :**
+```sql
+SELECT category, region, SUM(line_total) AS revenu
+FROM fact_sales
+GROUP BY category;
+-- ❌ region n'est ni dans GROUP BY ni dans une agrégation
+```
+
+**Fix :**
+```sql
+SELECT category, region, SUM(line_total) AS revenu
+FROM fact_sales
+GROUP BY category, region;
+-- ✅ les deux colonnes sont dans GROUP BY
+```
+
+**Règle simple :** si une colonne n'est pas « résumée » (SUM, COUNT...),
+elle doit être dans `GROUP BY`.
+
+### <a id="ambiguous-column"></a>`Binder Error: ambiguous reference to column name`
+
+**Symptôme.** Vous avez un `JOIN` entre deux tables qui ont une colonne
+du même nom (ex. `category`, `region`, `name`).
+
+**Cause.** DuckDB ne sait pas de quelle table prendre la colonne.
+
+**Fix.** Ajoutez l'alias de la table devant la colonne :
+```sql
+-- ❌ ambiguë
+SELECT category, SUM(line_total)
+FROM fact_sales f
+JOIN dim_product p ON f.product_key = p.product_key
+GROUP BY category;
+
+-- ✅ précise
+SELECT p.category, SUM(f.line_total)
+FROM fact_sales f
+JOIN dim_product p ON f.product_key = p.product_key
+GROUP BY p.category;
+```
+
+**Habitude à prendre :** dès que vous avez un `JOIN`, préfixez *toutes*
+les colonnes avec l'alias de la table (`f.`, `p.`, `d.`, `s.`).
+
+### <a id="table-not-found-query"></a>`Catalog Error: Table ... does not exist` dans une requête
+
+**Symptôme.** Votre requête échoue parce qu'une table n'existe pas encore.
+
+**Causes possibles :**
+1. Faute de frappe dans le nom de la table.
+2. Vous n'avez pas encore exécuté `make load` (ou `.\run.ps1 load`).
+3. Votre fichier SQL qui crée cette table a une erreur et n'a pas été chargé.
+
+**Fix :**
+1. Vérifiez le nom exact : `SHOW TABLES;`
+2. Relancez `make load` et regardez s'il y a des erreurs.
+3. Si la table manque toujours, vérifiez votre fichier SQL dans `sql/dims/` ou `sql/facts/`.
+
+### <a id="syntax-error"></a>`Parser Error: syntax error at or near`
+
+**Symptôme.** DuckDB refuse votre requête avec une erreur de syntaxe.
+
+**Causes fréquentes :**
+- Virgule manquante ou en trop entre les colonnes.
+- Parenthèse ouverte mais pas fermée (ou l'inverse).
+- Guillemet simple non fermé dans une valeur texte.
+- Mot clé mal orthographié (`SELCET`, `FORM`, `GRUOP BY`).
+
+**Fix.** Copiez votre requête et demandez à votre assistant IA :
+« Trouve l'erreur de syntaxe dans cette requête SQL et explique-moi
+la correction. »
+
+### <a id="result-null"></a>Mon résultat est `NULL` au lieu d'un chiffre
+
+**Symptôme.** Une colonne agrégée (`SUM`, `AVG`) retourne `NULL`.
+
+**Cause.** Si *toutes* les valeurs d'entrée sont `NULL`, l'agrégation
+retourne `NULL` (pas 0).
+
+**Fix :** Utilisez `COALESCE` pour remplacer les NULLs :
+```sql
+SELECT COALESCE(SUM(line_total), 0) AS revenu
+FROM fact_sales
+WHERE region = 'Mars';
+-- Pas de ventes sur Mars → retourne 0 au lieu de NULL
+```
+
+### <a id="zero-rows"></a>Ma requête retourne 0 lignes alors que la table n'est pas vide
+
+**Symptôme.** Vous savez que la table contient des données, mais votre
+`SELECT` ne retourne rien.
+
+**Causes fréquentes :**
+1. **`WHERE` trop restrictif.** Vérifiez vos filtres — peut-être que
+   la valeur exacte n'existe pas (majuscule/minuscule, accent, espace).
+2. **`INNER JOIN` avec des NULLs.** Si une clé étrangère est `NULL`,
+   le `INNER JOIN` élimine cette ligne. Essayez un `LEFT JOIN`.
+3. **Table vide.** Lancez `SELECT COUNT(*) FROM ma_table;` pour vérifier.
+
+**Fix rapide :** Enlevez le `WHERE` et les `JOIN` un par un pour trouver
+lequel élimine les lignes.
 
 ---
 
