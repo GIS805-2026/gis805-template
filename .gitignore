@@ -19,9 +19,7 @@ venv/
 validation/results/*
 !validation/results/.gitkeep
 
-# Instructor-only (never commit to student repos)
-tools/instructor/roster.csv
-tools/instructor/roster.json
+# Instructor-only
 student-repos/
 
 # OS

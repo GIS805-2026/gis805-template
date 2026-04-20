@@ -3,10 +3,6 @@
 Chaque livrable hebdomadaire est noté sur les mêmes cinq dimensions. Seuls
 les **poids relatifs** et l'**emphase spécifique à la séance** changent.
 
-Ce document est la version lisible de `config/rubric_descriptors.yaml` côté
-ProfOS — la référence canonique reste le YAML, auto-généré dans les slides
-de chaque séance.
-
 ## L'échelle
 
 | Score | Niveau | Signification courte |

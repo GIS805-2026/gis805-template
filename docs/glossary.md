@@ -225,9 +225,9 @@ chemins différents concordent (ex. somme de `fact_sales.line_total` vs
 somme de `fact_budget.target_revenue` au même grain). Détecte les fuites
 de lignes dans les jointures.
 
-**Reference solution.** Implémentation complète du warehouse, publiée
-par l'instructeur sur la branche `instructor-solution`. Sert de source
-de vérité pour la correction, pas de copier-coller pour vous.
+**Reference solution.** Implémentation complète du warehouse, maintenue
+par l'instructeur dans un dépôt privé séparé. Sert de source de vérité
+pour la correction, pas de copier-coller pour vous.
 
 **Role-playing dimension.** Même dimension (typiquement `dim_date`)
 jointe plusieurs fois dans une même fact avec des alias différents

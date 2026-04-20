@@ -65,8 +65,8 @@ Le brief exemple annoté se trouve à `docs/s02-sample-brief.md`.
 ### « Les PDF dans `docs/lab-guides/` sont dans git donc je peux les éditer »
 
 Ils sont **regénérés automatiquement** par un GitHub Action à chaque mise à
-jour du cours ProfOS. Toute modification locale sera écrasée. Éditez plutôt
-le YAML de la séance côté ProfOS.
+jour du cours. Toute modification locale sera écrasée au prochain push de
+l'instructeur.
 
 ### « `sql/dims/` et `sql/facts/` sont vides dans le template, c'est un bug »
 

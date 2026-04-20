@@ -1,5 +1,10 @@
 # FAQ — GIS805 NexaMart
 
+> **Vous avez un message d'erreur précis ?** Allez directement à
+> [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) — il est organisé par symptôme.
+> Cette FAQ répond aux questions *pourquoi* ; le troubleshooting répond
+> aux questions *comment débloquer*.
+
 ## 1. Pourquoi ne pas simplement créer des vues SQL sur le système opérationnel ?
 
 Les vues résolvent le problème de complexité, mais pas celui de performance ni de stabilité.

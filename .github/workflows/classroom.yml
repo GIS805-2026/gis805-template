@@ -22,8 +22,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install DuckDB
-        run: pip install duckdb
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Generate data (if the student has not committed it)
         run: python scripts/datagen/gen_all.py --team-seed $(python scripts/datagen/_compute_seed.py)
