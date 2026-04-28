@@ -2,6 +2,8 @@
 
 Vous venez d'accepter votre premier assignment. Ce dépôt est **votre espace de travail** pour tout le trimestre.
 
+> **Lien d'acceptation du devoir :** [https://classroom.github.com/a/1e7AQPN7](https://classroom.github.com/a/1e7AQPN7)
+
 > **Le scénario :** Vous êtes le Head of Data de NexaMart, une chaîne de
 > commerce de détail. Chaque semaine, le CEO pose une question stratégique
 > — et les systèmes opérationnels ne peuvent pas y répondre. Votre job :
