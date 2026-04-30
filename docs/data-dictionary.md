@@ -105,7 +105,7 @@ de régénération.
 | `channel_id` | Clé naturelle du canal (CH-WEB, CH-APP, etc.). |
 | `quantity` | Quantité vendue sur la ligne. |
 | `unit_price` | Prix de vente suggéré (avant rabais). |
-| `discount_pct` | Pourcentage de rabais accordé au segment. |
+| `discount_pct` | Pourcentage de rabais appliqué (0 à 25). |
 | `net_price` | Prix net après rabais. |
 | `line_total` | Total de la ligne (net_price × quantity). |
 
@@ -236,7 +236,7 @@ de régénération.
 | `channel_id` | Clé naturelle du canal (CH-WEB, CH-APP, etc.). |
 | `quantity` | Quantité vendue sur la ligne. |
 | `unit_price` | Prix de vente suggéré (avant rabais). |
-| `discount_pct` | Pourcentage de rabais accordé au segment. |
+| `discount_pct` | Pourcentage de rabais appliqué (0 à 25). |
 | `net_price` | Prix net après rabais. |
 | `line_total` | Total de la ligne (net_price × quantity). |
 
@@ -335,7 +335,7 @@ de régénération.
 | Colonne | Description |
 |---|---|
 | `segment` | Segment de fidélité associé (peut différer du segment 'principal'). |
-| `discount_pct` | Pourcentage de rabais accordé au segment. |
+| `discount_pct` | Pourcentage de rabais appliqué (0 à 25). |
 | `free_shipping` | Livraison gratuite incluse pour le segment (0/1). |
 | `priority_support` | Service client prioritaire (0/1). |
 | `annual_reward_value` | Récompense annuelle en dollars pour le segment. |
