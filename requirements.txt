@@ -1,10 +1,13 @@
-# Moteur analytique embarqué -- SEUL le package Python suffit, pas de binaire CLI.
+# Moteur analytique embarqué (Python bindings).  Le CLI est installé séparément
+# par .devcontainer/post-create.sh pour usage terminal (`duckdb db/nexamart.duckdb`).
 # Version minimale testée : 0.10.0 (fenêtres de fonctions utilisées en S02+).
 # Borne supérieure pour éviter une breaking change avant fin de trimestre.
 duckdb>=0.10.0,<1.2
 
 # Exploration interactive dans notebooks/explore.ipynb.
-# Optionnels pour make load / make check, requis pour le notebook.
+# Optionnels pour make load / make check, requis pour le notebook et .df().
+numpy>=1.26,<3.0
 pandas>=2.0,<3.0
+pyarrow>=14.0,<19.0
 matplotlib>=3.7,<4.0
 jupyter>=1.0,<2.0
