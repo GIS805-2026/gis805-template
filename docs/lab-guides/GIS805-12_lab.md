@@ -4,7 +4,7 @@
 
 ## En bref
 
-- **Date :** 12 juin 2026
+- **Date :** 15 juin 2026
 - **Horaire :** 19 h 00 – 22 h 00
 - **Lieu :** Longueuil
 - **Temps estimé :** 135 min (~2.2 h)
