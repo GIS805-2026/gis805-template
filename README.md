@@ -2,7 +2,7 @@
 
 Vous venez d'accepter votre premier assignment. Ce dépôt est **votre espace de travail** pour tout le trimestre.
 
-> **Lien d'acceptation du devoir :** [https://classroom.github.com/a/1e7AQPN7](https://classroom.github.com/a/1e7AQPN7)
+> **Lien d'acceptation du devoir :** [https://classroom.github.com/a/Tndi64Pu](https://classroom.github.com/a/Tndi64Pu)
 
 > **Le scénario :** Vous êtes le Head of Data de NexaMart, une chaîne de
 > commerce de détail. Chaque semaine, le CEO pose une question stratégique
@@ -145,6 +145,7 @@ Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé,
 
 | Ressource | Description |
 |-----------|-------------|
+| [`docs/calendar.md`](docs/calendar.md) | Calendrier complet des 14 séances (dates, titres, jalons) |
 | [`docs/S00-SETUP.md`](docs/S00-SETUP.md) | Guide complet de configuration (3 chemins, dépannage) |
 | [`docs/faq.md`](docs/faq.md) | Questions fréquentes (DuckDB, travail individuel, etc.) |
 | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | Dépannage par symptôme (messages d'erreur) |
