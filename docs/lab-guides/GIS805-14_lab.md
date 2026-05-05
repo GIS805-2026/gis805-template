@@ -17,7 +17,7 @@
 
 ### Partie 1 — Examen final  *(150 min)*
 
-Sections : grain + star schema, SCD, multi-star/drill-across, special dims, bridges, fact types, documentation/defense, GIS806 boundary
+Sections : grain + star schema, SCD, multi-star/drill-across, spécial dims, bridges, fact types, documentation/defense, GIS806 boundary
 
 ## Remise
 

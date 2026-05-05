@@ -53,13 +53,13 @@ Le CEO demande un avis : maintenant que le modèle est solide, quelle est la pro
 
 ### Partie 3 — Build-vs-buy roadmap  *(50 min)*
 
-Étudiants rédigent un roadmap 5 points + memo build-vs-buy
+Étudiants rédigent un roadmap 5 points + mémo build-vs-buy
 
 ## Lab
 
 **Objectif du lab :** Write a 5-point roadmap for NexaMart's next steps.
 
-**Livrable :** Build-vs-buy memo + GIS806 roadmap.
+**Livrable :** Build-vs-buy mémo + GIS806 roadmap.
 
 **Fichiers à produire (`repo_artifacts`) :**
 
@@ -84,8 +84,8 @@ Le CEO demande un avis : maintenant que le modèle est solide, quelle est la pro
 
 ## Lectures
 
-- [dbt Labs -- What is ELT?](https://docs.getdbt.com/terms/elt) — Difference entre ETL et ELT dans les architectures modernes
-- [Databricks -- Lakehouse Architecture](https://www.databricks.com/glossary/data-lakehouse) — Survol de l'architecture lakehouse comme evolution du data warehouse
+- [dbt Labs -- What is ELT?](https://docs.getdbt.com/terms/elt) — Différence entre ETL et ELT dans les architectures modernes
+- [Databricks -- Lakehouse Architecture](https://www.databricks.com/glossary/data-lakehouse) — Survol de l'architecture lakehouse comme évolution du data warehouse
 - [Snowflake -- Modern Data Stack](https://www.snowflake.com/guides/modern-data-stack/) — Vue d'ensemble de la pile analytique cloud moderne
 
 ---

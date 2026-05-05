@@ -26,7 +26,7 @@ Le CEO simule un départ : le lead analyste part. Chaque étudiant doit produire
 ## Résultats d'apprentissage
 
 - Rédiger un model card complet pour le modèle NexaMart.
-- Documenter le bus matrix, le dictionnaire de données et le decision log.
+- Documenter le bus matrix, le dictionnaire de données et le décision log.
 - Préparer un pack de handoff minimal mais suffisant.
 - Évaluer un modèle concurrent via la grille de revue de design.
 
@@ -45,7 +45,7 @@ Le CEO simule un départ : le lead analyste part. Chaque étudiant doit produire
 
 ### Partie 1 — Documentation as deliverable  *(20 min)*
 
-Model card, bus matrix, data dictionary, decision log
+Model card, bus matrix, data dictionary, décision log
 
 ### Partie 2 — Sprint 1 : build handoff pack  *(50 min)*
 
@@ -59,7 +59,7 @@ Model card, bus matrix, data dictionary, decision log
 
 **Objectif du lab :** Create the smallest documentation pack for continuity.
 
-**Livrable :** Model card + decision log + dictionary + bus matrix.
+**Livrable :** Model card + décision log + dictionary + bus matrix.
 
 **Fichiers à produire (`repo_artifacts`) :**
 
@@ -80,14 +80,14 @@ Model card, bus matrix, data dictionary, decision log
 - **Rubrique de notation :**
   - **model_quality** (20 %) — Model card couvre grain, faits, dimensions, SCD et bridges appliqués au modèle de l'étudiant.
   - **validation_quality** (20 %) — Les checks SQL s'exécutent depuis le repo cloné d'un tiers sans modification.
-  - **executive_justification** (20 %) — La bus matrix et le decision log permettent à un analyste junior de comprendre les décisions clés.
-  - **process_trace** (30 %) — Handoff pack commité : model-card.md, bus-matrix.md, data-dictionary.md, decision-log.md, board-briefs/.
+  - **executive_justification** (20 %) — La bus matrix et le décision log permettent à un analyste junior de comprendre les décisions clés.
+  - **process_trace** (30 %) — Handoff pack commité : model-card.md, bus-matrix.md, data-dictionary.md, décision-log.md, board-briefs/.
   - **reproducibility** (10 %)
 
 ## Lectures
 
-- [dbt Labs -- Model Documentation](https://docs.getdbt.com/docs/collaborate/documentation) — Bonnes pratiques de documentation pour les modeles analytiques
-- [Kimball Group -- Dimensional Modeling Process](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/four-4-step-702/) — Les 4 etapes du processus de modelisation dimensionnelle
+- [dbt Labs -- Model Documentation](https://docs.getdbt.com/docs/collaborate/documentation) — Bonnes pratiques de documentation pour les modèles analytiques
+- [Kimball Group -- Dimensional Modeling Process](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/four-4-step-702/) — Les 4 étapes du processus de modélisation dimensionnelle
 
 ---
 

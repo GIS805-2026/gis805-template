@@ -79,13 +79,13 @@ Requête de réconciliation, allocation campagne, board brief
   - **model_quality** (40 %) — bridge_customer_segment avec colonne weight. SCD Type 3 implémenté ou documenté comme décision explicite.
   - **validation_quality** (25 %) — SELECT SUM(weight) GROUP BY customer_key retourne 1.00 pour tous les clients. Revenu sans double-comptage.
   - **executive_justification** (20 %) — Brief distingue le revenu par segment loyauté sans double-comptage. Décision SCD3 justifiée business.
-  - **process_trace** (10 %) — docs/bridge-policy.md documente le choix pondération et la règle de réconciliation SCD3.
+  - **process_trace** (10 %) — docs/bridge-policy.md documenté le choix pondération et la règle de réconciliation SCD3.
   - **reproducibility** (5 %)
 
 ## Lectures
 
 - [Kimball Group -- Multivalued Dimensions and Bridge Tables](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/multivalued-dimension-bridge-table/) — Le pattern pont pour les relations M:N sans double-comptage
-- [Kimball Group -- SCD Type 3](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/type-3/) — Garder current et previous dans la meme ligne de dimension
+- [Kimball Group -- SCD Type 3](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/type-3/) — Garder current et previous dans la même ligne de dimension
 
 ---
 

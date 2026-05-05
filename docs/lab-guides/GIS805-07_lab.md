@@ -84,7 +84,7 @@ Créer membres inconnus, dim_geography hierarchy, mini-dim bands
 
 ## Lectures
 
-- [Kimball Group -- Role-Playing Dimensions](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/role-playing-dimension/) — Utiliser la meme dimension (ex. dim_date) sous plusieurs alias dans une table de faits
+- [Kimball Group -- Role-Playing Dimensions](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/role-playing-dimension/) — Utiliser la même dimension (ex. dim_date) sous plusieurs alias dans une table de faits
 - [Kimball Group -- Null Handling in Dimensional Models](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/null-dimension-attribute/) — Politique de gestion des valeurs manquantes avec des enregistrements -1/Inconnu
 
 ---

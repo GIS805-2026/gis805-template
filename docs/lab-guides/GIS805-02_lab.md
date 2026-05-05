@@ -38,7 +38,7 @@ Le CEO veut que chaque étudiant modélise son processus principal comme un sch�
 
 ## Idées reçues à déjouer
 
-  **Réalité :** Le grain est la décision la plus importante et la plus difficile à changer. Un grain trop grossier ferme des questions pour toujours.
+  **Réalité :** Le grain est la décision la plus importante et la plus difficile à changer. Un grain trop grossier ferme dès questions pour toujours.
   **Réalité :** Chaque dimension doit répondre à un besoin analytique réel. Trop de dimensions créent de la complexité sans valeur.
 
 ## Déroulé
@@ -80,14 +80,14 @@ Charger fact_sales dans DuckDB, écrire la requête répondant au CEO
   - **model_quality** (40 %) — Grain de fact_sales déclaré ('une ligne = une ligne de commande'). Schéma Mermaid cohérent avec ≥ 3 dimensions.
   - **validation_quality** (25 %) — Requête retourne les ventes par catégorie, région et trimestre sans erreur.
   - **executive_justification** (20 %) — Brief situe le résultat dans le contexte des ventes NexaMart en déclin.
-  - **process_trace** (10 %) — Decision log documente le choix de grain avec justification business.
+  - **process_trace** (10 %) — Décision log documenté le choix de grain avec justification business.
   - **reproducibility** (5 %)
 
 ## Lectures
 
-- [Kimball Group -- Star Schema Fundamentals](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/star-schema-olap-cube/) — Le schema en etoile et la declaration du grain
+- [Kimball Group -- Star Schema Fundamentals](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/star-schema-olap-cube/) — Le schema en étoile et la declaration du grain
 - [dbt Labs -- How we structure our dbt projects](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview) — Bonnes pratiques de structuration analytique moderne
-- [DuckDB -- SQL Introduction](https://duckdb.org/docs/sql/introduction) — Syntaxe SQL dans DuckDB pour creer tables et vues
+- [DuckDB -- SQL Introduction](https://duckdb.org/docs/sql/introduction) — Syntaxe SQL dans DuckDB pour créer tables et vues
 
 ---
 

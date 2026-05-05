@@ -53,13 +53,13 @@ Charger fact_orders_transaction et fact_daily_inventory, comparer
 
 ### Partie 3 — Sprint 2 : accumulating + factless + process map  *(45 min)*
 
-Pipeline accumulant, exposition promotionnelle, decision tree
+Pipeline accumulant, exposition promotionnelle, décision tree
 
 ## Lab
 
 **Objectif du lab :** Map four NexaMart processes to four fact table types.
 
-**Livrable :** Typed fact map + four example queries + decision tree + board brief.
+**Livrable :** Typed fact map + four example queries + décision tree + board brief.
 
 **Fichiers à produire (`repo_artifacts`) :**
 
@@ -80,13 +80,13 @@ Pipeline accumulant, exposition promotionnelle, decision tree
   - **model_quality** (40 %) — 4 types de tables de faits présents ou documentés. fact_inventory_snapshot utilise snapshot, pas calcul.
   - **validation_quality** (25 %) — Requête stock périodique retourne un résultat par période sans cumul des transactions.
   - **executive_justification** (20 %) — L'arbre de décision des types de faits est commité et applicable à de nouveaux processus NexaMart.
-  - **process_trace** (10 %) — docs/fact-types-map.md documente quel type répond à quel type de question business.
+  - **process_trace** (10 %) — docs/fact-types-map.md documenté quel type répond à quel type de question business.
   - **reproducibility** (5 %)
 
 ## Lectures
 
 - [Kimball Group -- Fact Table Types](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/transaction-fact-table/) — Les 4 types de tables de faits (transaction, snapshot periodique, accumulating, factless)
-- [Kimball Group -- Periodic Snapshot Fact Table](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/periodic-snapshot-fact-table/) — Capturer l'etat a un moment donne (inventaire, soldes, KPIs periodiques)
+- [Kimball Group -- Periodic Snapshot Fact Table](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/periodic-snapshot-fact-table/) — Capturer l'état a un moment donne (inventaire, soldes, KPIs periodiques)
 
 ---
 

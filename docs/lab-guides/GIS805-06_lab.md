@@ -88,7 +88,7 @@ Vue réel-vs-cible, rapport consolidé pour le board
 
 - [Kimball Group -- Conformed Dimensions](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/conformed-dimension/) — Dimensions partagees entre tables de faits pour le drill-across
 - [Kimball Group -- Enterprise Data Warehouse Bus Architecture](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/kimball-data-warehouse-bus-architecture/) — La bus matrix comme outil d'integration entre tables de faits
-- [DuckDB -- Multiple Result Sets](https://duckdb.org/docs/sql/query_syntax/select) — Syntaxe SQL pour les requetes multi-tables et les CTEs
+- [DuckDB -- Multiple Result Sets](https://duckdb.org/docs/sql/query_syntax/select) — Syntaxe SQL pour les requêtes multi-tables et les CTEs
 
 ---
 
