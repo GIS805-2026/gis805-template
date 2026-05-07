@@ -64,8 +64,6 @@ Charger fact_sales dans DuckDB, écrire la requête répondant au CEO
 **Fichiers à produire (`repo_artifacts`) :**
 
 - `answers/S02_executive_brief.md`
-- `docs/schema-v1.md`
-- `diagrams/schema-v1.mmd`
 - `sql/analysis/s02-first-answer.sql`
 - `docs/board-briefs/s02-star-schema.md`
 
