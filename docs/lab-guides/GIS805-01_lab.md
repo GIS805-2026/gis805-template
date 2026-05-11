@@ -27,7 +27,7 @@ Vous êtes le Head of Data de NexaMart Group. Le CEO veut savoir quelles catégo
 
 - Configurer son environnement de travail (Codespace ou VS Code) et générer ses données uniques en moins de 15 minutes.
 - Interagir avec un assistant IA pour explorer un dépôt et comprendre sa structure.
-- Diagnostiquer pourquoi une question stratégique simple est impossible a obtenir des systèmes opérationnels.
+- Diagnostiquer pourquoi les systèmes opérationnels ne sont pas conçus pour répondre de façon fiable et répétable à une question stratégique.
 - Formuler une question d'affaires en termes de mesure, dimensions et hiérarchies.
 - Rédiger un premier board brief identifiant votre question exécutive.
 
@@ -66,7 +66,7 @@ Chaque étudiant identifie sa question exécutive et redige le brief. 3-4 étudi
 
 ## Lab
 
-**Objectif du lab :** Explore raw data with AI assistant, diagnose why operational data cannot answer the CEO question, publish first CEO brief.
+**Objectif du lab :** Explore raw data with AI assistant, diagnose why operational data is not designed to answer the CEO question reliably at scale, publish first CEO brief.
 
 **Livrable :** Exécutive board brief v1 + exploratory queries.
 
