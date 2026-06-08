@@ -1,45 +1,42 @@
-# GIS805 — Séance 05 / 14 — Examen intra 1 : diagnostiquer, modéliser, et défendre un schéma en étoile
+# GIS805 — Séance 05 / 14 — Révision et préparation : Examen intra 1 (S01–S04)
 
 > Guide de studio (version Markdown). PDF équivalent : `docs/lab-guides/GIS805-05_lab.pdf`.
 
 ## En bref
 
-- **Date :** 21 mai 2026
+- **Date :** 28 mai 2026
 - **Horaire :** 19 h 00 – 22 h 00
 - **Lieu :** Longueuil
 - **Temps estimé :** 160 min (~2.7 h)
 
 ## Objectif
 
-Vérifier la maîtrise des fondations dimensionnelles (S01-S04) dans le contexte NexaMart.
+Consolider les acquis de S01–S04, vérifier les prérequis techniques, et préparer les étudiants à l'Examen intra 1 du 1er juin.
+
+## Résultats d'apprentissage
+
+- Confirmer que chaque étudiant peut accéder à son environnement de travail (GitHub, Codespaces, modèles Pro).
+- Récapituler les décisions de modélisation clés de S01 à S04.
+- Identifier les zones d'incompréhension avant l'examen.
+- Formuler une question de feedback constructif sur le cours.
 
 ## Déroulé
 
-### Partie 1 — Révision NexaMart  *(30 min)*
+### Partie 1 — Vérification des prérequis techniques  *(25 min)*
 
-Quelle question NexaMart devient répondable après S02 ? Quel mauvais rapport est évité par S03 ? Quelle question est débloquée par S04 ?
+Formulaire ProfOS — checklist des accès et outils. Résolution des blocages en groupe.
 
-### Partie 2 — Examen individuel  *(120 min)*
+### Partie 2 — Révision S01–S04 : Q&A en direct  *(75 min)*
 
-Sections : diagnostic, grain, schéma en étoile, SCD, degenerate/junk
+Questions projetées par session. Sondage instantané → révélation réponse → discussion des misconceptions fréquentes.
 
-### Partie 3 — Post-exam ritual  *(10 min)*
+### Partie 3 — Célébration des accomplissements et feedback cours  *(30 min)*
 
-Chaque étudiant écrit : une chose à corriger dans son modèle, une chose mieux comprise.
+Formulaire de feedback. Reconnaissance du chemin parcouru (5 semaines, 4 séances, N briefs soumis).
 
-## Remise
+### Partie 4 — Préparation examen du 1er juin  *(30 min)*
 
-- **Échéance :** Before next session starts
-- **Artefacts requis :**
-  - `answers/S05_executive_brief.md`
-  - `db/nexamart.duckdb`
-  - `ai-usage.md`
-- **Rubrique de notation :**
-  - **model_quality** (50 %) — Réponses correctes sur grain, SCD et dimensions dégénérées/junk pour le cas intra.
-  - **validation_quality** (30 %) — Les requêtes soumises s'exécutent sans erreur. Les résultats sont cohérents avec le schéma.
-  - **executive_justification** (15 %) — Les réponses de synthèse répondent à la question business, pas seulement à la question technique.
-  - **process_trace** (5 %) — N/A pour examen. Non évalué.
-  - **reproducibility** (0 %)
+Format de l'examen, consignes, questions ouvertes de clarification.
 
 ---
 

@@ -39,7 +39,9 @@ Vous êtes le Head of Data de NexaMart Group. Le CEO veut savoir quelles catégo
 
 ## Idées reçues à déjouer
 
+- **Mythe :** Les données sont dans le ERP, on n'a qu'à poser la question
   **Réalité :** Les données sont structurées pour enregistrer des transactions, pas pour répondre à dès questions stratégiques.
+- **Mythe :** Un bon analyste Excel peut contourner le problème
   **Réalité :** Un analyste peut répondre une fois. L'entrepôt rend la réponse répétable et fiable.
 
 ## Déroulé

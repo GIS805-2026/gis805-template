@@ -87,7 +87,7 @@ Si `check` affiche tout en vert, vous êtes prêt pour la séance 1.
 
 ## Ce que vous construisez
 
-Au fil des 14 séances, vous construisez l'entrepôt analytique complet de NexaMart :
+Au fil des **12 séances**, vous construisez l'entrepôt analytique complet de NexaMart :
 
 1. **`fact_sales`** (S02) — Les ventes, ligne par ligne
 2. **`fact_returns`** (S06) — Les retours et remboursements
@@ -121,22 +121,7 @@ pour un exemple annoté.
 | S07 | Hiérarchies + politique NULLs + role-playing dates |
 | S08 | Pont pondéré + réconciliation |
 | S09 | Arbre de décision types de faits + process map |
-| S11 | Model card + bus matrix + dictionnaire + journal de décisions (`docs/`) |
-| S12 | Pack défense écrit (+ présentation si tiré au sort) |
-| S13 | Mémo build-vs-buy + feuille de route GIS806 |
-
-Trois **revues de pairs** aux jalons clés (après S04, après S09, à S11).
-Appariement aléatoire à chaque jalon — voir `docs/peer-reviews/`.
-
----
-
-## Politique IA
-
-Tout usage d'IA (ChatGPT, Copilot, Claude, etc.) **doit** être tracé dans `ai-usage.md`.
-
-- **Permis :** expliquer des concepts, générer du DDL, rédiger des ébauches de SQL ou de documentation
-- **Interdit :** soumettre du contenu IA sans validation humaine, masquer une incompréhension, copier le SQL d'un autre étudiant
-
+| S11 | Model card + bus matrix + dictionnaire + journal de décisions + metric definitions (`docs/`) |
 Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé, comment vous avez validé/modifié le résultat.
 
 ---
@@ -145,7 +130,7 @@ Chaque entrée dans `ai-usage.md` inclut : date, prompt exact, modèle utilisé,
 
 | Ressource | Description |
 |-----------|-------------|
-| [`docs/calendar.md`](docs/calendar.md) | Calendrier complet des 14 séances (dates, titres, jalons) |
+| [`docs/calendar.md`](docs/calendar.md) | Calendrier complet des 12 séances (dates, titres, jalons) |
 | [`docs/S00-SETUP.md`](docs/S00-SETUP.md) | Guide complet de configuration (3 chemins, dépannage) |
 | [`docs/faq.md`](docs/faq.md) | Questions fréquentes (DuckDB, travail individuel, etc.) |
 | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | Dépannage par symptôme (messages d'erreur) |

@@ -4,7 +4,7 @@
 
 ## En bref
 
-- **Date :** 14 mai 2026
+- **Date :** 25 mai 2026
 - **Horaire :** 19 h 00 – 22 h 00
 - **Lieu :** Longueuil
 - **Temps estimé :** 105 min (~1.8 h)
@@ -38,7 +38,9 @@ Les commandes NexaMart ont un numéro unique et 8 drapeaux opérationnels (embal
 
 ## Idées reçues à déjouer
 
+- **Mythe :** Le numéro de commande devrait être une dimension avec sa propre table
   **Réalité :** Le numéro de commande n'a pas d'attributs intéressants. C'est une dimension dégénérée stockée directement dans la table de faits.
+- **Mythe :** Les drapeaux booléens restent dans la table de faits
   **Réalité :** 8 drapeaux = 256 combinaisons possibles. Une junk dimension les consolide et crée des profils analytiques.
 
 ## Déroulé
@@ -64,7 +66,7 @@ Analyse de panier par paires, board brief avec recommandations VP
 **Fichiers à produire (`repo_artifacts`) :**
 
 - `answers/S04_executive_brief.md`
-- `sql/models/junk_dimension.sql`
+- `sql/dims/dim_order_profile.sql`
 - `sql/analysis/basket_pairs.sql`
 - `docs/schema-v2.md`
 - `docs/board-briefs/s04-basket-flags.md`

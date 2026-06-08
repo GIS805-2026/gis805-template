@@ -38,7 +38,9 @@ Le CEO veut que chaque étudiant modélise son processus principal comme un sch�
 
 ## Idées reçues à déjouer
 
+- **Mythe :** Le grain peut être ajusté plus tard sans conséquence
   **Réalité :** Le grain est la décision la plus importante et la plus difficile à changer. Un grain trop grossier ferme dès questions pour toujours.
+- **Mythe :** Plus de dimensions = meilleur modèle
   **Réalité :** Chaque dimension doit répondre à un besoin analytique réel. Trop de dimensions créent de la complexité sans valeur.
 
 ## Déroulé

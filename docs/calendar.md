@@ -10,38 +10,45 @@
 
 | # | Date | Jour | Titre | Type |
 |---|------|------|-------|------|
-| S01 | 4 mai 2026 | Lundi | NexaMart kickoff : pourquoi l'organisation ne peut pas répondre | Cours |
-| S02 | 7 mai 2026 | Jeudi | Schéma en étoile, grain et dimensions conformes | Cours |
-| S03 | 11 mai 2026 | Lundi | Dimensions à changement lent (SCD 1/2/3) | Cours |
-| S04 | 14 mai 2026 | Jeudi | Panier d'achat et drapeaux : degenerate + junk dims | Cours |
-| — | ~~18 mai 2026~~ | ~~Lundi~~ | *Fête de la Reine — pas de cours* | Congé |
-| S05 | 21 mai 2026 | Jeudi | Examen intra 1 (S01–S04) | Examen |
-| S06 | 25 mai 2026 | Lundi | Soirée d'intégration : multi-star et drill-across | Cours |
-| S07 | 28 mai 2026 | Jeudi | Dimensions spéciales : dates role-playing, hiérarchies, NULLs | Cours |
-| S08 | 1 juin 2026 | Lundi | Ponts pondérés, SCD avancés et relations M:N | Cours |
-| S09 | 4 juin 2026 | Jeudi | Les quatre types de tables de faits | Cours |
-| S10 | 8 juin 2026 | Lundi | Examen intra 2 (S06–S09) | Examen |
-| S11 | 11 juin 2026 | Jeudi | Processus de modélisation, documentation et revue de design | Cours |
-| S12 | 15 juin 2026 | Lundi | Comité du board : présentation et défense | Cours |
-| S13 | 18 juin 2026 | Jeudi | Au-delà du modèle : survol GIS806 | Cours |
-| S14 | 22 juin 2026 | Lundi | Examen final | Examen |
+| S01 | 4 mai 2026 | Lundi | NexaMart kickoff : pourquoi l'organisation ne peut pas répondre à ses propres questions | Cours |
+| S02 | 14 mai 2026 | Jeudi | Schéma en étoile, grain et dimensions conformes | Cours |
+| S03 | 21 mai 2026 | Jeudi | Dimensions à changement lent : garder la vérité historique chez NexaMart | Cours |
+| S04 | 25 mai 2026 | Lundi | Panier d'achat et drapeaux : les patterns que l'étoile simple ne couvre pas | Cours |
+| S05 | 28 mai 2026 | Jeudi | Révision et préparation : Examen intra 1 (S01–S04) | Révision |
+| S06 | 1 juin 2026 | Lundi | **Examen intra 1 (S01–S04)** | Examen |
+| S07 | 4 juin 2026 | Jeudi | Soirée d'intégration : multi-star, drill-across et réel-vs-cible | Cours |
+| S08 | 8 juin 2026 | Lundi | Ponts pondérés, SCD avancés et relations many-to-many chez NexaMart | Cours |
+| S09 | 11 juin 2026 | Jeudi | Les quatre types de tables de faits : transaction, snapshot, accumulating et factless | Cours |
+| S10 | 15 juin 2026 | Lundi | Comité du board : mini-présentations et rétroaction (non notée) | Cours |
+| S11 | 18 juin 2026 | Jeudi | Handoff pack documentation + brief board écrit + perspectives GIS806 | Cours |
+| S12 | 22 juin 2026 | Lundi | **Examen final (S01–S11)** | Examen |
 
 ---
 
-## Jalons de remise
+## Évaluation
 
-| Jalon | Échéance | Contenu |
-|-------|----------|---------|
-| `submissions/a1/` | Fin de S04 (14 mai) | Briefs S01–S04, SQL dims/facts, ai-usage |
-| `submissions/a2/` | Fin de S09 (4 juin) | Briefs S06–S09, SQL dims/facts, ai-usage |
-| `submissions/final/` | Date de S12 (15 juin) | Pack défense complet |
+| Composante | Séance | Poids |
+|------------|--------|-------|
+| Studio shipment — board brief kickoff | S01 | 3 % |
+| Studio shipment — star schema + grain | S02 | 3 % |
+| Studio shipment — SCD policy | S03 | 3 % |
+| Studio shipment — degenerate + junk dims | S04 | 3 % |
+| Révision — aucun livrable noté | S05 | 0 % |
+| **Examen intra 1 (S01–S04)** | S06 | **28 %** |
+| Studio shipment — enterprise integration | S07 | 4 % |
+| Studio shipment — spécial dimensions | S08 | 4 % |
+| Studio shipment — bridges + SCD avancés | S08 | 4 % |
+| Studio shipment — 4 fact types | S09 | 4 % |
+| **Handoff pack + brief board (écrit) + perspectives GIS806** | S11 | **10 %** |
+| **Examen final (S01–S11)** | S12 | **34 %** |
+| **Total** | | **100 %** |
 
 ---
 
-## Revues de pairs
+## Fenêtres de remise
 
-| Revue | Après | Portée |
-|-------|-------|--------|
-| Revue 1 | S04 | Grain, SCD, junk dim, degenerate dim |
-| Revue 2 | S09 | Multi-star, bridge, types de faits |
-| Revue 3 | S11 | Documentation, processus, model card |
+| Fenêtre | Échéance | Sessions couvertes |
+|---------|----------|--------------------|
+| `submissions/a1/` | Avant S05 (28 mai) | S01–S04 |
+| `submissions/a2/` | Avant S10 (15 juin) | S07–S09 |
+| `submissions/final/` | S11 (18 juin) | Pack handoff complet |
